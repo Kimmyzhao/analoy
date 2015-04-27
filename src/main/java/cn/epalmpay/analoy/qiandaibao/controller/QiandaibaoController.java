@@ -72,7 +72,7 @@ public class QiandaibaoController {
 	public String showorder() {
 		String url = transactionQueryUrl;
 		String eqno = "82316280";
-		String querytype = "2";// 按照时间段查询
+		String querytype = "1";// 按照时间段查询
 		String begintime = "2015-04-17 09:30";
 		String endtime = "2015-04-27 09:30";
 		String remark = "根据时间查询交易流水";
@@ -107,14 +107,25 @@ public class QiandaibaoController {
 		ResponseHandler<String> responseHandler = new BasicResponseHandler();
 		String result = "";
 		try {
-			System.out.println(url);
+			// System.out.println(url);
 			logger.debug(url);
 			result = HttpUtils.post(url, headers, params, fileParams, responseHandler);
 		} catch (IOException e) {
 			logger.error("error..." + e);
 			return "请求失败";
 		}
-		System.out.println(result);
+		// System.out.println(result);
+		qiandaibaoService.getTradeRecord();
 		return result;
+	}
+
+	@RequestMapping(value = "showorder1")
+	public String showorder1() {
+		return qiandaibaoService.getTradeRecord();
+	}
+	
+	@RequestMapping(value = "getAgentInfoByEqno1")
+	public String getAgentInfoByEqno1() {
+		return qiandaibaoService.queryPosState();
 	}
 }

@@ -78,4 +78,8 @@ public class Constant {
 	 * 其他未知错误
 	 */
 	public static final String ERROE_TRADE_MESSAGE = "其他未知错误";
+
+	public static final String FILE_QIANDAIBAO = "classpath:files/qiandaibao/trades2.txt";
+	
+	public static final String FILE_QIANDAIBAO_QUERYPOS = "classpath:files/qiandaibao/posQuery.txt";
 }
