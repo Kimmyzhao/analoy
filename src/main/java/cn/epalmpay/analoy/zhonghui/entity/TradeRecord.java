@@ -1,15 +1,15 @@
 package cn.epalmpay.analoy.zhonghui.entity;
 
 public class TradeRecord {
-	private String keyDeviceSerialNo;// 设备KSN号
-	private String payCardNo;//
-	private String userPhone;
-	private String partnerNo;
-	private String orderId;
-	private String createTime;
-	private String finalTime;
-	private Transaction transaction;
-	private Result result;
+	private String keyDeviceSerialNo;// 终端编号
+	private String payCardNo;// 付款卡号
+	private String userPhone;// 预留手机号码
+	private String partnerNo;// 交易批次号
+	private String orderId;// 交易流水号
+	private String createTime;// 交易时间
+	private String finalTime;// 最后修改时间,更新时间
+	private Transaction transaction;// 交易类型
+	private Result result;// 支付状态
 	private String remark;
 	private String signature;
 
@@ -103,12 +103,7 @@ public class TradeRecord {
 
 	@Override
 	public String toString() {
-		return "TradeRecord [keyDeviceSerialNo=" + keyDeviceSerialNo
-				+ ", payCardNo=" + payCardNo + ", userPhone=" + userPhone
-				+ ", partnerNo=" + partnerNo + ", orderId=" + orderId
-				+ ", createTime=" + createTime + ", finalTime=" + finalTime
-				+ ", transaction=" + transaction + ", result=" + result
-				+ ", remark=" + remark + ", signature=" + signature + "]";
+		return "TradeRecord [keyDeviceSerialNo=" + keyDeviceSerialNo + ", payCardNo=" + payCardNo + ", userPhone=" + userPhone + ", partnerNo=" + partnerNo + ", orderId=" + orderId + ", createTime=" + createTime + ", finalTime=" + finalTime + ", transaction=" + transaction + ", result=" + result + ", remark=" + remark + ", signature=" + signature + "]";
 	}
 
 }

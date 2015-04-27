@@ -1,15 +1,21 @@
 package cn.epalmpay.analoy.zhonghui.entity;
 
+/**
+ * 支付状态类1表示成功 其他表示失败
+ * 
+ * @author DELL
+ *
+ */
 public class Result {
-	private String payStatus;
-	private String payResultCode;
-	private String payResultDes;
-	private String deliveryStatus;
-	private String deliveryResultCode;
-	private String deliveryResultDes;
-	private String refundStatus;
-	private String refundResultCode;
-	private String refundResultDes;
+	private String payStatus;// 支付状态
+	private String payResultCode;// 支付返回码
+	private String payResultDes;// 支付时返回结果
+	private String deliveryStatus;// 到账(结算)状态
+	private String deliveryResultCode;// 到账(结算)返回码
+	private String deliveryResultDes;// 到账(结算)描述信息
+	private String refundStatus;// 退款状态1表示成功 0 表示失败或者 未发生退款
+	private String refundResultCode;// 退款结果返回码
+	private String refundResultDes;// 退款结果 信息描述
 
 	public String getPayStatus() {
 		return payStatus;
@@ -85,14 +91,7 @@ public class Result {
 
 	@Override
 	public String toString() {
-		return "Result [payStatus=" + payStatus + ", payResultCode="
-				+ payResultCode + ", payResultDes=" + payResultDes
-				+ ", deliveryStatus=" + deliveryStatus
-				+ ", deliveryResultCode=" + deliveryResultCode
-				+ ", deliveryResultDes=" + deliveryResultDes
-				+ ", refundStatus=" + refundStatus + ", refundResultCode="
-				+ refundResultCode + ", refundResultDes=" + refundResultDes
-				+ "]";
+		return "Result [payStatus=" + payStatus + ", payResultCode=" + payResultCode + ", payResultDes=" + payResultDes + ", deliveryStatus=" + deliveryStatus + ", deliveryResultCode=" + deliveryResultCode + ", deliveryResultDes=" + deliveryResultDes + ", refundStatus=" + refundStatus + ", refundResultCode=" + refundResultCode + ", refundResultDes=" + refundResultDes + "]";
 	}
 
 }

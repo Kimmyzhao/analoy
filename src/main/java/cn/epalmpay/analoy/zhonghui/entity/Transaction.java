@@ -1,11 +1,17 @@
 package cn.epalmpay.analoy.zhonghui.entity;
 
+/**
+ * 交易类型type为 feephone是手机充值
+ * 
+ * @author DELL
+ *
+ */
 public class Transaction {
-	private String qdOrderId;
-	private String feePhone;// 电话号码
-	private String faceValue;
-	private double price;
-	private double rebateMoney;
+	private String qdOrderId;// 系统流水号
+	private String feePhone;// 到账通知短信
+	private String faceValue;// 面值,充值金额
+	private double price;// 支付金额
+	private double rebateMoney;// 分润返回金额
 
 	public String getQdOrderId() {
 		return qdOrderId;
@@ -49,8 +55,6 @@ public class Transaction {
 
 	@Override
 	public String toString() {
-		return "Transaction [qdOrderId=" + qdOrderId + ", feePhone=" + feePhone
-				+ ", faceValue=" + faceValue + ", price=" + price
-				+ ", rebateMoney=" + rebateMoney + "]";
+		return "Transaction [qdOrderId=" + qdOrderId + ", feePhone=" + feePhone + ", faceValue=" + faceValue + ", price=" + price + ", rebateMoney=" + rebateMoney + "]";
 	}
 }
