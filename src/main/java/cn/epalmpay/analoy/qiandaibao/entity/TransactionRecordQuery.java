@@ -9,8 +9,6 @@ public class TransactionRecordQuery {
 
 	private String eqno;// 设备编号
 
-	private String agentno;// 商户编号，钱袋的商户的唯一编号
-
 	private String querytype;// 查询类型
 
 	private String begintime;// 开始时间.例如：2012-03-09 16:26:34
@@ -45,14 +43,6 @@ public class TransactionRecordQuery {
 
 	public void setEqno(String eqno) {
 		this.eqno = eqno;
-	}
-
-	public String getAgentno() {
-		return agentno;
-	}
-
-	public void setAgentno(String agentno) {
-		this.agentno = agentno;
 	}
 
 	public String getQuerytype() {
@@ -107,29 +97,22 @@ public class TransactionRecordQuery {
 		super();
 	}
 
-	public TransactionRecordQuery(String code, String msg, String eqno,
-			String agentno, String querytype, String begintime, String endtime,
-			String remark, List<OrderList> orderlist, String sign) {
+	@Override
+	public String toString() {
+		return "TransactionRecordQuery [code=" + code + ", msg=" + msg + ", eqno=" + eqno + ", querytype=" + querytype + ", begintime=" + begintime + ", endtime=" + endtime + ", remark=" + remark + ", orderlist=" + orderlist + ", sign=" + sign + "]";
+	}
+
+	public TransactionRecordQuery(String code, String msg, String eqno, String querytype, String begintime, String endtime, String remark, List<OrderList> orderlist, String sign) {
 		super();
 		this.code = code;
 		this.msg = msg;
 		this.eqno = eqno;
-		this.agentno = agentno;
 		this.querytype = querytype;
 		this.begintime = begintime;
 		this.endtime = endtime;
 		this.remark = remark;
 		this.orderlist = orderlist;
 		this.sign = sign;
-	}
-
-	@Override
-	public String toString() {
-		return "TransactionRecordQuery [code=" + code + ", msg=" + msg
-				+ ", eqno=" + eqno + ", agentno=" + agentno + ", querytype="
-				+ querytype + ", begintime=" + begintime + ", endtime="
-				+ endtime + ", remark=" + remark + ", orderlist=" + orderlist
-				+ ", sign=" + sign + "]";
 	}
 
 }

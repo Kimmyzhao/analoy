@@ -11,10 +11,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.epalmpay.analoy.model.Response;
 import cn.epalmpay.analoy.qiandaibao.constant.Constant;
+import cn.epalmpay.analoy.qiandaibao.entity.PosQuery;
 import cn.epalmpay.analoy.qiandaibao.service.QiandaibaoService;
 import cn.epalmpay.analoy.utils.HttpUtils;
 import cn.epalmpay.analoy.utils.StringUtils;
@@ -33,12 +37,12 @@ public class QiandaibaoController {
 	@Autowired
 	private QiandaibaoService qiandaibaoService;
 
-	@RequestMapping(value = "getAgentInfoByEqno")
-	public String getAgentInfoByEqno() {
+	@RequestMapping(value = "getAgentInfoByEqno", method = RequestMethod.POST)
+	public Response getAgentInfoByEqno(@RequestBody Map<String, Object> param) {
 		String url = posQueryUrl;
-		String eqno = "82316280";
-		String now = "2015-04-27 09:30";
-		String remark = "根据POS终端号查询开通状态";
+		String eqno = param.get("eqno") == null ? "82316280" : param.get("eqno").toString();
+		String now = param.get("now") == null ? "2015-04-27 09:30" : param.get("now").toString();
+		String remark = param.get("remark") == null ? "根据POS终端号查询开通状态" : param.get("remark").toString();
 		StringBuilder sb = new StringBuilder();
 		sb.append("eqno=" + eqno);
 		sb.append("now=" + now);
@@ -62,10 +66,10 @@ public class QiandaibaoController {
 			result = HttpUtils.post(url, headers, params, fileParams, responseHandler);
 		} catch (IOException e) {
 			logger.error("error..." + e);
-			return "请求失败";
+			return Response.getError("请求失败");
 		}
 		System.out.println(result);
-		return result;
+		return Response.getSuccess(StringUtils.parseJSONStringToObject(result, new PosQuery()));
 	}
 
 	@RequestMapping(value = "showorder")
@@ -123,7 +127,7 @@ public class QiandaibaoController {
 	public String showorder1() {
 		return qiandaibaoService.getTradeRecord();
 	}
-	
+
 	@RequestMapping(value = "getAgentInfoByEqno1")
 	public String getAgentInfoByEqno1() {
 		return qiandaibaoService.queryPosState();
