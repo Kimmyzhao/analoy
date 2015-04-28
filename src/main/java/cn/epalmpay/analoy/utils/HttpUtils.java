@@ -37,18 +37,13 @@ public class HttpUtils {
 
 	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 	private static final HttpClient client = HttpClients.createDefault();
-	private static final ContentType TEXT_CONTENT_TYPE = ContentType.create(
-			"text/plain", DEFAULT_CHARSET);
+	private static final ContentType TEXT_CONTENT_TYPE = ContentType.create("text/plain", DEFAULT_CHARSET);
 
-	public static <T> T get(String url, Map<String, String> headers,
-			Map<String, String> params, ResponseHandler<T> handler)
-			throws IOException {
+	public static <T> T get(String url, Map<String, String> headers, Map<String, String> params, ResponseHandler<T> handler) throws IOException {
 		return get(url, headers, params, null, handler);
 	}
 
-	public static <T> T get(String url, HttpContext context,
-			Map<String, String> params, ResponseHandler<T> handler)
-			throws IOException {
+	public static <T> T get(String url, HttpContext context, Map<String, String> params, ResponseHandler<T> handler) throws IOException {
 		return get(url, null, params, context, handler);
 	}
 
@@ -62,9 +57,7 @@ public class HttpUtils {
 	 * @return
 	 * @throws IOException
 	 */
-	public static <T> T get(String url, Map<String, String> headers,
-			Map<String, String> params, HttpContext context,
-			ResponseHandler<T> handler) throws IOException {
+	public static <T> T get(String url, Map<String, String> headers, Map<String, String> params, HttpContext context, ResponseHandler<T> handler) throws IOException {
 		RequestBuilder builder = RequestBuilder.get();
 		builder.setUri(url);
 		HttpUriRequest request = request(builder, headers, params, null);
@@ -72,9 +65,7 @@ public class HttpUtils {
 		return response(request, context, handler);
 	}
 
-	public static <T> T post(String url, Map<String, String> headers,
-			Map<String, String> params, Map<String, File> fileParams,
-			ResponseHandler<T> handler) throws IOException {
+	public static <T> T post(String url, Map<String, String> headers, Map<String, String> params, Map<String, File> fileParams, ResponseHandler<T> handler) throws IOException {
 		return post(url, headers, params, fileParams, null, handler);
 	}
 
@@ -89,9 +80,7 @@ public class HttpUtils {
 	 * @return
 	 * @throws IOException
 	 */
-	public static <T> T post(String url, Map<String, String> headers,
-			Map<String, String> params, Map<String, File> fileParams,
-			HttpContext context, ResponseHandler<T> handler) throws IOException {
+	public static <T> T post(String url, Map<String, String> headers, Map<String, String> params, Map<String, File> fileParams, HttpContext context, ResponseHandler<T> handler) throws IOException {
 		RequestBuilder builder = RequestBuilder.post();
 		builder.setUri(url);
 		HttpUriRequest request = request(builder, headers, params, fileParams);
@@ -99,8 +88,7 @@ public class HttpUtils {
 		return response(request, context, handler);
 	}
 
-	public static <T> T post(String url, String body, HttpContext context,
-			ResponseHandler<T> handler) throws IOException {
+	public static <T> T post(String url, String body, HttpContext context, ResponseHandler<T> handler) throws IOException {
 		RequestBuilder builder = RequestBuilder.post();
 		builder.setUri(url);
 		HttpEntity entity = new StringEntity(body, DEFAULT_CHARSET);
@@ -111,16 +99,13 @@ public class HttpUtils {
 	}
 
 	// 处理返回
-	private static <T> T response(HttpUriRequest request, HttpContext context,
-			ResponseHandler<T> handler) throws IOException {
+	private static <T> T response(HttpUriRequest request, HttpContext context, ResponseHandler<T> handler) throws IOException {
 		HttpResponse response = client.execute(request, context);
 		return handler.handleResponse(response);
 	}
 
 	// 创建request
-	private static HttpUriRequest request(RequestBuilder builder,
-			Map<String, String> headers, Map<String, String> params,
-			Map<String, File> fileParams) {
+	private static HttpUriRequest request(RequestBuilder builder, Map<String, String> headers, Map<String, String> params, Map<String, File> fileParams) {
 		// 添加head
 		if (!CollectionUtils.isEmpty(headers)) {
 			headers.forEach((k, v) -> {
@@ -136,8 +121,7 @@ public class HttpUtils {
 		return builder.build();
 	}
 
-	private static HttpUriRequest requestGet(RequestBuilder builder,
-			Map<String, String> params) {
+	private static HttpUriRequest requestGet(RequestBuilder builder, Map<String, String> params) {
 		if (!CollectionUtils.isEmpty(params)) {
 			params.forEach((k, v) -> {
 				builder.addParameter(k, v);
@@ -146,8 +130,7 @@ public class HttpUtils {
 		return builder.build();
 	}
 
-	private static HttpUriRequest requestPost(RequestBuilder builder,
-			Map<String, String> params, Map<String, File> fileParams) {
+	private static HttpUriRequest requestPost(RequestBuilder builder, Map<String, String> params, Map<String, File> fileParams) {
 		HttpEntity entity = null;
 		// 是否需要上传文件
 		if (CollectionUtils.isEmpty(fileParams)) {
@@ -159,8 +142,7 @@ public class HttpUtils {
 			}
 			entity = new UrlEncodedFormEntity(parameters, DEFAULT_CHARSET);
 		} else {
-			MultipartEntityBuilder multiBuilder = MultipartEntityBuilder
-					.create().setCharset(DEFAULT_CHARSET);
+			MultipartEntityBuilder multiBuilder = MultipartEntityBuilder.create().setCharset(DEFAULT_CHARSET);
 			fileParams.forEach((k, v) -> {
 				multiBuilder.addBinaryBody(k, v);
 			});

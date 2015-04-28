@@ -9,95 +9,95 @@ package cn.epalmpay.analoy.model;
  */
 public class Response {
 
-	public static final Integer SUCCESS_CODE = 1;
+    public static final Integer SUCCESS_CODE = 1;
 
-	public static final Integer ERROR_CODE = -1;
+    public static final Integer ERROR_CODE = -1;
+    
+    public static final Integer MISSING_CODE = -2;
+    
+    public static final String TOKEN="123321";
+    
+    private Integer code;
 
-	public static final Integer MISSING_CODE = -2;
+    private String message = "处理成功";
 
-	public static final String TOKEN = "123321";
+    private Object result;
 
-	private Integer code;
+    public Integer getCode() {
+        return code;
+    }
 
-	private String message = "处理成功";
+    public void setCode(Integer code) {
+        this.code = code;
+    }
 
-	private Object result;
+    public String getMessage() {
+        return message;
+    }
 
-	public Integer getCode() {
-		return code;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public void setCode(Integer code) {
-		this.code = code;
-	}
+    public Object getResult() {
+        return result;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public void setResult(Object result) {
+        this.result = result;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public static Response getSuccess() {
+        Response response = new Response();
+        response.code = SUCCESS_CODE;
+        response.result = "";
+        return response;
+    }
 
-	public Object getResult() {
-		return result;
-	}
+    public static Response getSuccess(Object result) {
+        Response response = new Response();
+        response.code = SUCCESS_CODE;
+        response.message = "success";
+        response.result = result;
+        return response;
+    }
 
-	public void setResult(Object result) {
-		this.result = result;
-	}
+    public static Response getError(String message) {
+        Response response = new Response();
+        response.code = ERROR_CODE;
+        response.message = message;
+        return response;
+    }
 
-	public static Response getSuccess() {
-		Response response = new Response();
-		response.code = SUCCESS_CODE;
-		response.result = "";
-		return response;
-	}
-
-	public static Response getSuccess(Object result) {
-		Response response = new Response();
-		response.code = SUCCESS_CODE;
-		response.message = "success";
-		response.result = result;
-		return response;
-	}
-
-	public static Response getError(String message) {
-		Response response = new Response();
-		response.code = ERROR_CODE;
-		response.message = message;
-		return response;
-	}
-
-	public static Response buildSuccess(Object result, String message) {
-		Response response = new Response();
-		response.code = SUCCESS_CODE;
-		response.result = result;
-		response.message = message;
-		return response;
-	}
-
-	public static Response buildMisSuccess() {
-		Response response = new Response();
-		response.code = SUCCESS_CODE;
-		response.result = "";
-		response.message = "请求的数据列表为空 或请求参数错误！请检查";
-		return response;
-	}
-
-	public static Response buildErrorWithMissing() {
-		Response r = new Response();
-		r.code = MISSING_CODE;
-		r.result = "";
-		r.message = "参数错误或数据不存在";
-		return r;
-	}
-
-	public static Response getErrorContext(Object result) {
-		Response response = new Response();
-		response.code = 2;
-		response.result = result;// 错误数据
-		return response;
-	}
+    public static Response buildSuccess(Object result, String message) {
+        Response response = new Response();
+        response.code = SUCCESS_CODE;
+        response.result = result;
+        response.message = message;
+        return response;
+    }
+    
+    public static Response buildMisSuccess() {
+    	Response response = new Response();
+    	response.code = SUCCESS_CODE;
+    	response.result = "";
+    	response.message = "请求的数据列表为空 或请求参数错误！请检查";
+    	return response;
+    }
+    
+    public static Response buildErrorWithMissing() {
+        Response r = new Response();
+        r.code = MISSING_CODE;
+        r.result = "";
+        r.message = "参数错误或数据不存在";
+        return r;
+    }
+    
+    public static Response getErrorContext(Object result) {
+        Response response = new Response();
+        response.code = 2;
+        response.result = result;//错误数据
+        return response;
+    }
 
 }
