@@ -1,6 +1,6 @@
 <configuration scan="true" scanPeriod="30 seconds">
 
-    <property name="APP_NAME" value="zf-timing" />
+    <property name="APP_NAME" value="analoy" />
     <property name="LOG_FILE_DIR" value="/opt/logs/${APP_NAME}/" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

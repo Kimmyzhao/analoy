@@ -130,21 +130,19 @@ public class QiandaibaoController {
 		ResponseHandler<String> responseHandler = new BasicResponseHandler();
 		String result = "";
 		try {
-			// System.out.println(url);
 			logger.debug(url);
 			result = HttpUtils.post(url, headers, params, fileParams, responseHandler);
 		} catch (IOException e) {
 			logger.error("error..." + e);
 			return "请求失败";
 		}
-		// System.out.println(result);
 		qiandaibaoService.getTradeRecord();
 		return result;
 	}
 
 	@RequestMapping(value = "showorder1")
 	public String showorder1() {
-		System.out.println(begintime + " ==== " + endtime);
+		logger.debug(begintime + " ==== " + endtime);
 		return qiandaibaoService.getTradeRecord();
 	}
 

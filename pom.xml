@@ -11,6 +11,7 @@
 		<org.springframework.version>4.1.6.RELEASE</org.springframework.version>
 		<org.apache.httpcomponents.version>4.3.6</org.apache.httpcomponents.version>
 		<log4j.version>1.2.12</log4j.version>
+		<org.slf4j.version>1.7.11</org.slf4j.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -28,18 +29,22 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.11</version>
+			<version>${org.slf4j.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.2</version>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
-			<version>1.7.11</version>
+			<version>${org.slf4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>log4j-over-slf4j</artifactId>
-			<version>1.7.11</version>
+			<version>${org.slf4j.version}</version>
 		</dependency>
 
 		<dependency>
@@ -76,6 +81,12 @@
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging-api</artifactId>
 			<version>1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>1.0</version>
 		</dependency>
 		<!-- util -->
 		<dependency>
@@ -128,7 +139,7 @@
 			<artifactId>quartz-jobs</artifactId>
 			<version>2.2.1</version>
 		</dependency>
-		<!-- Quartz --> 
+		<!-- Quartz -->
 	</dependencies>
 	<build>
 		<finalName>analoy</finalName>

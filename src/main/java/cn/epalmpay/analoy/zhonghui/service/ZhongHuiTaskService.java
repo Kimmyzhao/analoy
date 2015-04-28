@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,10 +13,14 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.httpclient.HttpException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import cn.epalmpay.analoy.utils.HttpFile;
 
 @Service
 public class ZhongHuiTaskService {
@@ -28,7 +31,9 @@ public class ZhongHuiTaskService {
 	private String importUrl;
 	@Value("${filePath}")
 	private String filepath;
-	Map<String, File> upfiles = new HashMap<String, File>();
+	@Value("${zhonghui.import.file}")
+	private String importfilepath;
+	Map<String, MultipartFile> upfiles = new HashMap<String, MultipartFile>();
 
 	public String queryPosState() {
 		return null;
@@ -39,33 +44,17 @@ public class ZhongHuiTaskService {
 	 * 
 	 * @return
 	 * @throws IOException
+	 * @throws HttpException
 	 */
-	public String getTradeRecord() throws IOException {
-		System.out.println(url + " == " + importUrl + " == " + filepath);
+	public String getTradeRecord() throws IOException, HttpException {
+		logger.debug(url + " == " + importUrl + " == " + filepath);
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put("flag", "1");
-		getFile();
-
-		post(this.url + this.importUrl, headers, upfiles);
+		File file = new File(filepath + "2015-04-22.txt");
+		HttpFile.postHttp(this.url + this.importUrl, importfilepath, file);
+		// post(this.url + this.importUrl, headers, upfiles);
+		HttpFile.upload(upfiles.get(0), this.url + this.importUrl);
 		return "ok";
-	}
-
-	void getFile() {
-		File file = new File(filepath);
-		File[] files = file.listFiles(new FilenameFilter() {
-
-			@Override
-			public boolean accept(File dir, String name) {
-				return name.endsWith(".txt");
-			}
-		});
-
-		for (File f : files) {
-			System.out.println(f.getName());
-			upfiles.put(f.getName(), new File(filepath + f.getName()));
-
-		}
-
 	}
 
 	/**
@@ -138,11 +127,11 @@ public class ZhongHuiTaskService {
 		InputStreamReader isReader = new InputStreamReader(in);
 		BufferedReader bufReader = new BufferedReader(isReader);
 		String line = null;
-		String data = "getResult=";
+		String data = "getResult = ";
 		while ((line = bufReader.readLine()) != null) {
 			data += line;
 		}
-		System.out.println(data);
+		logger.debug(data);
 		outStream.close();
 		conn.disconnect();
 		return success;
