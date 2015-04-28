@@ -34,6 +34,25 @@ public class QiandaibaoController {
 	@Value("${pos.query.url}")
 	private String posQueryUrl;
 
+	private String begintime;// 开始时间
+	private String endtime;// 结束时间
+
+	public String getBegintime() {
+		return begintime;
+	}
+
+	public void setBegintime(String begintime) {
+		this.begintime = begintime;
+	}
+
+	public String getEndtime() {
+		return endtime;
+	}
+
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
+
 	@Autowired
 	private QiandaibaoService qiandaibaoService;
 
@@ -125,6 +144,7 @@ public class QiandaibaoController {
 
 	@RequestMapping(value = "showorder1")
 	public String showorder1() {
+		System.out.println(begintime + " ==== " + endtime);
 		return qiandaibaoService.getTradeRecord();
 	}
 

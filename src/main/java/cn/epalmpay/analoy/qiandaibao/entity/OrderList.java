@@ -12,7 +12,7 @@ public class OrderList {
 	private String eqno;// 设备编号
 	private String cardno;// 银行卡号，前6后4中间*号
 	private String cardtype;// 银行卡类型1:借记卡,2:贷记卡
-	private String bankname;// 银行卡号名称
+	private String bankName;// 银行卡号名称
 
 	public String getTime() {
 		return time;
@@ -102,18 +102,15 @@ public class OrderList {
 		this.cardtype = cardtype;
 	}
 
-	public String getBankname() {
-		return bankname;
+	public String getBankName() {
+		return bankName;
 	}
 
-	public void setBankname(String bankname) {
-		this.bankname = bankname;
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
 	}
 
-	public OrderList(String time, String orderid, String agentno,
-			String presettletime, String settletime, double money,
-			double settlemoney, double fee, String eqno, String cardno,
-			String cardtype, String bankname) {
+	public OrderList(String time, String orderid, String agentno, String presettletime, String settletime, double money, double settlemoney, double fee, String eqno, String cardno, String cardtype, String bankName) {
 		super();
 		this.time = time;
 		this.orderid = orderid;
@@ -126,21 +123,16 @@ public class OrderList {
 		this.eqno = eqno;
 		this.cardno = cardno;
 		this.cardtype = cardtype;
-		this.bankname = bankname;
-	}
-
-	public OrderList() {
-		super();
+		this.bankName = bankName;
 	}
 
 	@Override
 	public String toString() {
-		return "OrderList [time=" + time + ", orderid=" + orderid
-				+ ", agentno=" + agentno + ", presettletime=" + presettletime
-				+ ", settletime=" + settletime + ", money=" + money
-				+ ", settlemoney=" + settlemoney + ", fee=" + fee + ", eqno="
-				+ eqno + ", cardno=" + cardno + ", cardtype=" + cardtype
-				+ ", bankname=" + bankname + "]";
+		return "OrderList [time=" + time + ", orderid=" + orderid + ", agentno=" + agentno + ", presettletime=" + presettletime + ", settletime=" + settletime + ", money=" + money + ", settlemoney=" + settlemoney + ", fee=" + fee + ", eqno=" + eqno + ", cardno=" + cardno + ", cardtype=" + cardtype + ", bankName=" + bankName + "]";
+	}
+
+	public OrderList() {
+		super();
 	}
 
 }

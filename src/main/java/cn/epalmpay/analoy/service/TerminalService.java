@@ -27,8 +27,8 @@ public class TerminalService {
 //	private OperateRecordService operateRecordService;
 //	@Autowired
 //	private DictionaryOpenPrivateInfoMapper dictionaryOpenPrivateInfoMapper;
-	@Value("${file.http.domain}")
-	private String fileHttpRoot;
+//	@Value("${file.http.domain}")
+//	private String fileHttpRoot;
 //	
 //	public OpeningApplie findOpeningAppylByTerminalId(Integer terminalId){
 //		return openingApplieMapper.selectOpeningApplie(terminalId);
@@ -98,25 +98,25 @@ public class TerminalService {
 //		return terminalTradeTypeInfoMapper.selectTerminalTradeTypeInfos(terminalId);
 //	}
 	
-	public File path2File(String path){
-		UrlResource ur = null;
-		File file = null;
-		try {
-			ur = new UrlResource(fileHttpRoot+path);
-			file = File.createTempFile("image", ur.getFilename());
-		} catch (IOException e1) {
-			LOG.error("",e1);
-			return null;
-		}
-		try (InputStream is = ur.getInputStream();
-			FileOutputStream fos = new FileOutputStream(file)){
-			StreamUtils.copy(is, fos);
-			return file;
-		} catch (IOException e) {
-			LOG.error("",e);
-		}
-		return null;
-	}
+//	public File path2File(String path){
+//		UrlResource ur = null;
+//		File file = null;
+//		try {
+//			ur = new UrlResource(fileHttpRoot+path);
+//			file = File.createTempFile("image", ur.getFilename());
+//		} catch (IOException e1) {
+//			LOG.error("",e1);
+//			return null;
+//		}
+//		try (InputStream is = ur.getInputStream();
+//			FileOutputStream fos = new FileOutputStream(file)){
+//			StreamUtils.copy(is, fos);
+//			return file;
+//		} catch (IOException e) {
+//			LOG.error("",e);
+//		}
+//		return null;
+//	}
 	
 //	public Integer findNotTradeTypeStatus(Terminal terminal) {
 //		List<TerminalTradeTypeInfo> infos = terminalTradeTypeInfoMapper.selectTerminalTradeTypeInfos(terminal.getId());

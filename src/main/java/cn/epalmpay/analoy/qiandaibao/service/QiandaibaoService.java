@@ -2,15 +2,24 @@ package cn.epalmpay.analoy.qiandaibao.service;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import cn.epalmpay.analoy.qiandaibao.constant.Constant;
+import cn.epalmpay.analoy.qiandaibao.entity.PosQuery;
+import cn.epalmpay.analoy.qiandaibao.entity.TransactionRecordQuery;
 import cn.epalmpay.analoy.utils.FileUtils;
+import cn.epalmpay.analoy.utils.StringUtils;
 
 @Service
 public class QiandaibaoService {
+
+	@Value("${MD5key}")
+	private String MD5key;
 
 	public void sayHello() {
 		System.out.println("Hello World!");
@@ -21,23 +30,36 @@ public class QiandaibaoService {
 		String result = "";
 		try {
 			file = ResourceUtils.getFile(Constant.FILE_QIANDAIBAO);
-			// System.out.println(file.getPath());
 			result = FileUtils.txt2String(file);
-			System.out.println(result);
+			TransactionRecordQuery query = new TransactionRecordQuery();
+			query = (TransactionRecordQuery) StringUtils.parseJSONStringToObject(result, query);
+			System.out.println(query);
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
+
 	public String queryPosState() {
 		File file = null;
 		String result = "";
+
 		try {
 			file = ResourceUtils.getFile(Constant.FILE_QIANDAIBAO_QUERYPOS);
-			// System.out.println(file.getPath());
 			result = FileUtils.txt2String(file);
-			System.out.println(result);
+			PosQuery pos = new PosQuery();
+			pos = (PosQuery) StringUtils.parseJSONStringToObject(result, pos);
+			Date date = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+			StringBuilder sb = new StringBuilder();
+			sb.append("eqno=" + pos.getEqno());
+			sb.append("now=" + formatter.format(date).toString());
+			sb.append(MD5key);
+			String sign = StringUtils.encryption(sb.toString(), "MD5");
+			System.out.println(pos.toString());
+			pos.setSign(sign);
+			System.out.println(pos.toString());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

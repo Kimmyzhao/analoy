@@ -1,7 +1,5 @@
 package cn.epalmpay.analoy.qiandaibao.entity;
 
-import java.util.List;
-
 public class TransactionRecordQuery {
 	private String code;// 响应码
 
@@ -17,7 +15,7 @@ public class TransactionRecordQuery {
 
 	private String remark;// 备注
 
-	private List<OrderList> orderlist;// json字符串
+	private OrderList[] orderlist;
 
 	private String sign;// 签名(MD5方式)
 
@@ -77,11 +75,11 @@ public class TransactionRecordQuery {
 		this.remark = remark;
 	}
 
-	public List<OrderList> getOrderlist() {
+	public OrderList[] getOrderlist() {
 		return orderlist;
 	}
 
-	public void setOrderlist(List<OrderList> orderlist) {
+	public void setOrderlist(OrderList[] orderlist) {
 		this.orderlist = orderlist;
 	}
 
@@ -102,7 +100,7 @@ public class TransactionRecordQuery {
 		return "TransactionRecordQuery [code=" + code + ", msg=" + msg + ", eqno=" + eqno + ", querytype=" + querytype + ", begintime=" + begintime + ", endtime=" + endtime + ", remark=" + remark + ", orderlist=" + orderlist + ", sign=" + sign + "]";
 	}
 
-	public TransactionRecordQuery(String code, String msg, String eqno, String querytype, String begintime, String endtime, String remark, List<OrderList> orderlist, String sign) {
+	public TransactionRecordQuery(String code, String msg, String eqno, String querytype, String begintime, String endtime, String remark, OrderList[] orderlist, String sign) {
 		super();
 		this.code = code;
 		this.msg = msg;
