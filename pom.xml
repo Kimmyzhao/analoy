@@ -140,6 +140,11 @@
 			<version>2.2.1</version>
 		</dependency>
 		<!-- Quartz -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.12-beta1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>analoy</finalName>

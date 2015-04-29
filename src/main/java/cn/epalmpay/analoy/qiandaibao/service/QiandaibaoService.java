@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -17,7 +19,7 @@ import cn.epalmpay.analoy.utils.StringUtils;
 
 @Service
 public class QiandaibaoService {
-
+	private static final Logger logger = LoggerFactory.getLogger(QiandaibaoService.class);
 	@Value("${MD5key}")
 	private String MD5key;
 
@@ -33,10 +35,10 @@ public class QiandaibaoService {
 			result = FileUtils.txt2String(file);
 			TransactionRecordQuery query = new TransactionRecordQuery();
 			query = (TransactionRecordQuery) StringUtils.parseJSONStringToObject(result, query);
-			System.out.println(query);
+			logger.debug(query.toString());
 
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		return result;
 	}

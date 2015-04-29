@@ -95,9 +95,9 @@ public class QiandaibaoController {
 	public String showorder() {
 		String url = transactionQueryUrl;
 		String eqno = "82316280";
-		String querytype = "3";// 按照时间段查询
-		String begintime = "2015-04-17 09:30";
-		String endtime = "2015-04-27 09:30";
+		String querytype = "1";// 按照时间段查询
+		String begintime = "2015-04-29 09:30";
+		String endtime = "2015-04-29 18:30";
 		String remark = "根据时间查询交易流水";
 		StringBuilder sb = new StringBuilder();
 		sb.append("eqno=" + eqno);
