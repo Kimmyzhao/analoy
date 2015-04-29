@@ -32,12 +32,12 @@ public class HttpUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(HttpUtils.class);
 
-	private HttpUtils() {
-	}
-
 	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 	private static final HttpClient client = HttpClients.createDefault();
 	private static final ContentType TEXT_CONTENT_TYPE = ContentType.create("text/plain", DEFAULT_CHARSET);
+
+	private HttpUtils() {
+	}
 
 	public static <T> T get(String url, Map<String, String> headers, Map<String, String> params, ResponseHandler<T> handler) throws IOException {
 		return get(url, headers, params, null, handler);

@@ -65,6 +65,7 @@ public class HttpFile {
 		mEntityBuilder.addBinaryBody("file", file);
 		mEntityBuilder.addTextBody("path", path);
 		mEntityBuilder.addTextBody("flag", "1");
+		mEntityBuilder.addTextBody("Charset", "utf-8");
 		httppost.setEntity(mEntityBuilder.build());
 		HttpResponse resp = httpClient.execute(httppost);
 		int code = resp.getStatusLine().getStatusCode();

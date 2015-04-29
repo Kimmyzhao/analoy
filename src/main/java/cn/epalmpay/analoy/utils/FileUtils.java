@@ -2,7 +2,9 @@ package cn.epalmpay.analoy.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 
 public class FileUtils {
 	public static String txt2String(File file) {
@@ -20,4 +22,22 @@ public class FileUtils {
 		return result;
 	}
 
+	public static String readFile(String path) {
+		String filecontent = "";
+		BufferedReader reader = null;
+		try {
+			File file = new File(path);
+			if (file.isFile() && file.exists()) {
+				reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+				String line = null;
+				while ((line = reader.readLine()) != null) {
+					filecontent += line + "\n";
+				}
+				reader.close();
+			}
+		} catch (Exception e) {
+		}
+		System.out.println(filecontent);
+		return null;
+	}
 }

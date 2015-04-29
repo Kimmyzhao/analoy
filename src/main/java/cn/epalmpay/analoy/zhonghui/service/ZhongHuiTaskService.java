@@ -10,7 +10,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.httpclient.HttpException;
@@ -18,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import cn.epalmpay.analoy.utils.HttpFile;
 
@@ -33,7 +31,6 @@ public class ZhongHuiTaskService {
 	private String filepath;
 	@Value("${zhonghui.import.file}")
 	private String importfilepath;
-	Map<String, MultipartFile> upfiles = new HashMap<String, MultipartFile>();
 
 	public String queryPosState() {
 		return null;
@@ -48,12 +45,10 @@ public class ZhongHuiTaskService {
 	 */
 	public String getTradeRecord() throws IOException, HttpException {
 		logger.debug(url + " == " + importUrl + " == " + filepath);
-		Map<String, String> headers = new HashMap<String, String>();
-		headers.put("flag", "1");
-		File file = new File(filepath + "2015-04-22.txt");
+		File file = new File(filepath + "2015-04-21.txt");
+		logger.debug(file.getAbsolutePath());
 		HttpFile.postHttp(this.url + this.importUrl, importfilepath, file);
 		// post(this.url + this.importUrl, headers, upfiles);
-		HttpFile.upload(upfiles.get(0), this.url + this.importUrl);
 		return "ok";
 	}
 
