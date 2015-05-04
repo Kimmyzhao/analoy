@@ -15,37 +15,37 @@ import org.springframework.stereotype.Component;
  * @author DELL
  *
  */
-@Component
+//@Component
 public class Test {
 
-	@Scheduled(cron = "0 0/1 * * * ?")
+	//@Scheduled(cron = "0 0/1 * * * ?")
 	// 一分钟更新一次
 	public void test0() {
 		System.out.println("test0->" + new Date());
 	}
 
-	@Scheduled(cron = "0/30 * * * * ?")
+	//@Scheduled(cron = "0/30 * * * * ?")
 	// 30秒更新一次
 	public void test1() {
 		System.out.println("test1->" + new Date());
 	}
 
-	@Scheduled(fixedDelay = 30000)
+	//@Scheduled(fixedDelay = 30000)
 	public void test2() {
 		System.out.println("test2->doing fixedDelay->" + new Date());
 	}
 
-	@Scheduled(fixedRate = 50000)
+	//@Scheduled(fixedRate = 50000)
 	public void test3() {
 		System.out.println("test3->doing fixedRate->" + new Date());
 	}
 
-	@Scheduled(fixedDelay = 30000, initialDelay = 1000)
+	//@Scheduled(fixedDelay = 30000, initialDelay = 1000)
 	public void test4() {
 		System.out.println("test4->doing initialDelay->" + new Date());
 	}
 
-	@Scheduled(fixedDelayString = "30000")
+	//@Scheduled(fixedDelayString = "30000")
 	public void test5() {
 		System.out.println("test5->doing fixedDelayString->" + new Date());
 	}

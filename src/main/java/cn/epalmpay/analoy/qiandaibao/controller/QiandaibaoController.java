@@ -56,8 +56,8 @@ public class QiandaibaoController {
 	@Autowired
 	private QiandaibaoService qiandaibaoService;
 
-	@RequestMapping(value = "getAgentInfoByEqno", method = RequestMethod.POST)
-	public Response getAgentInfoByEqno(@RequestBody Map<String, Object> param) {
+	@RequestMapping(value = "getAgentInfoByEqno2", method = RequestMethod.POST)
+	public Response getAgentInfoByEqno2(@RequestBody Map<String, Object> param) {
 		String url = posQueryUrl;
 		String eqno = param.get("eqno") == null ? "82316280" : param.get("eqno").toString();
 		String now = param.get("now") == null ? "2015-04-27 09:30" : param.get("now").toString();
@@ -89,6 +89,38 @@ public class QiandaibaoController {
 		}
 		System.out.println(result);
 		return Response.getSuccess(StringUtils.parseJSONStringToObject(result, new PosQuery()));
+	}
+
+	/**
+	 * 钱袋宝POS开通状态查询
+	 * 
+	 * @param eqno
+	 * @param now
+	 * @param remark
+	 * @param sign
+	 * @return
+	 */
+	@RequestMapping(value = "getAgentInfoByEqno")
+	public String getAgentInfoByEqno(String eqno, String now, String remark, String sign) {
+		logger.debug("接受的参数... eqno={},now={},remark={},sign={}", eqno, now, remark, sign);
+		PosQuery pos = new PosQuery();
+		pos.setCode(Constant.SUCCESS_POS_CODE);
+		pos.setMsg(Constant.SUCCESS_POS_MESSAGE);
+		pos.setEqno(eqno);
+		pos.setAgentno("986825803310");
+		pos.setName("模拟测试");
+		pos.setUsername("13524226184");
+		pos.setRemark("已开通");
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("code=" + Constant.SUCCESS_POS_CODE);
+		sb.append("eqno=" + eqno);
+		sb.append(MD5key);
+		String md5_str = StringUtils.encryption(sb.toString(), "MD5");
+		logger.info(md5_str);
+		pos.setSign(md5_str);
+		logger.info(StringUtils.parseObjectToJSONString(pos));
+		return StringUtils.parseObjectToJSONString(pos);
 	}
 
 	@RequestMapping(value = "showorder")
