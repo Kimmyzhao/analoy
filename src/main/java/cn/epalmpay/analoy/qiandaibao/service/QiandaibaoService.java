@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
+import cn.epalmpay.analoy.model.trades.TransactionStatusRecord;
 import cn.epalmpay.analoy.qiandaibao.constant.Constant;
 import cn.epalmpay.analoy.qiandaibao.entity.PosQuery;
 import cn.epalmpay.analoy.qiandaibao.entity.TransactionRecordQuery;
@@ -22,12 +23,14 @@ public class QiandaibaoService {
 	private static final Logger logger = LoggerFactory.getLogger(QiandaibaoService.class);
 	@Value("${MD5key}")
 	private String MD5key;
+	@Value("${qiandaibao.url.pullTradesRecord}")
+	private String pullTradesRecord;
 
 	public void sayHello() {
 		System.out.println("Hello World!");
 	}
 
-	public String getTradeRecord() {
+	public String getTradeRecord1() {
 		File file = null;
 		String result = "";
 		try {
@@ -68,4 +71,17 @@ public class QiandaibaoService {
 		return result;
 	}
 
+	/**
+	 * 推送交易记录
+	 * 
+	 * @return
+	 */
+	public String getTradeRecord() {
+		TransactionStatusRecord record = new TransactionStatusRecord();
+		Date date = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyymmdd");
+		record.setOrderid("");
+		//record.setAgentno(agentno);
+		return "ok";
+	}
 }

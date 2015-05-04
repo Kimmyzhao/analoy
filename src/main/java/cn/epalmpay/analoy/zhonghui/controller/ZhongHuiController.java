@@ -1,6 +1,7 @@
 package cn.epalmpay.analoy.zhonghui.controller;
 
 import java.io.IOException;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class ZhongHuiController {
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
+		return null;
+	}
+
+	@RequestMapping(value = "getAgentInfoByEqno")
+	public String getAgentInfoByEqno(String account, String password, String position, String appVersion, String product) {
 		return null;
 	}
 }
