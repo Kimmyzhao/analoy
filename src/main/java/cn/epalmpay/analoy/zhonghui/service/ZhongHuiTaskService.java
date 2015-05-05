@@ -23,7 +23,7 @@ import cn.epalmpay.analoy.utils.HttpFile;
 @Service
 public class ZhongHuiTaskService {
 	private static final Logger logger = LoggerFactory.getLogger(ZhongHuiTaskService.class);
-	@Value("${zhonghui.url}")
+	@Value("${zftiming.url}")
 	private String url;
 	@Value("${zhonghui.url.import}")
 	private String importUrl;

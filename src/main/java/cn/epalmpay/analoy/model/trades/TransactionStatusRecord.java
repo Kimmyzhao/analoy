@@ -3,35 +3,35 @@ package cn.epalmpay.analoy.model.trades;
 public class TransactionStatusRecord {
 
 	private String orderid;
-	
+
 	private String agentno;
-	
+
 	private String time;
-	
+
 	private String money;
-	
+
 	private String settlemoney;
-	
+
 	private String fee;
-	
+
 	private String eqno;
-	
+
 	private String cardno;
-	
+
 	private String cardtype;
-	
+
 	private String bankname;
-	
+
 	private String remark;
-	
+
 	private String sign;
-	
+
 	private String agent_id;
-	
+
 	private String pay_channel_id;
-	
+
 	private String customer_id;
-	
+
 	private String city_id;
 
 	public String getOrderid() {
@@ -161,5 +161,10 @@ public class TransactionStatusRecord {
 	public void setCity_id(String city_id) {
 		this.city_id = city_id;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "TransactionStatusRecord [orderid=" + orderid + ", agentno=" + agentno + ", time=" + time + ", money=" + money + ", settlemoney=" + settlemoney + ", fee=" + fee + ", eqno=" + eqno + ", cardno=" + cardno + ", cardtype=" + cardtype + ", bankname=" + bankname + ", remark=" + remark + ", sign=" + sign + "]";
+	}
+
 }

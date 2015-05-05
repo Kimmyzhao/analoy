@@ -69,6 +69,10 @@ public class HttpUtils {
 		return post(url, headers, params, fileParams, null, handler);
 	}
 
+	public static <T> T post(String url, Map<String, String> headers, Map<String, String> params, ResponseHandler<T> handler) throws IOException {
+		return post(url, headers, params, null, null, handler);
+	}
+
 	/**
 	 * post 请求
 	 * 
@@ -84,6 +88,25 @@ public class HttpUtils {
 		RequestBuilder builder = RequestBuilder.post();
 		builder.setUri(url);
 		HttpUriRequest request = request(builder, headers, params, fileParams);
+		logger.debug("request:{}", request);
+		return response(request, context, handler);
+	}
+
+	/**
+	 * post 请求
+	 * 
+	 * @param url
+	 * @param headers
+	 * @param params
+	 * @param fileParams
+	 * @param handler
+	 * @return
+	 * @throws IOException
+	 */
+	public static <T> T post(String url, Map<String, String> headers, Map<String, String> params, HttpContext context, ResponseHandler<T> handler) throws IOException {
+		RequestBuilder builder = RequestBuilder.post();
+		builder.setUri(url);
+		HttpUriRequest request = request(builder, headers, params);
 		logger.debug("request:{}", request);
 		return response(request, context, handler);
 	}
@@ -121,6 +144,23 @@ public class HttpUtils {
 		return builder.build();
 	}
 
+	// 创建request
+	private static HttpUriRequest request(RequestBuilder builder, Map<String, String> headers, Map<String, String> params) {
+		// 添加head
+		if (!CollectionUtils.isEmpty(headers)) {
+			headers.forEach((k, v) -> {
+				builder.addHeader(k, v);
+			});
+		}
+		if (HttpGet.METHOD_NAME.equalsIgnoreCase(builder.getMethod())) {
+			return requestGet(builder, params);
+		}
+		if (HttpPost.METHOD_NAME.equalsIgnoreCase(builder.getMethod())) {
+			return requestPost(builder, params);
+		}
+		return builder.build();
+	}
+
 	private static HttpUriRequest requestGet(RequestBuilder builder, Map<String, String> params) {
 		if (!CollectionUtils.isEmpty(params)) {
 			params.forEach((k, v) -> {
@@ -153,6 +193,21 @@ public class HttpUtils {
 			}
 			entity = multiBuilder.build();
 		}
+		builder.setEntity(entity);
+		return builder.build();
+	}
+
+	private static HttpUriRequest requestPost(RequestBuilder builder, Map<String, String> params) {
+		HttpEntity entity = null;
+
+		List<NameValuePair> parameters = Lists.newArrayList();
+		if (params != null) {
+			params.forEach((k, v) -> {
+				parameters.add(new BasicNameValuePair(k, v));
+			});
+		}
+		entity = new UrlEncodedFormEntity(parameters, DEFAULT_CHARSET);
+
 		builder.setEntity(entity);
 		return builder.build();
 	}
