@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
-import cn.epalmpay.analoy.model.trades.TransactionStatusRecord;
 import cn.epalmpay.analoy.qiandaibao.constant.Constant;
 import cn.epalmpay.analoy.qiandaibao.entity.PosQuery;
 import cn.epalmpay.analoy.qiandaibao.entity.TransactionRecordQuery;
@@ -87,48 +86,32 @@ public class QiandaibaoService {
 		final String QD = "QD";
 		String[] bankName = new String[] { "中国工商银行", "交通银行", "广发银行", "中国农业银行", "招商银行", "平安银行", "中国邮政储蓄银行", "中国建设银行" };
 		String[] cardtype = new String[] { "1", "2" };// 1借记卡2贷记卡
-		String[] agentno = new String[] { "986856192260", "986825803310", "981818190230", "981818216288", "986826060820" };
+		String[] agentno = new String[] { "986856192260", "986825803310", "981818190230", "981818216288", "986826060820", "981818680111" };
 		String[] eqno = new String[] { "61021174690", "82316280", "32011085657", "32032038730", "501000082320", "501000013563" };
 		String[] cardno = new String[] { "621559******0617", "622252******9067", "622556******5151", "622848******0679", "621483******1725", "526855******3116", "621799******5532", "621700******1117" };
 
 		Date date = new Date();
-		TransactionStatusRecord record = new TransactionStatusRecord();
 		String format = new SimpleDateFormat("yyyyMMddHH").format(date);
-		String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(date);
-		record.setTime(time);
-		String orderid = QD + format + "-";
-		record.setOrderid(orderid);
-		int agentno_index = generateInt(5);
-		record.setAgentno(agentno[agentno_index]);
-		String money = generateDouble(10);
-		record.setMoney(money);
-		String fee = format(Double.parseDouble(money) * 0.01);
-		record.setFee(fee);
-		String settlemoney = format(Double.parseDouble(money) - Double.parseDouble(fee));
-		record.setSettlemoney(settlemoney);
-		int eqno_index = generateInt(6);
-		record.setEqno(eqno[eqno_index]);
+		String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(date);// 交易时间
+		String orderid = QD + format + "-" + new SimpleDateFormat("HHmmss").format(date);// 订单号
+		int agentno_index = generateInt(6);
+		String money = generateDouble(1000);// 订单支付金额
+		String fee = format(Double.parseDouble(money) * 0.01);// 手续费
+		String settlemoney = format(Double.parseDouble(money) - Double.parseDouble(fee));// 应结算金额
 		int cardno_index = generateInt(8);
-		record.setCardno(cardno[cardno_index]);
 		int cardtype_index = generateInt(2);
-		record.setCardtype(cardtype[cardtype_index]);
-		record.setBankname(bankName[cardno_index]);
 
 		// 计算签名
 		StringBuffer sb = new StringBuffer();
 		sb.append("orderid=" + orderid);
 		sb.append("agentno=" + agentno[agentno_index]);
 		sb.append("money=" + money);
-		sb.append("eqno=" + eqno[eqno_index]);
+		sb.append("eqno=" + eqno[agentno_index]);
 		sb.append("cardno=" + cardno[cardno_index]);
 		sb.append("cardtype=" + cardtype[cardtype_index]);
 		sb.append(MD5key);
 		String md5_str = StringUtils.encryption(sb.toString(), "MD5");
 		logger.info("签名为...." + md5_str);
-
-		record.setRemark("消费通知");
-		record.setSign(md5_str);
-		logger.info(StringUtils.parseObjectToJSONString(record));
 
 		// 发送POST请求
 		Map<String, String> headers = new HashMap<String, String>();
@@ -138,7 +121,7 @@ public class QiandaibaoService {
 		params.put("agentno", agentno[agentno_index]);
 		params.put("money", money);
 		params.put("fee", fee);
-		params.put("eqno", eqno[eqno_index]);
+		params.put("eqno", eqno[agentno_index]);
 		params.put("cardno", cardno[cardno_index]);
 		params.put("cardtype", cardtype[cardtype_index]);
 		params.put("bankName", bankName[cardno_index]);

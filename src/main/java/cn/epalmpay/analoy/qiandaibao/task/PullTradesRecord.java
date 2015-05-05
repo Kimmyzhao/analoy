@@ -12,7 +12,7 @@ public class PullTradesRecord {
 	@Autowired
 	private QiandaibaoService qiandaibaoService;
 
-	@Scheduled(cron = "0 0/1 * * * ?")
+	@Scheduled(cron = "0 0/10 * * * ?")
 	public void task() {
 		qiandaibaoService.getTradeRecord();
 	}
