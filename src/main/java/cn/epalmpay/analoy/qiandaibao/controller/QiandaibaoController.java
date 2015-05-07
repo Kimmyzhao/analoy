@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.epalmpay.analoy.model.Response;
-import cn.epalmpay.analoy.qiandaibao.constant.Constant;
 import cn.epalmpay.analoy.qiandaibao.entity.PosQuery;
 import cn.epalmpay.analoy.qiandaibao.service.QiandaibaoService;
+import cn.epalmpay.analoy.utils.Constant;
 import cn.epalmpay.analoy.utils.HttpUtils;
 import cn.epalmpay.analoy.utils.StringUtils;
 

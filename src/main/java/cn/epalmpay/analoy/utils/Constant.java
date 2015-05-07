@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.qiandaibao.constant;
+package cn.epalmpay.analoy.utils;
 
 public class Constant {
 	/**
@@ -80,6 +80,17 @@ public class Constant {
 	public static final String ERROE_TRADE_MESSAGE = "其他未知错误";
 
 	public static final String FILE_QIANDAIBAO = "classpath:files/qiandaibao/trades2.txt";
-	
+
 	public static final String FILE_QIANDAIBAO_QUERYPOS = "classpath:files/qiandaibao/posQuery.txt";
+
+	public static final String THROUGH_THE_AUDIT_STATUS = "2222";// 开通成功
+	public static final String NOT_THROUGH_THE_AUDIT_STATUS = "1111";// 开通成功
+
+	public static final String ZHONGHUI_FLAG = "1";// 中汇
+	public static final String HANXIN_FLAG = "2";// 韩鑫,现在他们推送订单服务器停了
+	public static final String YIPIAOLIAN_FLAG = "3";// 易票联,不需要导入
+	public static final String XISHUASHUA_FLAG = "4";// 嘻唰唰
+
+	public static final String ILLEGAL_ARGUMENT = "ILLEGAL_ARGUMENT";
+	public static final String ILLEGAL_LOGIN_OR_PASSWD = "ILLEGAL_LOGIN_OR_PASSWD";
 }

@@ -19,9 +19,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
-import cn.epalmpay.analoy.qiandaibao.constant.Constant;
 import cn.epalmpay.analoy.qiandaibao.entity.PosQuery;
 import cn.epalmpay.analoy.qiandaibao.entity.TransactionRecordQuery;
+import cn.epalmpay.analoy.utils.Constant;
 import cn.epalmpay.analoy.utils.FileUtils;
 import cn.epalmpay.analoy.utils.HttpUtils;
 import cn.epalmpay.analoy.utils.StringUtils;
@@ -134,7 +134,6 @@ public class QiandaibaoService {
 			HttpUtils.post(baseurl + pullTradesRecord, headers, params, responseHandler);
 		} catch (IOException e) {
 			logger.error(e.getMessage());
-
 		}
 		return "ok";
 	}
