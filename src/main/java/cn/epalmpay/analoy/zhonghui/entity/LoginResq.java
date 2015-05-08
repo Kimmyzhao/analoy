@@ -131,4 +131,64 @@ public class LoginResq extends Resp {
 		this.atomicReqNo = atomicReqNo;
 	}
 
+	@Override
+	public String getRespTime() {
+		return super.getRespTime();
+	}
+
+	@Override
+	public void setRespTime(String respTime) {
+		super.setRespTime(respTime);
+	}
+
+	@Override
+	public String getRespCode() {
+		return super.getRespCode();
+	}
+
+	@Override
+	public void setRespCode(String respCode) {
+		super.setRespCode(respCode);
+	}
+
+	@Override
+	public String getRespMsg() {
+		return super.getRespMsg();
+	}
+
+	@Override
+	public void setRespMsg(String respMsg) {
+		super.setRespMsg(respMsg);
+	}
+
+	@Override
+	public int getRespNo() {
+		return super.getRespNo();
+	}
+
+	@Override
+	public void setRespNo(int respNo) {
+		super.setRespNo(respNo);
+	}
+
+	@Override
+	public int getReqNo() {
+		return super.getReqNo();
+	}
+
+	@Override
+	public void setReqNo(int reqNo) {
+		super.setReqNo(reqNo);
+	}
+
+	@Override
+	public boolean isSuccess() {
+		return super.isSuccess();
+	}
+
+	@Override
+	public void setSuccess(boolean isSuccess) {
+		super.setSuccess(isSuccess);
+	}
+
 }

@@ -3,13 +3,11 @@ package cn.epalmpay.analoy.qiandaibao.service;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.impl.client.BasicResponseHandler;
@@ -22,6 +20,7 @@ import org.springframework.util.ResourceUtils;
 import cn.epalmpay.analoy.qiandaibao.entity.PosQuery;
 import cn.epalmpay.analoy.qiandaibao.entity.TransactionRecordQuery;
 import cn.epalmpay.analoy.utils.Constant;
+import cn.epalmpay.analoy.utils.DataUtils;
 import cn.epalmpay.analoy.utils.FileUtils;
 import cn.epalmpay.analoy.utils.HttpUtils;
 import cn.epalmpay.analoy.utils.StringUtils;
@@ -94,12 +93,12 @@ public class QiandaibaoService {
 		String format = new SimpleDateFormat("yyyyMMddHH").format(date);
 		String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(date);// 交易时间
 		String orderid = QD + format + "-" + new SimpleDateFormat("HHmmss").format(date);// 订单号
-		int agentno_index = generateInt(6);
-		String money = generateDouble(1000);// 订单支付金额
-		String fee = format(Double.parseDouble(money) * 0.01);// 手续费
-		String settlemoney = format(Double.parseDouble(money) - Double.parseDouble(fee));// 应结算金额
-		int cardno_index = generateInt(8);
-		int cardtype_index = generateInt(2);
+		int agentno_index = DataUtils.generateInt(6);
+		String money = DataUtils.generateDouble(1000);// 订单支付金额
+		String fee = DataUtils.format(Double.parseDouble(money) * 0.01);// 手续费
+		String settlemoney = DataUtils.format(Double.parseDouble(money) - Double.parseDouble(fee));// 应结算金额
+		int cardno_index = DataUtils.generateInt(8);
+		int cardtype_index = DataUtils.generateInt(2);
 
 		// 计算签名
 		StringBuffer sb = new StringBuffer();
@@ -142,35 +141,4 @@ public class QiandaibaoService {
 		new QiandaibaoService().getTradeRecord();
 	}
 
-	/**
-	 * 产生一个随机数
-	 * 
-	 * @param n
-	 * @return
-	 */
-	private static int generateInt(int n) {
-		return new Random().nextInt(n);
-	}
-
-	/**
-	 * 产生一个随机数
-	 * 
-	 * @param money
-	 * @return
-	 */
-	private static String generateDouble(double money) {
-		DecimalFormat format = new DecimalFormat("######0.0000");
-		return format.format(new Random().nextDouble() * money);
-
-	}
-
-	/**
-	 * 格式化,保留四位小数
-	 * 
-	 * @param d
-	 * @return
-	 */
-	private static String format(double d) {
-		return new DecimalFormat("######0.0000").format(d);
-	}
 }
