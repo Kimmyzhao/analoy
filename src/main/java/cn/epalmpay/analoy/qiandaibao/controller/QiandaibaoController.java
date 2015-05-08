@@ -160,4 +160,9 @@ public class QiandaibaoController {
 	public String getAgentInfoByEqno1() {
 		return qiandaibaoService.queryPosState();
 	}
+
+	@RequestMapping(value = "addEqno")
+	public String addEqno() {
+		return null;
+	}
 }
