@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 
 public class FileUtils {
 	public static String txt2String(File file) {
@@ -39,5 +40,20 @@ public class FileUtils {
 		}
 		System.out.println(filecontent);
 		return null;
+	}
+
+	public static void parseFile(File file) throws Exception {
+		try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
+			String line = raf.readLine();
+			while (line != null) {
+				System.out.println(line);
+				line = raf.readLine();
+			}
+		}
+
+	}
+	
+	public static void main(String[] args) throws Exception {
+		parseFile(new File("E:\\studyfile\\jquery-easyui-1.4\\readme.txt"));
 	}
 }

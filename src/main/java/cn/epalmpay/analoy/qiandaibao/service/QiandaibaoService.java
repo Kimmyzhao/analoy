@@ -3,7 +3,6 @@ package cn.epalmpay.analoy.qiandaibao.service;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -34,6 +33,9 @@ public class QiandaibaoService {
 	private String pullTradesRecord;
 	@Value("${zftiming.url}")
 	private String baseurl;
+
+	@Value("${qiandaibao.filepath}")
+	private String filepath;
 
 	public String getTradeRecord1() {
 		File file = null;
@@ -137,8 +139,21 @@ public class QiandaibaoService {
 		return "ok";
 	}
 
-	public static void main(String[] args) throws ParseException {
-		new QiandaibaoService().getTradeRecord();
-	}
+	public void save(String path, String eqno) throws IOException {
+		logger.info(path + filepath);
+		File file = new File(path + filepath);
+		if (!file.exists()) {
+			logger.debug("文件已经存在");
+			file.mkdir();
+		}
+		if (file.getParentFile().exists()) {
+			logger.debug("目标文件所在路径不存在，准备创建。。。");
+		}
+		File f = new File(path + filepath + eqno + Constant.FILE_TYPE);
+		if (!f.exists()) {
+			f.createNewFile();
+		}
+		logger.info("创建文件成功");
 
+	}
 }

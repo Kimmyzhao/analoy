@@ -37,6 +37,8 @@ public class QiandaibaoController {
 	@Value("${qiandaibao.url.pullTradesRecord}")
 	private String pullTradesRecord;
 
+	@Value("${savepath}")
+	private String savepath;
 	@Autowired
 	private QiandaibaoService qiandaibaoService;
 
@@ -163,7 +165,11 @@ public class QiandaibaoController {
 
 	@RequestMapping(value = "addEqno", method = RequestMethod.POST)
 	public String addEqno(String eqno) {
-		logger.debug("这是一个测试" + eqno);
-		return null;
+		try {
+			qiandaibaoService.save(savepath, eqno);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "ok";
 	}
 }

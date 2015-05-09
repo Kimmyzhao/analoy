@@ -94,4 +94,6 @@ public class Constant {
 	public static final String ILLEGAL_ARGUMENT = "ILLEGAL_ARGUMENT";
 	public static final String ILLEGAL_LOGIN_OR_PASSWD = "ILLEGAL_LOGIN_OR_PASSWD";
 	public static final String SUCCESS = "SUCCESS";
+	
+	public static final String FILE_TYPE = ".txt";
 }
