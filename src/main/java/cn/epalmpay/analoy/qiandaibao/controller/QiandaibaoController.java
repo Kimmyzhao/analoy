@@ -161,8 +161,9 @@ public class QiandaibaoController {
 		return qiandaibaoService.queryPosState();
 	}
 
-	@RequestMapping(value = "addEqno")
-	public String addEqno() {
+	@RequestMapping(value = "addEqno", method = RequestMethod.POST)
+	public String addEqno(String eqno) {
+		logger.debug("这是一个测试" + eqno);
 		return null;
 	}
 }
