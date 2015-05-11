@@ -168,14 +168,24 @@ public class EquipMent {
 		this.createdat = createdat;
 	}
 
-	private Date updateAt;
+	private Date updateat;
 
-	public Date getUpdateAt() {
-		return updateAt;
+	public Date getUpdateat() {
+		return updateat;
 	}
 
-	public void setUpdateAt(Date updateAt) {
-		this.updateAt = updateAt;
+	public void setUpdateat(Date updateat) {
+		this.updateat = updateat;
+	}
+
+	private String agentno;
+
+	public String getAgentno() {
+		return agentno;
+	}
+
+	public void setAgentno(String agentno) {
+		this.agentno = agentno;
 	}
 
 }

@@ -8,9 +8,11 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="eqno" jdbcType="VARCHAR" property="eqno" />
+    <result column="agentno" jdbcType="VARCHAR" property="agentno" />
     <result column="eqtype" jdbcType="INTEGER" property="eqtype" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="createdAt" jdbcType="TIMESTAMP" property="createdat" />
+    <result column="updateAt" jdbcType="TIMESTAMP" property="updatedat" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
@@ -60,16 +62,16 @@
     from equipment
   </select>
   
-  <select id="getEuipMent" resultType="map">
+  <select id="getEuipMent" resultMap="BaseResultMap">
   	SELECT * FROM equipment e WHERE e.eqno = #{param2} AND e.eqtype = #{param1} AND e.status = 1
   </select>
   
   <select id="getEqnoByStatus" resultType="map">
-  	SELECT * FROM equipment e WHERE e.status = 1
+  	SELECT * FROM equipment e WHERE e.status = 2
   </select>
   
   <update id="updateStatus">
-  	UPDATE equipment SET status = 2, updateAt = now() WHERE status in 
+  	UPDATE equipment SET status = 1, updateAt = now() WHERE status in 
   	<foreach item="ids" collection="ids" open="(" separator="," close=")">
 			#{ids}
 	</foreach>

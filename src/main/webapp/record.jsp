@@ -33,5 +33,27 @@
 		<label>消费金额</label><input type="text" id="money" name="money"><br /> 
 		<input type="submit" value="提交">
 	</form>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<thead>
+			<tr>
+				<th>支付通道</th>
+				<th>终端号(S/N)</th>
+				<th>结算银行名称</th>
+				<th>结算银行卡号</th>
+				<th>结算银行卡类型</th>
+				<th>消费金额</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>
