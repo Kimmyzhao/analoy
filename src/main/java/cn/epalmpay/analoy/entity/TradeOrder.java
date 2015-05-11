@@ -365,4 +365,15 @@ public class TradeOrder {
 	public void setCreatedat(Date createdat) {
 		this.createdat = createdat;
 	}
+
+	private String eqno;
+
+	public String getEqno() {
+		return eqno;
+	}
+
+	public void setEqno(String eqno) {
+		this.eqno = eqno;
+	}
+
 }

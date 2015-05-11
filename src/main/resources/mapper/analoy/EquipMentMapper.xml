@@ -59,4 +59,19 @@
     select id, eqno, eqtype, status, createdAt
     from equipment
   </select>
+  
+  <select id="getEuipMent" resultType="map">
+  	SELECT * FROM equipment e WHERE e.eqno = #{param2} AND e.eqtype = #{param1} AND e.status = 1
+  </select>
+  
+  <select id="getEqnoByStatus" resultType="map">
+  	SELECT * FROM equipment e WHERE e.status = 1
+  </select>
+  
+  <update id="updateStatus">
+  	UPDATE equipment SET status = 2, updateAt = now() WHERE status in 
+  	<foreach item="ids" collection="ids" open="(" separator="," close=")">
+			#{ids}
+	</foreach>
+  </update>
 </mapper>

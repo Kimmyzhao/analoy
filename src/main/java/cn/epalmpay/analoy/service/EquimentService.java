@@ -1,6 +1,8 @@
 package cn.epalmpay.analoy.service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +24,18 @@ public class EquimentService {
 		record.setStatus(2);
 		return equipMentMapper.insert(record);
 
+	}
+
+	public int updateStatus() {
+		List<Map<String, Object>> list = equipMentMapper.getEqnoByStatus();
+		if (list != null && !list.isEmpty()) {
+			String[] ids = new String[list.size()];
+			for (int i = 0; i < list.size(); i++) {
+				ids[i] = list.get(i).get("id").toString();
+			}
+
+			return equipMentMapper.updateStatus(ids);
+		}
+		return 0;
 	}
 }

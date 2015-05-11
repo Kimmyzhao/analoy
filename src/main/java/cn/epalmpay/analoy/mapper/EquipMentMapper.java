@@ -1,6 +1,7 @@
 package cn.epalmpay.analoy.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.epalmpay.analoy.entity.EquipMent;
 
@@ -44,4 +45,10 @@ public interface EquipMentMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(EquipMent record);
+
+	EquipMent getEuipMent(int type, String eqno);
+
+	List<Map<String, Object>> getEqnoByStatus();
+
+	int updateStatus(String[] ids);
 }

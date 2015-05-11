@@ -167,4 +167,15 @@ public class EquipMent {
 	public void setCreatedat(Date createdat) {
 		this.createdat = createdat;
 	}
+
+	private Date updateAt;
+
+	public Date getUpdateAt() {
+		return updateAt;
+	}
+
+	public void setUpdateAt(Date updateAt) {
+		this.updateAt = updateAt;
+	}
+
 }
