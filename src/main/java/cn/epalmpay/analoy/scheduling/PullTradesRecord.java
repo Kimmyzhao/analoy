@@ -1,10 +1,10 @@
-package cn.epalmpay.analoy.qiandaibao.task;
+package cn.epalmpay.analoy.scheduling;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import cn.epalmpay.analoy.qiandaibao.service.QiandaibaoService;
+import cn.epalmpay.analoy.service.qiandaibao.QiandaibaoService;
 
 @Component
 public class PullTradesRecord {

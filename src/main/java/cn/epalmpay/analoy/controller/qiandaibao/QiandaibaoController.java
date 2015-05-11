@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.qiandaibao.controller;
+package cn.epalmpay.analoy.controller.qiandaibao;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.epalmpay.analoy.entity.qiandaibao.PosQuery;
 import cn.epalmpay.analoy.model.Response;
-import cn.epalmpay.analoy.qiandaibao.entity.PosQuery;
-import cn.epalmpay.analoy.qiandaibao.service.QiandaibaoService;
+import cn.epalmpay.analoy.service.qiandaibao.QiandaibaoService;
 import cn.epalmpay.analoy.utils.Constant;
 import cn.epalmpay.analoy.utils.HttpUtils;
 import cn.epalmpay.analoy.utils.StringUtils;
@@ -163,13 +163,4 @@ public class QiandaibaoController {
 		return qiandaibaoService.queryPosState();
 	}
 
-	@RequestMapping(value = "addEqno", method = RequestMethod.POST)
-	public String addEqno(String eqno) {
-		try {
-			qiandaibaoService.save(savepath, eqno);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "ok";
-	}
 }

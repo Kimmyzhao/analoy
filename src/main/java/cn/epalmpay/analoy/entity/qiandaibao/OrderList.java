@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.qiandaibao.entity;
+package cn.epalmpay.analoy.entity.qiandaibao;
 
 public class OrderList {
 	private String time;// 交易时间，例如：2012-03-09 16:26:34

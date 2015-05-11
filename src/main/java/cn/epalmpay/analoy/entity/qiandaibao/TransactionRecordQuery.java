@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.qiandaibao.entity;
+package cn.epalmpay.analoy.entity.qiandaibao;
 
 public class TransactionRecordQuery {
 	private String code;// 响应码

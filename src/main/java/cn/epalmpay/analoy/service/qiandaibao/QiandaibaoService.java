@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.qiandaibao.service;
+package cn.epalmpay.analoy.service.qiandaibao;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,12 +12,15 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
-import cn.epalmpay.analoy.qiandaibao.entity.PosQuery;
-import cn.epalmpay.analoy.qiandaibao.entity.TransactionRecordQuery;
+import cn.epalmpay.analoy.entity.EquipMent;
+import cn.epalmpay.analoy.entity.qiandaibao.PosQuery;
+import cn.epalmpay.analoy.entity.qiandaibao.TransactionRecordQuery;
+import cn.epalmpay.analoy.mapper.EquipMentMapper;
 import cn.epalmpay.analoy.utils.Constant;
 import cn.epalmpay.analoy.utils.DataUtils;
 import cn.epalmpay.analoy.utils.FileUtils;
@@ -36,6 +39,9 @@ public class QiandaibaoService {
 
 	@Value("${qiandaibao.filepath}")
 	private String filepath;
+
+	@Autowired
+	private EquipMentMapper equipMentMapper;
 
 	public String getTradeRecord1() {
 		File file = null;
@@ -154,6 +160,16 @@ public class QiandaibaoService {
 			f.createNewFile();
 		}
 		logger.info("创建文件成功");
+
+	}
+
+	public int insert(String eqno, String type) {
+		EquipMent record = new EquipMent();
+		record.setEqno(eqno);
+		record.setEqtype(Integer.parseInt(type));
+		record.setCreatedat(new Date());
+		record.setStatus(2);
+		return equipMentMapper.insert(record);
 
 	}
 }
