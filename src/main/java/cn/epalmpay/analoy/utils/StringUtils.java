@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -140,5 +142,78 @@ public abstract class StringUtils {
 		}
 
 		return cardno;
+	}
+
+	/**
+	 * 格式化字符串
+	 * 
+	 * 例：formateString("xxx{0}bbb",1) = xxx1bbb
+	 * 
+	 * @param str
+	 * @param params
+	 * @return
+	 */
+	public static String formateString(String str, String... params) {
+		for (int i = 0; i < params.length; i++) {
+			str = str.replace("{" + i + "}", params[i] == null ? "" : params[i]);
+		}
+		return str;
+	}
+
+	/**
+	 * 日期转字符串
+	 * 
+	 * @param date
+	 *            日期
+	 * @param pattern
+	 *            格式
+	 * @return
+	 */
+	public static String dateToString(Date date, String pattern) {
+		if (date != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+			return sdf.format(date);
+		}
+		return "";
+	}
+
+	/**
+	 * 日期转字符串
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static String dateToString(Date date) {
+		return dateToString(date, "yyyy-MM-dd hh:mm:ss");
+	}
+
+	/** 为以逗号分隔的字符串的每个单元加入引号,如:aa,bb-->'aa','bb' */
+	public static String formatString(String src) {
+		StringBuffer result = new StringBuffer();
+		result.append("");
+		if (src != null) {
+			String[] tmp = src.split(",");
+			result.append("'" + tmp[0] + "'");
+			for (int i = 1; i < tmp.length; i++) {
+				result.append(",'" + tmp[i] + "'");
+			}
+		}
+		return result.toString();
+	}
+
+	/** 生成编号 */
+	public static String formatCode(String code) {
+		try {
+			int length = code.length();
+			Integer num = Integer.valueOf(code.substring(length - 4, length)) + 1;
+			String codenum = num.toString();
+			int codelength = codenum.length();
+			for (int i = 4; i > codelength; i--) {
+				codenum = "0" + codenum;
+			}
+			return codenum;
+		} catch (NumberFormatException e) {
+			return "0100";
+		}
 	}
 }

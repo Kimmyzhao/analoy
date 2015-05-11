@@ -12,6 +12,7 @@ import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 public class POIUtils {
@@ -22,7 +23,8 @@ public class POIUtils {
 	 * @param wb工作薄
 	 * @param sheet工作表
 	 * @param head表头
-	 * @param index列索引(从0开始,6表示第七列)<br/>
+	 * @param index列索引
+	 *            (从0开始,6表示第七列)<br/>
 	 */
 	public static void createHead(HSSFWorkbook wb, HSSFSheet sheet, String head, int index) {
 		// 设置第一行
@@ -54,12 +56,14 @@ public class POIUtils {
 	 * 
 	 * @param columHeader标题字符串数组
 	 */
-	
+
 	/**
 	 * 设置报表标题
+	 * 
 	 * @param wb工作薄
 	 * @param sheet工作表
-	 * @param index行索引(从0开始,6表示从第七行)
+	 * @param index行索引
+	 *            (从0开始,6表示从第七行)
 	 * @param columHeader
 	 */
 	public static void createTitle(HSSFWorkbook wb, HSSFSheet sheet, int index, String[] columHeader) {
@@ -159,5 +163,42 @@ public class POIUtils {
 		wb.write(os);
 		os.close();
 		System.out.println("测试成功");
+	}
+
+	/**
+	 * 由于Excel当中的单元格Cell存在类型,若获取类型错误就会产生异常, 所以通过此方法将Cell内容全部转换为String类型
+	 * 
+	 * @param cell
+	 * @return
+	 */
+	public static String getCellValue(Cell cell) {
+		String str = null;
+		if (cell != null) {
+			switch (cell.getCellType()) {
+			case Cell.CELL_TYPE_BLANK:
+				str = "";
+				break;
+			case Cell.CELL_TYPE_BOOLEAN:
+				str = String.valueOf(cell.getBooleanCellValue());
+				break;
+			case Cell.CELL_TYPE_FORMULA:
+				str = String.valueOf(cell.getCellFormula());
+				break;
+			case Cell.CELL_TYPE_NUMERIC:
+				if (org.apache.poi.ss.usermodel.DateUtil.isCellDateFormatted(cell)) {
+					str = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(cell.getDateCellValue());
+				} else {
+					str = String.valueOf((long) cell.getNumericCellValue());
+				}
+				break;
+			case Cell.CELL_TYPE_STRING:
+				str = String.valueOf(cell.getStringCellValue());
+				break;
+			default:
+				str = null;
+				break;
+			}
+		}
+		return str;
 	}
 }
