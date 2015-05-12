@@ -162,26 +162,6 @@ public class LoginResq extends Resp {
 	}
 
 	@Override
-	public int getRespNo() {
-		return super.getRespNo();
-	}
-
-	@Override
-	public void setRespNo(int respNo) {
-		super.setRespNo(respNo);
-	}
-
-	@Override
-	public int getReqNo() {
-		return super.getReqNo();
-	}
-
-	@Override
-	public void setReqNo(int reqNo) {
-		super.setReqNo(reqNo);
-	}
-
-	@Override
 	public boolean isSuccess() {
 		return super.isSuccess();
 	}

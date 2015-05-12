@@ -44,4 +44,12 @@ public class EquimentService {
 		}
 		return 0;
 	}
+
+	public Map<String, Object> getEqByEqno(String eqno) {
+		return equipMentMapper.getEqByEqno(eqno);
+	}
+
+	public Map<String, Object> login(String loginName, String password) {
+		return equipMentMapper.login(loginName, password);
+	}
 }

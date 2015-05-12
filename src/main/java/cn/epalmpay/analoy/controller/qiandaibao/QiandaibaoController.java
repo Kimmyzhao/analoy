@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.epalmpay.analoy.entity.EquipMent;
 import cn.epalmpay.analoy.entity.qiandaibao.PosQuery;
 import cn.epalmpay.analoy.model.Response;
+import cn.epalmpay.analoy.service.EquimentService;
 import cn.epalmpay.analoy.service.qiandaibao.QiandaibaoService;
 import cn.epalmpay.analoy.utils.Constant;
 import cn.epalmpay.analoy.utils.HttpUtils;
@@ -41,6 +43,8 @@ public class QiandaibaoController {
 	private String savepath;
 	@Autowired
 	private QiandaibaoService qiandaibaoService;
+	@Autowired
+	private EquimentService equimentService;
 
 	@RequestMapping(value = "getAgentInfoByEqno2", method = RequestMethod.POST)
 	public Response getAgentInfoByEqno2(@RequestBody Map<String, Object> param) {
@@ -90,13 +94,27 @@ public class QiandaibaoController {
 	public String getAgentInfoByEqno(String eqno, String now, String remark, String sign) {
 		logger.debug("接受的参数... eqno={},now={},remark={},sign={}", eqno, now, remark, sign);
 		PosQuery pos = new PosQuery();
-		pos.setCode(Constant.SUCCESS_POS_CODE);
-		pos.setMsg(Constant.SUCCESS_POS_MESSAGE);
-		pos.setEqno(eqno);
-		pos.setAgentno("986825803310");
-		pos.setName("模拟测试");
-		pos.setUsername("13524226184");
-		pos.setRemark("已开通");
+		Map<String, Object> map = equimentService.getEqByEqno(eqno);
+		if (map != null) {
+			if (EquipMent.OPEN_STATUS == Integer.parseInt(map.get("status").toString())) {
+				pos.setCode(Constant.HAS_OPENED_POS_CODE);
+				pos.setMsg(Constant.SUCCESS_POS_MESSAGE);
+				pos.setRemark("已开通");
+			} else {
+				pos.setCode(Constant.HAS_NOT_OPENED_POS_CODE);
+				pos.setMsg(Constant.HAS_NOT_OPENED_POS_MESSAGE);
+				pos.setRemark("未开通,请耐心等待.....");
+			}
+
+			pos.setEqno(eqno);
+			pos.setAgentno(map.get("agentno") == null ? "" : map.get("agentno").toString());
+			pos.setName(map.get("username") == null ? "" : map.get("username").toString());
+			pos.setUsername(map.get("loginName") == null ? "" : map.get("loginName").toString());
+		} else {
+			pos.setCode(Constant.ERROR_POS_CODE);
+			pos.setMsg(Constant.ERROR_POS_MESSAGE);
+			pos.setRemark("该设备不存在");
+		}
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("code=" + Constant.SUCCESS_POS_CODE);

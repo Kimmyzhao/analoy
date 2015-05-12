@@ -51,4 +51,8 @@ public interface EquipMentMapper {
 	int updateStatus(String[] ids);
 
 	EquipMent getEuipMent(int status, String eqno);
+
+	Map<String, Object> getEqByEqno(String eqno);
+
+	Map<String, Object> login(String loginName, String password);
 }

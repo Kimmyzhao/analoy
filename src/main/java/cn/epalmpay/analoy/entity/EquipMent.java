@@ -3,6 +3,9 @@ package cn.epalmpay.analoy.entity;
 import java.util.Date;
 
 public class EquipMent {
+
+	public static final int OPEN_STATUS = 1;// 开通
+	public static final int NOT_OPEN_STATUS = 2;// 未开通
 	private Integer id;
 	private String eqno;
 	private String agentno;

@@ -99,9 +99,17 @@
   </select>
   
   <update id="updateStatus">
-  	UPDATE equipment SET status = 1, updateAt = now() WHERE id in 
-  	<foreach close=")" collection="ids" item="ids" open="(" separator=",">
-			#{array}
+  	UPDATE equipment SET status = 1, updatedAt = now() WHERE id in 
+  	<foreach close=")" collection="array" item="id" open="(" separator=",">
+			#{id}
 	</foreach>
   </update>
+  
+  <select id="getEqByEqno" resultType="map">
+  	SELECT * FROM equipment e WHERE e.eqno = #{param1} AND e.eqtype = 1
+  </select>
+  
+  <select id="login" resultType="map">
+  	SELECT * FROM equipment e WHERE e.loginName = #{param1} AND e.password = #{param2} e.eqtype = 2
+  </select>
 </mapper>

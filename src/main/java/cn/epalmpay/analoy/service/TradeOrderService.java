@@ -2,7 +2,7 @@ package cn.epalmpay.analoy.service;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -105,6 +105,10 @@ public class TradeOrderService {
 				if (!file.exists()) {
 					file.mkdir();
 				}
+
+				if (!file.getParentFile().exists()) {
+					file.mkdir();
+				}
 				String path = savepath + StringUtils.dateToString(date, "yyyy-MM-dd") + Constant.FILE_TYPE;
 				File recordfile = new File(path);
 				if (!recordfile.exists()) {
@@ -117,8 +121,9 @@ public class TradeOrderService {
 				}
 
 				Trades trade = setTrades(eq, date, order);
-				appendtradeorder(recordfile, trade);
+				appendtradeorder(path, trade);
 			}
+			return 1;
 		}
 		return 0;
 	}
@@ -129,10 +134,9 @@ public class TradeOrderService {
 	 * @param recordfile
 	 * @param trade
 	 */
-	private void appendtradeorder(File recordfile, Trades trade) {
-		FileOutputStream out = null;
+	private void appendtradeorder(String fileName, Trades trade) {
 		try {
-			out = new FileOutputStream(recordfile);
+			FileWriter writer = new FileWriter(fileName, true);
 			StringBuffer sb = new StringBuffer();
 			sb.append(trade.getDevKSN() + Constant.FILE_SPLIT);
 			sb.append(trade.getTransflowno() + Constant.FILE_SPLIT);
@@ -145,9 +149,9 @@ public class TradeOrderService {
 			sb.append(trade.getMerchantname() + Constant.FILE_SPLIT);
 			sb.append(trade.getReferenceno() + Constant.FILE_SPLIT);
 			sb.append(trade.getTransno());
-			byte[] buffer = sb.toString().getBytes();
-			out.write(buffer);
-			out.close();
+			sb.append("\n");
+			writer.write(sb.toString());
+			writer.close();
 		} catch (FileNotFoundException e) {
 			logger.error(e.getMessage());
 		} catch (IOException e) {

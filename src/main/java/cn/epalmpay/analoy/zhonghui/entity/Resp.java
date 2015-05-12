@@ -11,8 +11,6 @@ public class Resp {
 	private String respTime;
 	private String respCode;
 	private String respMsg;
-	private int respNo;
-	private int reqNo;
 	private boolean isSuccess;
 
 	public String getRespTime() {
@@ -39,37 +37,11 @@ public class Resp {
 		this.respMsg = respMsg;
 	}
 
-	public int getRespNo() {
-		return respNo;
-	}
-
-	public void setRespNo(int respNo) {
-		this.respNo = respNo;
-	}
-
-	public int getReqNo() {
-		return reqNo;
-	}
-
-	public void setReqNo(int reqNo) {
-		this.reqNo = reqNo;
-	}
-
 	public boolean isSuccess() {
 		return isSuccess;
 	}
 
 	public void setSuccess(boolean isSuccess) {
-		this.isSuccess = isSuccess;
-	}
-
-	public Resp(String respTime, String respCode, String respMsg, int respNo, int reqNo, boolean isSuccess) {
-		super();
-		this.respTime = respTime;
-		this.respCode = respCode;
-		this.respMsg = respMsg;
-		this.respNo = respNo;
-		this.reqNo = reqNo;
 		this.isSuccess = isSuccess;
 	}
 
