@@ -10,6 +10,8 @@ import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
+import cn.epalmpay.analoy.utils.StringUtils;
+
 /**
  * 需要注意以下几点<br/>
  * 1、spring的@Scheduled注解 需要写在实现上<br/>
@@ -55,7 +57,7 @@ public class Test1 {
 		System.out.println("test5->doing fixedDelayString->" + new Date());
 	}
 
-	public static void main(String[] args)throws Exception {
+	public static void main(String[] args) throws Exception {
 		// 信息缓存
 		List<String> warnings = new ArrayList<String>();
 		// 覆盖已有的重名文件

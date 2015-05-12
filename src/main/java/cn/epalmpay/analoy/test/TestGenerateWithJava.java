@@ -4,15 +4,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
 public class TestGenerateWithJava {
-	@Test
-	public void testBuild() throws Exception {
+
+	public static void main(String[] args) throws Exception {
 		// 信息缓存
 		List<String> warnings = new ArrayList<String>();
 		// 覆盖已有的重名文件

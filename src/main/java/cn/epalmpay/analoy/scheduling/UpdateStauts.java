@@ -14,7 +14,7 @@ public class UpdateStauts {
 	@Autowired
 	private EquimentService equimentService;
 
-	@Scheduled(cron = "0 0/30 * * * ?")
+	@Scheduled(cron = "0 0/15 * * * ?")
 	public void task() {
 		logger.info("修改状态开始........");
 		equimentService.updateStatus();
