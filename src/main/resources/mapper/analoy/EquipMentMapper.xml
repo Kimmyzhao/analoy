@@ -101,7 +101,7 @@
   <update id="updateStatus">
   	UPDATE equipment SET status = 1, updateAt = now() WHERE id in 
   	<foreach close=")" collection="ids" item="ids" open="(" separator=",">
-			#{ids}
+			#{array}
 	</foreach>
   </update>
 </mapper>
