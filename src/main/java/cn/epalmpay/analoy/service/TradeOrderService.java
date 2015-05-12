@@ -1,7 +1,6 @@
 package cn.epalmpay.analoy.service;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,31 +37,31 @@ public class TradeOrderService {
 	@Autowired
 	private EquipMentMapper equipMentMapper;
 
-	public int save(String paytype, String eqno, String bankName, String cardno, String cardtype, double money) {
+	public int save(String paytype, String eqno, String bankName, String cardno, String cardtype, String tradetype, double money) {
 		String[] agentno = new String[] { "986856192260", "986825803310", "981818190230", "981818216288", "986826060820", "981818680111" };
 		EquipMent eq = equipMentMapper.getEuipMent(Integer.parseInt(paytype), eqno);
 		if (eq != null) {
 			String orderid = "";
 			double fee = 0.00;
 			Date date = new Date();
-			String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(date);// 交易时间
+			String time = StringUtils.dateToString(date, "yyyy-MM-dd HH:mm:ss.SSS");// 交易时间
 			TradeOrder order = new TradeOrder();
 			if (Integer.parseInt(paytype) == 1) {// 钱袋宝
-				orderid = "QD" + new SimpleDateFormat("yyyyMMddHH").format(date) + "-" + new SimpleDateFormat("HHmmss").format(date);
+				orderid = "QD" + StringUtils.dateToString(date, "yyyyMMddHH") + "-" + StringUtils.dateToString(date, "HHmmss");
 				order.setTransactionalNumber(orderid);
 			} else if (Integer.parseInt(paytype) == 2) {// 中汇
-
+				orderid = StringUtils.dateToString(date, "yyyyMMddHHmmssSSS");
 			}
-			order.setPaytype(Integer.parseInt(paytype));
-			order.setSettlebankname(getBankName(Integer.parseInt(bankName)));
-			order.setSettlecardno(cardno);
-			order.setCardtype(Integer.parseInt(cardtype));
-			order.setMoney(money);
+			order.setPaytype(Integer.parseInt(paytype));// 支付通道
+			order.setSettlebankname(getBankName(Integer.parseInt(bankName)));// 结算银行
+			order.setSettlecardno(cardno);// 银行账号
+			order.setCardtype(Integer.parseInt(cardtype));// 银行卡类型
+			order.setMoney(money);// 结算金额
 			fee = money * 0.001;
-			order.setFee(fee);
-			order.setSettlemoney(money - fee);
-			order.setEqId(eq.getId());
-			order.setCreatedat(date);
+			order.setFee(fee);// 手续费
+			order.setSettlemoney(money - fee);// 实际结算金额
+			order.setEquipmentid(eq.getId());// 设备ID
+			order.setCreatedat(date);// 创建时间
 			tradeOrderMapper.insert(order);
 
 			int agentno_index = DataUtils.generateInt(6);

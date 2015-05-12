@@ -17,9 +17,9 @@ public class TradeOrderController {
 	private TradeOrderService tradeOrderService;
 
 	@RequestMapping(value = "addTradeOrder", method = RequestMethod.POST)
-	public String addTradeOrder(String paytype, String eqno, String bankName, String cardno, String cardtype, double money) {
+	public String addTradeOrder(String paytype, String eqno, String bankName, String cardno, String cardtype, String tradetype, double money) {
 		logger.info(paytype + ":" + eqno + ":" + bankName + ":" + cardno + ":" + cardtype + ":" + money);
-		if (tradeOrderService.save(paytype, eqno, bankName, cardno, cardtype, money) == 0) {
+		if (tradeOrderService.save(paytype, eqno, bankName, cardno, cardtype, tradetype, money) == 0) {
 			return "该终端还未开通,不能消费";
 		}
 		return "ok";

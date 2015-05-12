@@ -10,11 +10,11 @@
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
 			connectionURL="jdbc:mysql://localhost:3306/analoy?characterEncoding=UTF-8"
 			userId="root" password="root" />
-		<javaModelGenerator targetPackage="src\main\java\cn.epalmpay.analoy.entity"
+		<javaModelGenerator targetPackage="E:\Users\DELL\git\analoy\src\main\java\cn.epalmpay.analoy.entity"
 			targetProject="E:\Users\DELL\git\analoy" />
 		<sqlMapGenerator targetPackage="mapper.analoy"
 			targetProject="E:\Users\DELL\git\analoy\src\main\resources" />
-		<javaClientGenerator targetPackage="src\main\java\cn.epalmpay.analoy.mapper"
+		<javaClientGenerator targetPackage="E:\Users\DELL\git\analoy\src\main\java\cn.epalmpay.analoy.mapper"
 			targetProject="E:\Users\DELL\git\analoy" type="XMLMAPPER">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>

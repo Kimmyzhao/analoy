@@ -46,9 +46,9 @@ public interface EquipMentMapper {
      */
     int updateByPrimaryKey(EquipMent record);
 
-	EquipMent getEuipMent(int type, String eqno);
-
 	List<Map<String, Object>> getEqnoByStatus();
 
 	int updateStatus(String[] ids);
+
+	EquipMent getEuipMent(int parseInt, String eqno);
 }

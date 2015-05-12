@@ -30,6 +30,8 @@
 		<label>银行卡号</label><input type="text" id="cardno" name="cardno"><br />
 		<label>银行卡类型</label><input type="radio" name="cardtype" value="1">借记卡
 							   <input type="radio" name="cardtype" value="2">贷记卡<br/>
+		<label>交易类型</label><input type="radio" name="tradetype" value="1">消费
+							 <input type="radio" name="tradetype" value="2">充值<br />
 		<label>消费金额</label><input type="text" id="money" name="money"><br /> 
 		<input type="submit" value="提交">
 	</form>
@@ -41,17 +43,19 @@
 				<th>结算银行名称</th>
 				<th>结算银行卡号</th>
 				<th>结算银行卡类型</th>
+				<th>交易类型</th>
 				<th>消费金额</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>钱袋宝</td>
+				<td>82316280</td>
+				<td>中国工商银行</td>
+				<td>621559******0617</td>
+				<td>借记卡</td>
+				<td>消费</td>
+				<td>￥100.00</td>
 			</tr>
 		</tbody>
 	</table>
