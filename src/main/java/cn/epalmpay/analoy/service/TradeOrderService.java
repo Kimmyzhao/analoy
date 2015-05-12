@@ -1,5 +1,8 @@
 package cn.epalmpay.analoy.service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,9 +20,11 @@ import cn.epalmpay.analoy.entity.EquipMent;
 import cn.epalmpay.analoy.entity.TradeOrder;
 import cn.epalmpay.analoy.mapper.EquipMentMapper;
 import cn.epalmpay.analoy.mapper.TradeOrderMapper;
+import cn.epalmpay.analoy.utils.Constant;
 import cn.epalmpay.analoy.utils.DataUtils;
 import cn.epalmpay.analoy.utils.HttpUtils;
 import cn.epalmpay.analoy.utils.StringUtils;
+import cn.epalmpay.analoy.zhonghui.entity.Trades;
 
 @Service
 public class TradeOrderService {
@@ -31,7 +36,8 @@ public class TradeOrderService {
 	private String pullTradesRecord;
 	@Value("${zftiming.url}")
 	private String baseurl;
-
+	@Value("${savepath}")
+	private String savepath;
 	@Autowired
 	private TradeOrderMapper tradeOrderMapper;
 	@Autowired
@@ -52,6 +58,7 @@ public class TradeOrderService {
 			} else if (Integer.parseInt(paytype) == 2) {// 中汇
 				orderid = StringUtils.dateToString(date, "yyyyMMddHHmmssSSS");
 			}
+			order.setTransactionalNumber(orderid);
 			order.setPaytype(Integer.parseInt(paytype));// 支付通道
 			order.setSettlebankname(getBankName(Integer.parseInt(bankName)));// 结算银行
 			order.setSettlecardno(cardno);// 银行账号
@@ -61,23 +68,14 @@ public class TradeOrderService {
 			order.setFee(fee);// 手续费
 			order.setSettlemoney(money - fee);// 实际结算金额
 			order.setEquipmentid(eq.getId());// 设备ID
+			order.setTradetype(Integer.parseInt(tradetype));// 交易类型
 			order.setCreatedat(date);// 创建时间
 			tradeOrderMapper.insert(order);
 
 			int agentno_index = DataUtils.generateInt(6);
-			String agentno1 = agentno[agentno_index];
 			if (Integer.parseInt(paytype) == 1) {
 				// 计算签名
-				StringBuffer sb = new StringBuffer();
-				sb.append("orderid=" + orderid);
-				sb.append("agentno=" + agentno1);
-				sb.append("money=" + money);
-				sb.append("eqno=" + eqno);
-				sb.append("cardno=" + StringUtils.toProSub(cardno));
-				sb.append("cardtype=" + cardtype);
-				sb.append(MD5key);
-				logger.debug(MD5key);
-				String md5_str = StringUtils.encryption(sb.toString(), "MD5");
+				String md5_str = StringUtils.encryption(getSign(eq, order), "MD5");
 				logger.info("签名为...." + md5_str);
 
 				// 发送POST请求
@@ -102,9 +100,103 @@ public class TradeOrderService {
 				} catch (IOException e) {
 					logger.error(e.getMessage());
 				}
+			} else if (2 == Integer.parseInt(paytype)) {// 钱袋宝
+				File file = new File(savepath);
+				if (!file.exists()) {
+					file.mkdir();
+				}
+				String path = savepath + StringUtils.dateToString(date, "yyyy-MM-dd") + Constant.FILE_TYPE;
+				File recordfile = new File(path);
+				if (!recordfile.exists()) {
+					try {
+						recordfile.createNewFile();
+					} catch (IOException e) {
+						logger.error(e.getMessage());
+
+					}
+				}
+
+				Trades trade = setTrades(eq, date, order);
+				appendtradeorder(recordfile, trade);
 			}
 		}
 		return 0;
+	}
+
+	/**
+	 * 向文件中追加交易记录
+	 * 
+	 * @param recordfile
+	 * @param trade
+	 */
+	private void appendtradeorder(File recordfile, Trades trade) {
+		FileOutputStream out = null;
+		try {
+			out = new FileOutputStream(recordfile);
+			StringBuffer sb = new StringBuffer();
+			sb.append(trade.getDevKSN() + Constant.FILE_SPLIT);
+			sb.append(trade.getTransflowno() + Constant.FILE_SPLIT);
+			sb.append(trade.getTranstime() + Constant.FILE_SPLIT);
+			sb.append(trade.getTransmoney() + Constant.FILE_SPLIT);
+			sb.append(trade.getPayCardNo() + Constant.FILE_SPLIT);
+			sb.append(trade.getTranstype() + Constant.FILE_SPLIT);
+			sb.append(trade.getTransState() + Constant.FILE_SPLIT);
+			sb.append(trade.getMerchantno() + Constant.FILE_SPLIT);
+			sb.append(trade.getMerchantname() + Constant.FILE_SPLIT);
+			sb.append(trade.getReferenceno() + Constant.FILE_SPLIT);
+			sb.append(trade.getTransno());
+			byte[] buffer = sb.toString().getBytes();
+			out.write(buffer);
+			out.close();
+		} catch (FileNotFoundException e) {
+			logger.error(e.getMessage());
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
+	}
+
+	/**
+	 * 设置交易流水
+	 * 
+	 * @param eq
+	 * @param date
+	 * @param order
+	 * @return
+	 */
+	private Trades setTrades(EquipMent eq, Date date, TradeOrder order) {
+		Trades trade = new Trades();
+		trade.setDevKSN(eq.getEqno());// 设备号
+		trade.setTransflowno(order.getTransactionalNumber());// 交易流水号
+		trade.setTranstime(StringUtils.dateToString(date, "yyyy-MM-dd HH:mm:ss"));// 交易时间
+		trade.setTransmoney(order.getMoney() + "");
+		trade.setPayCardNo(StringUtils.toProSub(order.getSettlecardno()));
+		trade.setTranstype(order.getTradetype() + "");
+		trade.setTransState("1");
+		trade.setMerchantno(eq.getAgentno());
+		trade.setMerchantname(eq.getAgentname());
+		trade.setReferenceno(StringUtils.dateToString(date, "yyyyMMddHHmm"));
+		trade.setTransno(StringUtils.dateToString(date, "yyyyMMddHHmm"));
+		return trade;
+	}
+
+	/**
+	 * 得到签名
+	 * 
+	 * @param eq
+	 * @param order
+	 * @return
+	 */
+	private String getSign(EquipMent eq, TradeOrder order) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("orderid=" + order.getTransactionalNumber());
+		sb.append("agentno=" + eq.getAgentno());
+		sb.append("money=" + order.getMoney());
+		sb.append("eqno=" + eq.getEqno());
+		sb.append("cardno=" + StringUtils.toProSub(order.getSettlecardno()));
+		sb.append("cardtype=" + order.getCardtype());
+		sb.append(MD5key);
+		logger.debug(MD5key);
+		return sb.toString();
 	}
 
 	private String getBankName(int index) {

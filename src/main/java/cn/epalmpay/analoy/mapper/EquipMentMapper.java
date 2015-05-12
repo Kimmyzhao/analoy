@@ -50,5 +50,5 @@ public interface EquipMentMapper {
 
 	int updateStatus(String[] ids);
 
-	EquipMent getEuipMent(int parseInt, String eqno);
+	EquipMent getEuipMent(int status, String eqno);
 }

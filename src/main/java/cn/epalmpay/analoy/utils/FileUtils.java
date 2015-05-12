@@ -56,4 +56,6 @@ public class FileUtils {
 	public static void main(String[] args) throws Exception {
 		parseFile(new File("E:\\studyfile\\jquery-easyui-1.4\\readme.txt"));
 	}
+	
+	
 }

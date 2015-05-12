@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import cn.epalmpay.analoy.entity.EquipMent;
 import cn.epalmpay.analoy.mapper.EquipMentMapper;
+import cn.epalmpay.analoy.utils.DataUtils;
 
 @Service
 public class EquimentService {
@@ -17,11 +18,16 @@ public class EquimentService {
 	private EquipMentMapper equipMentMapper;
 
 	public int insert(String eqno, String type) {
+		String[] agentno = new String[] { "986856192260", "986825803310", "981818190230", "981818216288", "986826060820", "981818680111" };
+		String[] agentname = new String[] { "上海掌富网络科技有限公司", "香飘飘奶茶股份公司", "海底捞", "快的打车", "2345网络科技有限公司", "PPTV" };
 		EquipMent record = new EquipMent();
 		record.setEqno(eqno);
 		record.setEqtype(Integer.parseInt(type));
 		record.setCreatedat(new Date());
 		record.setStatus(2);
+		int agentno_index = DataUtils.generateInt(6);
+		record.setAgentno(agentno[agentno_index]);
+		record.setAgentname(agentname[agentno_index]);
 		return equipMentMapper.insert(record);
 
 	}

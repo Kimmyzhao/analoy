@@ -96,4 +96,5 @@ public class Constant {
 	public static final String SUCCESS = "SUCCESS";
 	
 	public static final String FILE_TYPE = ".txt";
+	public static final String FILE_SPLIT = "||";
 }
