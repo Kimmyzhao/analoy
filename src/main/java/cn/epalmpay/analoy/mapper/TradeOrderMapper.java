@@ -1,6 +1,8 @@
 package cn.epalmpay.analoy.mapper;
 
 import java.util.List;
+import java.util.Map;
+
 import cn.epalmpay.analoy.entity.TradeOrder;
 
 public interface TradeOrderMapper {
@@ -43,4 +45,6 @@ public interface TradeOrderMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(TradeOrder record);
+
+	List<Map<String, Object>> getTradeOrder();
 }

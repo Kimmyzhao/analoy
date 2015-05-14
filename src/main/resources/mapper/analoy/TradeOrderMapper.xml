@@ -83,4 +83,9 @@
     cardType, tradetype, money, fee, settleMoney, createdAt, updatedAt
     from tradeorder
   </select>
+  
+  <select id="getTradeOrder" resultType="map">
+  	SELECT t.payType, e.id, e.eqno, t.settleBankName, t.settleCardNo, t.cardType, t.tradetype, t.money 
+  	FROM tradeorder t LEFT JOIN equipment e ON t.equipmentid = e.id ORDER BY t.createdAt DESC LIMIT 0,10
+  </select>
 </mapper>

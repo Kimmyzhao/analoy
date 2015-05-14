@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,6 +85,7 @@ td input {
 		</table>
 
 	</form>
+
 	<table width="100%" border="0" cellspacing="0" cellpadding="0"
 		class="content">
 		<thead>
@@ -97,15 +100,27 @@ td input {
 			</tr>
 		</thead>
 		<tbody>
+			<c:forEach items="${tradeorder}" var="one">
 			<tr class="rowline">
-				<td>钱袋宝</td>
-				<td>82316280</td>
-				<td>中国工商银行</td>
-				<td>621559******0617</td>
-				<td>借记卡</td>
-				<td>消费</td>
-				<td>￥100.00</td>
+				<td>
+					<c:if test="${one.payType == 1}" >钱袋宝</c:if>
+					<c:if test="${one.payType == 2}" >中汇</c:if>
+					<c:if test="${one.payType == 3}" >韩鑫</c:if>
+				</td>
+				<td>${one.eqno }</td>
+				<td>${one.settleBankName }</td>
+				<td>${one.settleCardNo }</td>
+				<td>
+					<c:if test="${one.cardType == 1 }">借记卡</c:if>
+					<c:if test="${one.cardType == 2 }">贷记卡</c:if>
+				</td>
+				<td>
+					<c:if test="${one.tradetype == 1 }">消费</c:if>
+					<c:if test="${one.tradetype == 2 }">充值</c:if>
+				</td>
+				<td>￥${one.money}</td>
 			</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 </body>

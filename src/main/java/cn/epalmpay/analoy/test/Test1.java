@@ -10,7 +10,6 @@ import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
-import cn.epalmpay.analoy.utils.StringUtils;
 
 /**
  * 需要注意以下几点<br/>
