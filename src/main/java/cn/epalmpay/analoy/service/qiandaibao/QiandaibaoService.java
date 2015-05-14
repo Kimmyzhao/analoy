@@ -93,15 +93,15 @@ public class QiandaibaoService {
 		final String QD = "QD";
 		String[] bankName = new String[] { "中国工商银行", "交通银行", "广发银行", "中国农业银行", "招商银行", "平安银行", "中国邮政储蓄银行", "中国建设银行" };
 		String[] cardtype = new String[] { "1", "2" };// 1借记卡2贷记卡
-		String[] agentno = new String[] { "986856192260", "986825803310", "981818190230", "981818216288", "986826060820", "981818680111" };
-		String[] eqno = new String[] { "61021174690", "82316280", "32011085657", "32032038730", "501000082320", "501000013563" };
+		String[] agentno = new String[] { "986856192260", "981818190230", "981818216288", "986826060820", "981818680111" };
+		String[] eqno = new String[] { "61021174690",  "32011085657", "32032038730", "501000082320", "501000013563" };
 		String[] cardno = new String[] { "621559******0617", "622252******9067", "622556******5151", "622848******0679", "621483******1725", "526855******3116", "621799******5532", "621700******1117" };
-
+		// "823162801",
 		Date date = new Date();
 		String format = new SimpleDateFormat("yyyyMMddHH").format(date);
 		String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(date);// 交易时间
 		String orderid = QD + format + "-" + new SimpleDateFormat("HHmmss").format(date);// 订单号
-		int agentno_index = DataUtils.generateInt(6);
+		int agentno_index = DataUtils.generateInt(5);
 		String money = DataUtils.generateDouble(1000);// 订单支付金额
 		String fee = DataUtils.format(Double.parseDouble(money) * 0.01);// 手续费
 		String settlemoney = DataUtils.format(Double.parseDouble(money) - Double.parseDouble(fee));// 应结算金额
