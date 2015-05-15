@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import cn.epalmpay.analoy.entity.EquipMent;
 import cn.epalmpay.analoy.mapper.EquipMentMapper;
 import cn.epalmpay.analoy.utils.DataUtils;
+import cn.epalmpay.analoy.utils.StringUtils;
 
 @Service
 public class EquimentService {
@@ -28,6 +29,10 @@ public class EquimentService {
 		int agentno_index = DataUtils.generateInt(6);
 		record.setAgentno(agentno[agentno_index]);
 		record.setAgentname(agentname[agentno_index]);
+
+		if ("2".equals(type)) {// 中汇
+			record.setPassword(StringUtils.encryption("123456", "MD5"));
+		}
 		return equipMentMapper.insert(record);
 
 	}
