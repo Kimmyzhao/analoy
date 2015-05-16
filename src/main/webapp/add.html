@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="addEuipmentApp">
+<head>
+<meta charset="UTF-8">
+<title>添加终端</title>
+<link rel="stylesheet" type="text/css" href="style/easyui.css">
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="js/libs/angular.js"></script>
+<script type="text/javascript" src="js/controller/addEqController.js"></script>
+<style type="text/css">
+table tr td {
+	border: solid 1px #CCC;
+}
+
+table tr {
+	line-height: 30px;
+}
+
+td {
+	text-align: center;
+}
+
+td input {
+	height: 20px;
+}
+
+.rowline {
+	background: #FFF;
+}
+</style>
+</head>
+<body ng-controller="addEqController">
+
+	<table style="width: 100%;">
+		<tr class="rowline">
+			<td style="text-align: center;"><label>请选择类型:</label></td>
+			<td><select style="height: 20px; width: 50%" id="type" ng-model="type"
+				name="type" ng-change="changeType()">
+					<option value="">---请选择---</option>
+					<option value="1">钱袋宝</option>
+					<option value="2">中汇</option>
+					<option value="3">韩鑫</option>
+			</select></td>
+		</tr>
+		<tr class="rowline">
+			<td><label>请输入终端号:</label></td>
+			<td><input style="height: 20px; width: 50%" id="eqno"
+				type="text" name="eqno" ng-model="eqno" placeholder="请输入终端号(S/N):"></td>
+		</tr>
+		
+		<tr class="rowline" ng-show="type == 2">
+			<td><label>请输入手机号:</label></td>
+			<td><input style="height: 20px; width: 50%" id="mobile"
+				type="text" name="mobile" ng-model="mobile" placeholder="请输入手机号:"></td>
+		</tr>
+		<tr class="rowline" ng-show="type == 2">
+			<td><label>请输入激活码:</label></td>
+			<td><input style="height: 20px; width: 50%" id="licenseCode"
+				type="text" name="licenseCode" ng-model="licenseCode" placeholder="请输入激活码:"></td>
+		</tr>
+		<tr class="rowline">
+			<td colspan="2" style="text-align: center; width: 50%;"><input
+				style="width: 20%; height: 30px;" type="button" value="添加" ng-click="add()"></td>
+		</tr>
+	</table>
+</body>
+</html>

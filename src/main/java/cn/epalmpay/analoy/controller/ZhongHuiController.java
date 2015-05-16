@@ -1,5 +1,6 @@
 package cn.epalmpay.analoy.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.epalmpay.analoy.service.EquimentService;
@@ -46,7 +48,24 @@ public class ZhongHuiController {
 		return null;
 	}
 
-	@RequestMapping(value = "user/login")
+	/**
+	 * 
+	 * { "respTime": "20150516163252", "isSuccess": true, "respCode": "SUCCESS",
+	 * "respMsg": "登录成功", "status": "2222", "name": "刘引惟", "cardTail": "9477",
+	 * "ksnNo": "501010033373", "bluetoothName": "", "serialType": "0.78",
+	 * "model": "zfmini", "nextReqNo": 67, "argument": {}, "sessionKey":
+	 * "01B6A60F77F58D5AA74182DB826198B4", "keyCheck": "5C868F01",
+	 * "isBluetooth": false }
+	 * 
+	 * @param reqTime
+	 * @param loginName
+	 * @param password
+	 * @param position
+	 * @param appVersion
+	 * @param product
+	 * @return
+	 */
+	@RequestMapping(value = "user/login", method = RequestMethod.POST)
 	public String login(String reqTime, String loginName, String password, String position, String appVersion, String product) {
 		String date = StringUtils.dateToString(new Date(), "yyyyMMddHHmmss");
 		if (reqTime == null || "".equals(reqTime)) {
@@ -124,7 +143,34 @@ public class ZhongHuiController {
 		return StringUtils.parseObjectToJSONString(resq);
 	}
 
-	public static void main(String[] args) {
-		new ZhongHuiController().getAgentInfoByEqno("18667027576", "123456", "460,0,6157,55153", "zfmini.1.3.111", "SHZF");
+	/**
+	 * 激活
+	 * 
+	 * @param licenseCode
+	 * @param ksnNo
+	 * @param appVersion
+	 * @param product
+	 * @return
+	 */
+	@RequestMapping(value = "/swiper/register", method = RequestMethod.POST)
+	public String activate(String reqTime, String licenseCode, String ksnNo, String appVersion, String product) {
+
+		return "ok";
+	}
+
+	/**
+	 * 注册
+	 * 
+	 * @param reqTime
+	 * @param licenseCode
+	 * @param ksnNo
+	 * @param appVersion
+	 * @param product
+	 * @return
+	 */
+	@RequestMapping(value = "/user/register", method = RequestMethod.POST)
+	public String register(String reqTime, String ksnNo, String name, String mobile, String password, String registPosition, String appVersion, String product, File signature) {
+
+		return "ok";
 	}
 }
