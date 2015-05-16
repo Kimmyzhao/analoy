@@ -15,4 +15,9 @@
 	<beans profile="test">
 		<context:property-placeholder location="classpath:config/test.properties" />
 	</beans>
+	
+	<!-- test -->
+	<beans profile="demo">
+		<context:property-placeholder location="classpath:config/demo.properties" />
+	</beans>
 </beans>
