@@ -44,7 +44,14 @@ public class TradeOrderService {
 	@Autowired
 	private EquipMentMapper equipMentMapper;
 
-	public int save(String paytype, String eqno, String bankName, String cardno, String cardtype, String tradetype, double money) {
+	public int save(Map<String, Object> map) {
+		String paytype = map.get("paytype").toString();
+		String eqno = map.get("eqno").toString();
+		String bankName = map.get("bankName").toString();
+		String cardno = map.get("cardno").toString();
+		String cardtype = map.get("cardtype").toString();
+		String tradetype = map.get("tradetype").toString();
+		double money = Double.parseDouble(map.get("money").toString());
 		String[] agentno = new String[] { "986856192260", "986825803310", "981818190230", "981818216288", "986826060820", "981818680111" };
 		EquipMent eq = equipMentMapper.getEuipMent(Integer.parseInt(paytype), eqno);
 		if (eq != null) {

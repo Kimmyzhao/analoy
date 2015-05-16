@@ -21,6 +21,7 @@
     <result column="receivecardno" jdbcType="VARCHAR" property="receivecardno" />
     <result column="createdAt" jdbcType="TIMESTAMP" property="createdat" />
     <result column="updatedAt" jdbcType="TIMESTAMP" property="updatedat" />
+    <result column="licenseCode" jdbcType="VARCHAR" property="licenseCode" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
@@ -39,13 +40,13 @@
       agentname, eqtype, status, 
       loginName, password, position, 
       appVersion, product, username, 
-      receivecardno, createdAt, updatedAt
+      receivecardno, createdAt, updatedAt,licenseCode
       )
     values (#{id,jdbcType=INTEGER}, #{eqno,jdbcType=VARCHAR}, #{agentno,jdbcType=VARCHAR}, 
       #{agentname,jdbcType=VARCHAR}, #{eqtype,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{loginname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
       #{appversion,jdbcType=VARCHAR}, #{product,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{receivecardno,jdbcType=VARCHAR}, #{createdat,jdbcType=TIMESTAMP}, #{updatedat,jdbcType=TIMESTAMP}
+      #{receivecardno,jdbcType=VARCHAR}, #{createdat,jdbcType=TIMESTAMP}, #{updatedat,jdbcType=TIMESTAMP},#{licenseCode,jdbcType=VARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.epalmpay.analoy.entity.EquipMent">
@@ -111,5 +112,9 @@
   
   <select id="login" resultType="map">
   	SELECT * FROM equipment e WHERE e.loginName = #{param1} AND e.password = #{param2} e.eqtype = 2
+  </select>
+  
+  <select id="getEquipmentByEqnoAndType" resultType="map">
+  	SELECT * FROM equipment e WHERE e.eqno = #{param1} AND e.eqtype = #{param2}
   </select>
 </mapper>

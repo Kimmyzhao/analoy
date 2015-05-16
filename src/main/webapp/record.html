@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html ng-app="addRecordModule">
+<head>
+<meta charset="UTF-8">
+<title>添加消费记录</title>
+<link rel="stylesheet" type="text/css" href="style/easyui.css">
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="js/libs/angular.js"></script>
+<script type="text/javascript" src="js/controller/addRecord.js"></script>
+<style>
+.content {
+	margin-top: 30px;
+}
+
+.content tbody tr td {
+	text-align: center;
+}
+
+table tr td {
+	border: solid 1px #CCC;
+}
+
+table tr {
+	line-height: 30px;
+}
+
+td input {
+	height: 20px;
+}
+
+.rowline {
+	background: #FFF;
+}
+</style>
+</head>
+<body ng-controller="recordController">
+	<table style="width: 100%;">
+		<tr class="rowline">
+			<td><label>支付通道</label></td>
+			<td><select name="paytype" style="width: 50%;" ng-model="paytype">
+					<option>--请选择支付通道--</option>
+					<option value="1">钱袋宝</option>
+					<option value="2">中汇</option>
+					<option value="3">韩鑫</option>
+			</select></td>
+
+			<td><label>终端号S/N</label></td>
+			<td><input type="text" id="eqno" name="eqno" ng-model="eqno"
+				style="height: 20px; width: 50%"><br /></td>
+		</tr>
+		<tr class="rowline">
+			<td><label>请选择银行</label></td>
+			<td><select style="height: 20px; width: 50%" name="bankName" ng-model="bankName">
+					<option>--请选择银行--</option>
+					<option value="1">中国工商银行</option>
+					<option value="2">交通银行</option>
+					<option value="3">广发银行</option>
+					<option value="4">中国农业银行</option>
+					<option value="5">招商银行</option>
+					<option value="6">平安银行</option>
+					<option value="7">中国邮政储蓄银行</option>
+					<option value="8">中国建设银行</option>
+			</select></td>
+			<td><label>银行卡号</label></td>
+			<td><input type="text" id="cardno" name="cardno" ng-model="cardno"
+				style="width: 50%;"></td>
+		</tr>
+		<tr class="rowline">
+			<td><label>银行卡类型</label></td>
+			<td><input type="radio" name="cardtype" value="1" ng-model="cardtype">借记卡 <input
+				type="radio" name="cardtype" value="2" ng-model="cardtype">贷记卡</td>
+			<td><label>交易类型</label></td>
+			<td><input type="radio" name="tradetype" value="1" ng-model="tradetype">消费 <input
+				type="radio" name="tradetype" value="2" ng-model="tradetype">充值</td>
+		</tr>
+		<tr class="rowline">
+			<td><label>消费金额</label></td>
+			<td colspan="3"><input type="text" id="money" name="money" ng-model="money"
+				style="width: 221px"></td>
+		</tr>
+		<tr class="rowline">
+			<td colspan="4" style="text-align: center; width: 50%;">
+				<button ng-click="addRecord()" style="width: 20%; height: 30px;">提&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

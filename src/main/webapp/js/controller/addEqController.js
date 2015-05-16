@@ -1,16 +1,17 @@
 var addEuipmentApp = angular.module('addEuipmentApp', []);
 
 var addEqController = function($scope, $http, $location) {
-	// alert($scope.type);
-	var type = $scope.type;
-	var eqno = $scope.eqno;
-	var mobile = $scope.mobile;
-	var licenseCode = $scope.licenseCode;
+
 	$scope.changeType = function() {
 		// alert($scope.type);
 	};
 
 	$scope.add = function() {
+		var type = $scope.type;
+		var eqno = $scope.eqno;
+		var mobile = $scope.mobile;
+		var licenseCode = $scope.licenseCode;
+		// alert(type);
 		if (type == undefined) {
 			$.messager.alert('错误', '类型不能为空');
 			return;
@@ -34,8 +35,18 @@ var addEqController = function($scope, $http, $location) {
 				eqno : eqno,
 				mobile : mobile,
 				licenseCode : licenseCode
-			}).success().error();
+			}).success(function(data) {
+				if (data.code == 1) {
+					$.messager.alert('提示', data.message);
+				} else {
+					$.messager.alert('提示', data.message);
+				}
+			}).error(function(data) {
+			});
 		}
 	};
 };
-addEuipmentApp.controller('agentapp', agentapp);
+
+
+addEuipmentApp.controller('addEqController', addEqController);
+

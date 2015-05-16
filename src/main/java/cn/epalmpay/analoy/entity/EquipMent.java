@@ -21,6 +21,7 @@ public class EquipMent {
 	private String receivecardno;
 	private Date createdat;
 	private Date updatedat;
+	private String licenseCode;
 
 	public Integer getId() {
 		return id;
@@ -140,6 +141,14 @@ public class EquipMent {
 
 	public void setUpdatedat(Date updatedat) {
 		this.updatedat = updatedat;
+	}
+
+	public String getLicenseCode() {
+		return licenseCode;
+	}
+
+	public void setLicenseCode(String licenseCode) {
+		this.licenseCode = licenseCode;
 	}
 
 }
