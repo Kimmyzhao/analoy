@@ -12,6 +12,7 @@
     <result column="agentname" jdbcType="VARCHAR" property="agentname" />
     <result column="eqtype" jdbcType="INTEGER" property="eqtype" />
     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="activated" jdbcType="INTEGER" property="activated"/>
     <result column="loginName" jdbcType="VARCHAR" property="loginname" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="position" jdbcType="VARCHAR" property="position" />
@@ -117,4 +118,18 @@
   <select id="getEquipmentByEqnoAndType" resultType="map">
   	SELECT * FROM equipment e WHERE e.eqno = #{param1} AND e.eqtype = #{param2}
   </select>
+  
+  <select id="getEquipmentByEqnoAndCode" resultMap="BaseResultMap">
+  	SELECT * FROM equipment e WHERE e.eqno = #{param1} AND e.licenseCode = #{param2}
+  </select>
+  
+  <update id="activatedByKsnNo">
+  	UPDATE equipment SET activated = #{param3}, updatedAt = now() WHERE eqno = #{param1} AND eqtype = #{param2}
+  </update>
+  
+  <update id="updateEquipment" parameterType="map">
+  	UPDATE equipment SET loginName = #{loginName}, password = #{password}, appVersion = #{appVersion}, 
+  	product = #{product}, username = #{username},
+  	activated = #{param3}, updatedAt = now() WHERE eqno = #{eqno} AND eqtype = #{eqtype}
+  </update>
 </mapper>

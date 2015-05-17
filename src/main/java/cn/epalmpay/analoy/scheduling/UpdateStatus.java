@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 import cn.epalmpay.analoy.service.EquimentService;
 
 @Component
-public class UpdateStauts {
-	private static final Logger logger = LoggerFactory.getLogger(UpdateStauts.class);
+public class UpdateStatus {
+	private static final Logger logger = LoggerFactory.getLogger(UpdateStatus.class);
 	@Autowired
 	private EquimentService equimentService;
 
-	@Scheduled(cron = "0 0/1 * * * ?")
+	@Scheduled(cron = "0 0 0/2 * * ?")
 	public void task() {
 		logger.info("修改状态开始........");
 		equimentService.updateStatus();

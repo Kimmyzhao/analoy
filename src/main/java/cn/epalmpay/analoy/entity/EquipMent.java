@@ -6,6 +6,16 @@ public class EquipMent {
 
 	public static final int OPEN_STATUS = 1;// 开通
 	public static final int NOT_OPEN_STATUS = 2;// 未开通
+	public static final int ACTIVATED_STATUS_1 = 1;// 未激活
+	public static final int ACTIVATED_STATUS_2 = 2;// 激活
+
+	public static final int ACTIVATE_STATUS_NO_ACTIVED = 1; // 未激活
+	public static final int ACTIVATE_STATUS_NO_REGISTED = 2; // 激活未注册
+	public static final int ACTIVATE_STATUS_REGISTED = 3; // 已注册
+
+	public static final int EQTYPE_QIANDAIBAO = 1;// 钱袋宝
+	public static final int EQTYPE_ZHONGHUI = 2;// 中汇
+	public static final int EQTYPE_HANXIN = 3;// 韩鑫
 	private Integer id;
 	private String eqno;
 	private String agentno;
@@ -22,6 +32,7 @@ public class EquipMent {
 	private Date createdat;
 	private Date updatedat;
 	private String licenseCode;
+	private int activated;
 
 	public Integer getId() {
 		return id;
@@ -149,6 +160,14 @@ public class EquipMent {
 
 	public void setLicenseCode(String licenseCode) {
 		this.licenseCode = licenseCode;
+	}
+
+	public int getActivated() {
+		return activated;
+	}
+
+	public void setActivated(int activated) {
+		this.activated = activated;
 	}
 
 }

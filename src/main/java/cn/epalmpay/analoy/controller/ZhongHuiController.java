@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.epalmpay.analoy.entity.EquipMent;
 import cn.epalmpay.analoy.service.EquimentService;
 import cn.epalmpay.analoy.utils.Constant;
 import cn.epalmpay.analoy.utils.DataUtils;
 import cn.epalmpay.analoy.utils.StringUtils;
 import cn.epalmpay.analoy.zhonghui.service.ZhongHuiTaskService;
+import cn.epalmpay.analoy.zhonghui.entity.ActivateResult;
 import cn.epalmpay.analoy.zhonghui.entity.LoginResq;
 import cn.epalmpay.analoy.zhonghui.entity.Resp;
 import cn.epalmpay.analoy.zhonghui.entity.ResponseResult;
@@ -154,8 +157,41 @@ public class ZhongHuiController {
 	 */
 	@RequestMapping(value = "/swiper/register", method = RequestMethod.POST)
 	public String activate(String reqTime, String licenseCode, String ksnNo, String appVersion, String product) {
+		String response = "";
+		String date = StringUtils.dateToString(new Date(), "yyyyMMddHHmmss");
+		if (licenseCode == null || "".equals(licenseCode)) {
+			response = StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数" + licenseCode));
+			logger.info(response);
+			return response;
+		}
+		EquipMent eq = equimentService.getEquipmentByEqnoAndCode(ksnNo, licenseCode);
+		ActivateResult result = new ActivateResult();
+		if (eq == null) {
+			response = StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ACTIVATED_ERROR_CODE, "设备不存在或者激活码错误"));
+			logger.info(response);
+			return response;
+		} else {
+			if (eq.getActivated() == EquipMent.ACTIVATE_STATUS_NO_ACTIVED) {// 未激活
+				equimentService.activatedByKsnNo(ksnNo, EquipMent.EQTYPE_ZHONGHUI, EquipMent.ACTIVATE_STATUS_NO_REGISTED);// 更改为激活未注册
+				result.setSuccess(true);
+				result.setRespMsg("设备已经激活成功但还未注册");
+				result.setSerialType("0.78");
+			} else if (EquipMent.ACTIVATE_STATUS_NO_REGISTED == eq.getActivated()) {// 激活未注册
+				equimentService.activatedByKsnNo(ksnNo, EquipMent.EQTYPE_ZHONGHUI, EquipMent.ACTIVATE_STATUS_REGISTED);// 更改为激活注册
+				result.setSuccess(false);
+				result.setRespMsg("设备已经激活成功并已注册");
+			} else if (EquipMent.ACTIVATE_STATUS_REGISTED == eq.getActivated()) {// 激活注册
+				response = StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ACTIVATED_ERROR_CODE, "设备已经激活并注册"));
+				logger.info(response);
+				return response;
+			}
+		}
+		result.setRespCode(Constant.ACTIVATED_SUCCESS_CODE);
+		result.setRespTime(date);
 
-		return "ok";
+		response = StringUtils.parseObjectToJSONString(result);
+		logger.info(response);
+		return response;
 	}
 
 	/**
@@ -170,7 +206,24 @@ public class ZhongHuiController {
 	 */
 	@RequestMapping(value = "/user/register", method = RequestMethod.POST)
 	public String register(String reqTime, String ksnNo, String name, String mobile, String password, String registPosition, String appVersion, String product, File signature) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("eqno", ksnNo);
+		params.put("loginName", mobile);
+		params.put("password", StringUtils.encryption(password, "MD5"));
+		params.put("appVersion", appVersion);
+		params.put("product", product);
+		params.put("username", name);
+		params.put("activated", EquipMent.ACTIVATE_STATUS_REGISTED);
+		params.put("eqtype", EquipMent.EQTYPE_ZHONGHUI);
+		equimentService.updateEquipment(params);
 
-		return "ok";
+		Resp result = new Resp();
+		result.setRespCode(Constant.REGISTERED_SUCCESS);
+		result.setRespMsg("注册成功");
+		result.setRespTime(StringUtils.dateToString(new Date(), "yyyyMMddHHmmss"));
+		result.setSuccess(true);
+		String response = StringUtils.parseObjectToJSONString(result);
+		logger.debug(response);
+		return response;
 	}
 }

@@ -57,4 +57,10 @@ public interface EquipMentMapper {
 	Map<String, Object> login(String loginName, String password);
 
 	List<Map<String, Object>> getEquipmentByEqnoAndType(String eqno, int eqtype);
+
+	EquipMent getEquipmentByEqnoAndCode(String ksnNo, String licenseCode);
+
+	int activatedByKsnNo(String ksnNo, int eqtypeZhonghui, int activatedCode);
+
+	int updateEquipment(Map<String, Object> params);
 }

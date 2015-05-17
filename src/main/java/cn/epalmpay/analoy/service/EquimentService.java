@@ -64,4 +64,16 @@ public class EquimentService {
 	public List<Map<String, Object>> getEquipmentByEqnoAndType(String eqno, int type) {
 		return equipMentMapper.getEquipmentByEqnoAndType(eqno, type);
 	}
+
+	public EquipMent getEquipmentByEqnoAndCode(String ksnNo, String licenseCode) {
+		return equipMentMapper.getEquipmentByEqnoAndCode(ksnNo, licenseCode);
+	}
+
+	public int activatedByKsnNo(String ksnNo, int eqtypeZhonghui, int activatedCode) {
+		return equipMentMapper.activatedByKsnNo(ksnNo, eqtypeZhonghui, activatedCode);
+	}
+
+	public int updateEquipment(Map<String, Object> params) {
+		return equipMentMapper.updateEquipment(params);
+	}
 }
