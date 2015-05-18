@@ -34,7 +34,7 @@ public class EquimentService {
 		if (2 == type) {// 中汇
 			record.setPassword(StringUtils.encryption("123456", "MD5"));
 			record.setLoginname(params.get("mobile").toString());
-			record.setLicenseCode(params.get("licenseCode").toString());
+			record.setLicensecode(params.get("licenseCode").toString());
 		}
 		return equipMentMapper.insert(record);
 

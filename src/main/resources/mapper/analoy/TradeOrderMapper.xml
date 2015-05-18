@@ -11,9 +11,9 @@
     <result column="transactional_number" jdbcType="VARCHAR" property="transactionalNumber" />
     <result column="settleBankName" jdbcType="VARCHAR" property="settlebankname" />
     <result column="settleCardNo" jdbcType="VARCHAR" property="settlecardno" />
-    <result column="payType" jdbcType="INTEGER" property="paytype" />
-    <result column="cardType" jdbcType="INTEGER" property="cardtype" />
-    <result column="tradetype" jdbcType="INTEGER" property="tradetype" />
+    <result column="payType" jdbcType="TINYINT" property="paytype" />
+    <result column="cardType" jdbcType="TINYINT" property="cardtype" />
+    <result column="tradetype" jdbcType="TINYINT" property="tradetype" />
     <result column="money" jdbcType="DOUBLE" property="money" />
     <result column="fee" jdbcType="DOUBLE" property="fee" />
     <result column="settleMoney" jdbcType="DOUBLE" property="settlemoney" />
@@ -39,8 +39,8 @@
       fee, settleMoney, createdAt, 
       updatedAt)
     values (#{id,jdbcType=INTEGER}, #{equipmentid,jdbcType=INTEGER}, #{transactionalNumber,jdbcType=VARCHAR}, 
-      #{settlebankname,jdbcType=VARCHAR}, #{settlecardno,jdbcType=VARCHAR}, #{paytype,jdbcType=INTEGER}, 
-      #{cardtype,jdbcType=INTEGER}, #{tradetype,jdbcType=INTEGER}, #{money,jdbcType=DOUBLE}, 
+      #{settlebankname,jdbcType=VARCHAR}, #{settlecardno,jdbcType=VARCHAR}, #{paytype,jdbcType=TINYINT}, 
+      #{cardtype,jdbcType=TINYINT}, #{tradetype,jdbcType=TINYINT}, #{money,jdbcType=DOUBLE}, 
       #{fee,jdbcType=DOUBLE}, #{settlemoney,jdbcType=DOUBLE}, #{createdat,jdbcType=TIMESTAMP}, 
       #{updatedat,jdbcType=TIMESTAMP})
   </insert>
@@ -54,9 +54,9 @@
       transactional_number = #{transactionalNumber,jdbcType=VARCHAR},
       settleBankName = #{settlebankname,jdbcType=VARCHAR},
       settleCardNo = #{settlecardno,jdbcType=VARCHAR},
-      payType = #{paytype,jdbcType=INTEGER},
-      cardType = #{cardtype,jdbcType=INTEGER},
-      tradetype = #{tradetype,jdbcType=INTEGER},
+      payType = #{paytype,jdbcType=TINYINT},
+      cardType = #{cardtype,jdbcType=TINYINT},
+      tradetype = #{tradetype,jdbcType=TINYINT},
       money = #{money,jdbcType=DOUBLE},
       fee = #{fee,jdbcType=DOUBLE},
       settleMoney = #{settlemoney,jdbcType=DOUBLE},
