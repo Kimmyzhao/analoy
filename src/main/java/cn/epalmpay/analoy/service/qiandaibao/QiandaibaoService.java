@@ -37,9 +37,6 @@ public class QiandaibaoService {
 	@Value("${zftiming.url}")
 	private String baseurl;
 
-	@Value("${qiandaibao.filepath}")
-	private String filepath;
-
 	@Autowired
 	private EquipMentMapper equipMentMapper;
 
@@ -94,7 +91,7 @@ public class QiandaibaoService {
 		String[] bankName = new String[] { "中国工商银行", "交通银行", "广发银行", "中国农业银行", "招商银行", "平安银行", "中国邮政储蓄银行", "中国建设银行" };
 		String[] cardtype = new String[] { "1", "2" };// 1借记卡2贷记卡
 		String[] agentno = new String[] { "986856192260", "981818190230", "981818216288", "986826060820", "981818680111" };
-		String[] eqno = new String[] { "61021174690",  "32011085657", "32032038730", "501000082320", "501000013563" };
+		String[] eqno = new String[] { "61021174690", "32011085657", "32032038730", "501000082320", "501000013563" };
 		String[] cardno = new String[] { "621559******0617", "622252******9067", "622556******5151", "622848******0679", "621483******1725", "526855******3116", "621799******5532", "621700******1117" };
 		// "823162801",
 		Date date = new Date();
@@ -143,24 +140,6 @@ public class QiandaibaoService {
 			logger.error(e.getMessage());
 		}
 		return "ok";
-	}
-
-	public void save(String path, String eqno) throws IOException {
-		logger.info(path + filepath);
-		File file = new File(path + filepath);
-		if (!file.exists()) {
-			logger.debug("文件已经存在");
-			file.mkdir();
-		}
-		if (file.getParentFile().exists()) {
-			logger.debug("目标文件所在路径不存在，准备创建。。。");
-		}
-		File f = new File(path + filepath + eqno + Constant.FILE_TYPE);
-		if (!f.exists()) {
-			f.createNewFile();
-		}
-		logger.info("创建文件成功");
-
 	}
 
 	public int insert(String eqno, String type) {

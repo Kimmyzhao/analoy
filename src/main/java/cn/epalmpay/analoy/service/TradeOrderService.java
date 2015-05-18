@@ -67,7 +67,6 @@ public class TradeOrderService {
 				orderid = StringUtils.dateToString(date, "yyyyMMddHHmmssSSS");
 			}
 			order.setTransactionalNumber(orderid);
-			//order.setPaytype(paytype);
 			order.setPaytype(Integer.parseInt(paytype));// 支付通道
 			order.setSettlebankname(getBankName(Integer.parseInt(bankName)));// 结算银行
 			order.setSettlecardno(cardno);// 银行账号
@@ -109,7 +108,7 @@ public class TradeOrderService {
 				} catch (IOException e) {
 					logger.error(e.getMessage());
 				}
-			} else if (2 == Integer.parseInt(paytype)) {// 钱袋宝
+			} else if (2 == Integer.parseInt(paytype)) {// 中汇
 				File file = new File(savepath);
 				if (!file.exists()) {
 					file.mkdir();
