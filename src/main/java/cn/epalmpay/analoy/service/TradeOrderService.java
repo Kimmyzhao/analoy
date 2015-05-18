@@ -191,7 +191,7 @@ public class TradeOrderService {
 		Trades trade = new Trades();
 		trade.setDevKSN(eq.getEqno());// 设备号
 		trade.setTransflowno(order.getTransactionalNumber());// 交易流水号
-		trade.setTranstime(StringUtils.dateToString(date, "yyyy-MM-dd HH:mm:ss"));// 交易时间
+		trade.setTranstime(StringUtils.dateToString(date, "yyyy-M-d H.m.s.S"));// 交易时间
 		trade.setTransmoney(order.getMoney() + "");
 		trade.setPayCardNo(StringUtils.toProSub(order.getSettlecardno()));
 		trade.setTranstype(order.getTradetype() + "");
