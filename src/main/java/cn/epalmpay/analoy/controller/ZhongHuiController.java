@@ -44,7 +44,7 @@ public class ZhongHuiController {
 	@RequestMapping(value = "showorder")
 	public String showorder() throws IOException {
 		try {
-			return zhongHuiTaskService.getTradeRecord();
+			return zhongHuiTaskService.pushTradeRecords();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}

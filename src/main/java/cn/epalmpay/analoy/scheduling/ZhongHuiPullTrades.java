@@ -4,20 +4,26 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import cn.epalmpay.analoy.zhonghui.service.ZhongHuiTaskService;
 
+@Component
 public class ZhongHuiPullTrades {
 	private static final Logger logger = LoggerFactory.getLogger(ZhongHuiPullTrades.class);
 
 	@Resource
 	private ZhongHuiTaskService zhonghuiTaskService;
 
+	@Scheduled(cron = "0 0/5 * * * ?")
 	public void job() {
 		try {
-			zhonghuiTaskService.getTradeRecord();
+			logger.info("中汇交易流水开始推送.....");
+			zhonghuiTaskService.pushTradeRecords();
+			logger.info("中汇交易流水推送结束.....");
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 }

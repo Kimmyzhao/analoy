@@ -55,4 +55,22 @@
     select id, filepath, ispushed
     from tradeorderfile
   </select>
+  
+  <insert id="savepath">
+  	insert into tradeorderfile ( filepath, ispushed
+      )
+    values ( #{filepath}, 1
+      )
+  </insert>
+  
+  <select id="findFileUrlByIsPushed" resultType="map">
+  	select * from tradeorderfile where ispushed = #{param1}
+  </select>
+  
+  <update id="updateRecordFile">
+  	update tradeorderfile set ispushed = 2 where id in
+  	<foreach collection="array" item="id" open="(" close=")" separator=",">
+  		#{id}
+  	</foreach>
+  </update>
 </mapper>

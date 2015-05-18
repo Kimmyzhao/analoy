@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import cn.epalmpay.analoy.entity.EquipMent;
 import cn.epalmpay.analoy.entity.TradeOrder;
 import cn.epalmpay.analoy.mapper.EquipMentMapper;
+import cn.epalmpay.analoy.mapper.TradeOrderFileMapper;
 import cn.epalmpay.analoy.mapper.TradeOrderMapper;
 import cn.epalmpay.analoy.utils.Constant;
 import cn.epalmpay.analoy.utils.DataUtils;
@@ -39,10 +40,15 @@ public class TradeOrderService {
 	private String baseurl;
 	@Value("${savepath}")
 	private String savepath;
+	@Value("${path.root}")
+	private String root;
+
 	@Autowired
 	private TradeOrderMapper tradeOrderMapper;
 	@Autowired
 	private EquipMentMapper equipMentMapper;
+	@Autowired
+	private TradeOrderFileMapper orderFileMapper;
 
 	public int save(Map<String, Object> map) {
 		String paytype = map.get("paytype").toString();
@@ -109,7 +115,7 @@ public class TradeOrderService {
 					logger.error(e.getMessage());
 				}
 			} else if (2 == Integer.parseInt(paytype)) {// 中汇
-				File file = new File(savepath);
+				File file = new File(root + savepath);
 				if (!file.exists()) {
 					file.mkdir();
 				}
@@ -117,7 +123,13 @@ public class TradeOrderService {
 				if (!file.getParentFile().exists()) {
 					file.mkdir();
 				}
-				String path = savepath + StringUtils.dateToString(date, "yyyy-MM-dd") + Constant.FILE_TYPE;
+
+				String fileName = StringUtils.dateToString(date, "yyyy-MM-dd") + Constant.FILE_TYPE;
+				String saveFilePath = savepath + fileName;
+
+				orderFileMapper.savepath(saveFilePath);
+				logger.info(root + saveFilePath);
+				String path = root + savepath + fileName;
 				File recordfile = new File(path);
 				if (!recordfile.exists()) {
 					try {
@@ -157,7 +169,7 @@ public class TradeOrderService {
 			sb.append(trade.getMerchantname() + Constant.FILE_SPLIT);
 			sb.append(trade.getReferenceno() + Constant.FILE_SPLIT);
 			sb.append(trade.getTransno());
-			sb.append("\n");
+			sb.append("\r\t");
 			writer.write(sb.toString());
 			writer.close();
 		} catch (FileNotFoundException e) {
