@@ -1,32 +1,35 @@
 <configuration scan="true" scanPeriod="30 seconds">
 
-    <property name="APP_NAME" value="analoy" />
-    <property name="LOG_FILE_DIR" value="/opt/logs/${APP_NAME}/" />
+	<property name="APP_NAME" value="analoy" />
+	<property name="LOG_FILE_DIR" value="/opt/logs/${APP_NAME}/" />
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%date %-5level [%logger{36}:%line] - %msg%n</pattern>
-        </encoder>
-    </appender>
-    <appender name="RollingFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <append>true</append>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_FILE_DIR}${APP_NAME}.%d{yyyy-MM-dd}.log</fileNamePattern>
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%date %-5level [%logger{36}:%line] %msg%n</pattern>
-        </encoder>
-        
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">  
-         	<MaxFileSize>1MB</MaxFileSize>  
-       	</triggeringPolicy> 
-    </appender>
-    
-    <root level="INFO">
-        <appender-ref ref="RollingFILE" />
-        <appender-ref ref="STDOUT" />
-    </root>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date %-5level [%logger{36}:%line] - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="RollingFILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_FILE_DIR}${APP_NAME}.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date %-5level [%logger{36}:%line] %msg%n</pattern>
+		</encoder>
 
-    <logger name="cn.epalmpay.analoy" level="DEBUG" />
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="RollingFILE" />
+		<appender-ref ref="STDOUT" />
+	</root>
+
+	<logger name="cn.epalmpay.analoy" level="DEBUG" />
 </configuration>
