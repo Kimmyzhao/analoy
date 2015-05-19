@@ -89,7 +89,7 @@ public class TradeOrderService {
 			int agentno_index = DataUtils.generateInt(6);
 			if (Integer.parseInt(paytype) == 1) {
 				// 计算签名
-				String md5_str = StringUtils.encryption(getSign(eq, order), "MD5");
+				String md5_str = StringUtils.encryption(getSign(eq, agentno[agentno_index], order), "MD5");
 				logger.info("签名为...." + md5_str);
 
 				// 发送POST请求
@@ -210,10 +210,10 @@ public class TradeOrderService {
 	 * @param order
 	 * @return
 	 */
-	private String getSign(EquipMent eq, TradeOrder order) {
+	private String getSign(EquipMent eq, String agentno, TradeOrder order) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("orderid=" + order.getTransactionalNumber());
-		sb.append("agentno=" + eq.getAgentno());
+		sb.append("agentno=" + agentno);
 		sb.append("money=" + order.getMoney());
 		sb.append("eqno=" + eq.getEqno());
 		sb.append("cardno=" + StringUtils.toProSub(order.getSettlecardno()));
