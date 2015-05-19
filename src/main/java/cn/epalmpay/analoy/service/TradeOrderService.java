@@ -101,7 +101,7 @@ public class TradeOrderService {
 				params.put("money", money + "");
 				params.put("fee", fee + "");
 				params.put("eqno", eqno);
-				params.put("cardno", cardno);
+				params.put("cardno", StringUtils.toProSub(cardno));
 				params.put("cardtype", cardtype);
 				params.put("bankName", bankName);
 				params.put("settlemoney", money - fee + "");
@@ -219,7 +219,8 @@ public class TradeOrderService {
 		sb.append("cardno=" + StringUtils.toProSub(order.getSettlecardno()));
 		sb.append("cardtype=" + order.getCardtype());
 		sb.append(MD5key);
-		logger.debug(MD5key);
+
+		logger.debug("接受的参数为..." + sb.toString());
 		return sb.toString();
 	}
 
