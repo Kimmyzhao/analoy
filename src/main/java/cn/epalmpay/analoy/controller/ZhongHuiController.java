@@ -72,23 +72,23 @@ public class ZhongHuiController {
 	public String login(String reqTime, String loginName, String password, String position, String appVersion, String product) {
 		String date = StringUtils.dateToString(new Date(), "yyyyMMddHHmmss");
 		if (reqTime == null || "".equals(reqTime)) {
-			return StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数" + reqTime));
+			return StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数reqTime"));
 		}
 
 		if (loginName == null || "".equals(loginName)) {
-			return StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数" + loginName));
+			return StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数loginName"));
 		}
 		if (password == null || "".equals(password)) {
-			return StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数" + password));
+			return StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数password"));
 		}
 		if (position == null || "".equals(position)) {
-			return StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数" + position));
+			return StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数position"));
 		}
 		if (appVersion == null || "".equals(appVersion)) {
-			return StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数" + appVersion));
+			return StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数appVersion"));
 		}
 		if (product == null || "".equals(product)) {
-			return StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数" + product));
+			return StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数product"));
 		}
 
 		Map<String, Object> map = equimentService.login(loginName, StringUtils.encryption(password, "MD5"));
@@ -160,7 +160,7 @@ public class ZhongHuiController {
 		String response = "";
 		String date = StringUtils.dateToString(new Date(), "yyyyMMddHHmmss");
 		if (licenseCode == null || "".equals(licenseCode)) {
-			response = StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数" + licenseCode));
+			response = StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数licenseCode"));
 			logger.info(response);
 			return response;
 		}
