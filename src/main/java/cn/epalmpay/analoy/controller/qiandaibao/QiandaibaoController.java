@@ -97,11 +97,11 @@ public class QiandaibaoController {
 		Map<String, Object> map = equimentService.getEqByEqno(eqno);
 		if (map != null) {
 			if (EquipMent.OPEN_STATUS == Integer.parseInt(map.get("status").toString())) {
-				pos.setCode(Constant.HAS_OPENED_POS_CODE);
+				pos.setCode(Constant.POS_SUCCESS_QUERY_CODE);
 				pos.setMsg(Constant.SUCCESS_POS_MESSAGE);
 				pos.setRemark("已开通");
 			} else {
-				pos.setCode(Constant.HAS_NOT_OPENED_POS_CODE);
+				pos.setCode(Constant.POS_NOT_OPENED_CODE);
 				pos.setMsg(Constant.HAS_NOT_OPENED_POS_MESSAGE);
 				pos.setRemark("未开通,请耐心等待.....");
 			}
@@ -111,13 +111,13 @@ public class QiandaibaoController {
 			pos.setName(map.get("username") == null ? "" : map.get("username").toString());
 			pos.setUsername(map.get("loginName") == null ? "" : map.get("loginName").toString());
 		} else {
-			pos.setCode(Constant.ERROR_POS_CODE);
+			pos.setCode(Constant.POS_NOT_EXIST_CODE);
 			pos.setMsg(Constant.ERROR_POS_MESSAGE);
 			pos.setRemark("该设备不存在");
 		}
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("code=" + Constant.SUCCESS_POS_CODE);
+		sb.append("code=" + pos.getCode());
 		sb.append("eqno=" + eqno);
 		sb.append(MD5key);
 		String md5_str = StringUtils.encryption(sb.toString(), "MD5");

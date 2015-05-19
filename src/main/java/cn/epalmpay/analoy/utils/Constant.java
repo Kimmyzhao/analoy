@@ -9,19 +9,23 @@ public class Constant {
 	/**
 	 * 查询成功
 	 */
-	public static final String SUCCESS_POS_CODE = "00";
+	public static final String POS_SUCCESS_QUERY_CODE = "00";
 	/**
-	 * 失败,设备不存在
+	 * 设备不存在
 	 */
-	public static final String ERROR_POS_CODE = "101";
-	/**
-	 * 已经开通
-	 */
-	public static final String HAS_OPENED_POS_CODE = "102";
+	public static final String POS_NOT_EXIST_CODE = "101";
 	/**
 	 * 未开通
 	 */
-	public static final String HAS_NOT_OPENED_POS_CODE = "103";
+	public static final String POS_NOT_OPENED_CODE = "102";
+	/**
+	 * 非掌富设备
+	 */
+	public static final String NOT_BELONGS_TO_ZFDEVICE_CODE = "103";
+
+	public static final String SIGN_CHECKED_ERROR_CODE = "104";
+
+	public static final String EQNO_CANNOT_BE_EMPTY_CODE = "105";
 
 	/**
 	 * 查询成功
