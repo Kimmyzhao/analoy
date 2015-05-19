@@ -34,7 +34,7 @@ public class Constant {
 	/**
 	 * 失败,设备不存在
 	 */
-	public static final String ERROR_POS_MESSAGE = "失败,设备不存在";
+	public static final String POS_NOT_EXIST_MESSAGE = "失败,设备不存在";
 	/**
 	 * 已经开通
 	 */
@@ -42,7 +42,13 @@ public class Constant {
 	/**
 	 * 未开通
 	 */
-	public static final String HAS_NOT_OPENED_POS_MESSAGE = "未开通";
+	public static final String POS_NOT_OPENED_MESSAGE = "未开通";
+
+	public static final String NOT_BELONGS_TO_ZFDEVICE_MESSAGE = "非掌富设备";
+
+	public static final String SIGN_CHECKED_ERROR_MESSAGE = "验签错误";
+
+	public static final String EQNO_CANNOT_BE_EMPTY_MESSAGE = "设备编号不能为空";
 
 	/**
 	 * 成功并且有交易记录

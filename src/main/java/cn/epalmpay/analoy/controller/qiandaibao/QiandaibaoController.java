@@ -102,7 +102,7 @@ public class QiandaibaoController {
 				pos.setRemark("已开通");
 			} else {
 				pos.setCode(Constant.POS_NOT_OPENED_CODE);
-				pos.setMsg(Constant.HAS_NOT_OPENED_POS_MESSAGE);
+				pos.setMsg(Constant.POS_NOT_OPENED_MESSAGE);
 				pos.setRemark("未开通,请耐心等待.....");
 			}
 
@@ -112,7 +112,7 @@ public class QiandaibaoController {
 			pos.setUsername(map.get("loginName") == null ? "" : map.get("loginName").toString());
 		} else {
 			pos.setCode(Constant.POS_NOT_EXIST_CODE);
-			pos.setMsg(Constant.ERROR_POS_MESSAGE);
+			pos.setMsg(Constant.POS_NOT_EXIST_MESSAGE);
 			pos.setRemark("该设备不存在");
 		}
 
