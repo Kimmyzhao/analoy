@@ -1,5 +1,10 @@
 package cn.epalmpay.analoy.zhonghui.entity;
 
+import java.util.Date;
+
+import cn.epalmpay.analoy.utils.Constant;
+import cn.epalmpay.analoy.utils.StringUtils;
+
 /**
  * 用户登录响应返回
  * 
@@ -37,11 +42,11 @@ public class Resp {
 		this.respMsg = respMsg;
 	}
 
-	public boolean isSuccess() {
+	public boolean getIsSuccess() {
 		return isSuccess;
 	}
 
-	public void setSuccess(boolean isSuccess) {
+	public void setIsSuccess(boolean isSuccess) {
 		this.isSuccess = isSuccess;
 	}
 
@@ -58,4 +63,9 @@ public class Resp {
 		// TODO Auto-generated constructor stub
 	}
 
+	public static void main(String[] args) {
+		String date = StringUtils.dateToString(new Date(), "yyyyMMddHHmmss");
+		System.out.println(StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "缺少参数password")));
+
+	}
 }

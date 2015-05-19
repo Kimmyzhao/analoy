@@ -100,10 +100,10 @@ public class ZhongHuiController {
 			result.setRespMsg("登录成功");
 			result.setRespCode(Constant.SUCCESS);
 			if (map.get("status") == null && Integer.parseInt(map.get("status").toString()) == 1) {
-				result.setSuccess(true);
+				result.setIsSuccess(true);
 				result.setStatus("2222");
 			} else {
-				result.setSuccess(false);
+				result.setIsSuccess(false);
 			}
 			Object receivecardno = map.get("receivecardno");
 			result.setCardTail(receivecardno == null ? "" : receivecardno.toString().substring(receivecardno.toString().length() - 4, receivecardno.toString().length()));
@@ -138,7 +138,7 @@ public class ZhongHuiController {
 		resq.setStatus(Constant.THROUGH_THE_AUDIT_STATUS);
 		resq.setRespCode(Constant.SUCCESS);
 		resq.setName(name[index]);
-		resq.setSuccess(true);
+		resq.setIsSuccess(true);
 		resq.setRespMsg("成功");
 		resq.setCardTail(cardno[index].substring(cardno[index].length() - 4, cardno[index].length()));
 		resq.setModel(model[DataUtils.generateInt(6)]);
@@ -173,12 +173,12 @@ public class ZhongHuiController {
 		} else {
 			if (eq.getActivated() == EquipMent.ACTIVATE_STATUS_NO_ACTIVED) {// 未激活
 				equimentService.activatedByKsnNo(ksnNo, EquipMent.EQTYPE_ZHONGHUI, EquipMent.ACTIVATE_STATUS_NO_REGISTED);// 更改为激活未注册
-				result.setSuccess(true);
+				result.setIsSuccess(true);
 				result.setRespMsg("设备已经激活成功但还未注册");
 				result.setSerialType("0.78");
 			} else if (EquipMent.ACTIVATE_STATUS_NO_REGISTED == eq.getActivated()) {// 激活未注册
 				equimentService.activatedByKsnNo(ksnNo, EquipMent.EQTYPE_ZHONGHUI, EquipMent.ACTIVATE_STATUS_REGISTED);// 更改为激活注册
-				result.setSuccess(false);
+				result.setIsSuccess(false);
 				result.setRespMsg("设备已经激活成功并已注册");
 			} else if (EquipMent.ACTIVATE_STATUS_REGISTED == eq.getActivated()) {// 激活注册
 				response = StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ACTIVATED_ERROR_CODE, "设备已经激活并注册"));
@@ -221,7 +221,7 @@ public class ZhongHuiController {
 		result.setRespCode(Constant.REGISTERED_SUCCESS);
 		result.setRespMsg("注册成功");
 		result.setRespTime(StringUtils.dateToString(new Date(), "yyyyMMddHHmmss"));
-		result.setSuccess(true);
+		result.setIsSuccess(true);
 		String response = StringUtils.parseObjectToJSONString(result);
 		logger.debug(response);
 		return response;

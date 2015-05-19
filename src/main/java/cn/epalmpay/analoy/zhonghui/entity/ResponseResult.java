@@ -84,15 +84,15 @@ public class ResponseResult extends Resp {
 	}
 
 	@Override
-	public boolean isSuccess() {
+	public boolean getIsSuccess() {
 		// TODO Auto-generated method stub
-		return super.isSuccess();
+		return super.getIsSuccess();
 	}
 
 	@Override
-	public void setSuccess(boolean isSuccess) {
+	public void setIsSuccess(boolean isSuccess) {
 		// TODO Auto-generated method stub
-		super.setSuccess(isSuccess);
+		super.setIsSuccess(isSuccess);
 	}
 
 }

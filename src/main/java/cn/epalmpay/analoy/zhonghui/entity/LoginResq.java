@@ -162,13 +162,13 @@ public class LoginResq extends Resp {
 	}
 
 	@Override
-	public boolean isSuccess() {
-		return super.isSuccess();
+	public boolean getIsSuccess() {
+		return super.getIsSuccess();
 	}
 
 	@Override
-	public void setSuccess(boolean isSuccess) {
-		super.setSuccess(isSuccess);
+	public void setIsSuccess(boolean isSuccess) {
+		super.setIsSuccess(isSuccess);
 	}
 
 }
