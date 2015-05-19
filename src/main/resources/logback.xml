@@ -17,6 +17,10 @@
         <encoder>
             <pattern>%date %-5level [%logger{36}:%line] %msg%n</pattern>
         </encoder>
+        
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">  
+         	<MaxFileSize>1MB</MaxFileSize>  
+       	</triggeringPolicy> 
     </appender>
     
     <root level="INFO">
