@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.epalmpay.analoy.entity.EquipMent;
 import cn.epalmpay.analoy.service.EquimentService;
+import cn.epalmpay.analoy.service.TbankService;
 import cn.epalmpay.analoy.utils.Constant;
 import cn.epalmpay.analoy.utils.DataUtils;
 import cn.epalmpay.analoy.utils.StringUtils;
@@ -40,6 +41,9 @@ public class ZhongHuiController {
 
 	@Autowired
 	private EquimentService equimentService;
+
+	@Autowired
+	private TbankService tbankService;
 
 	@RequestMapping(value = "showorder")
 	public String showorder() throws IOException {
@@ -226,6 +230,14 @@ public class ZhongHuiController {
 		logger.debug(response);
 		return response;
 	}
-	
-	
+
+	@RequestMapping(value = "/bank/query", method = RequestMethod.POST)
+	public String queryBanks(String keyword, int page, int pageSize) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("bankName", "%" + keyword + "%");
+		params.put("page", page);
+		params.put("pageSize", pageSize);
+		List<Map<String, Object>> list = tbankService.getBankList(params);
+		return null;
+	}
 }
