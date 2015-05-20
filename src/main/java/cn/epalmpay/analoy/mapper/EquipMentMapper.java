@@ -63,4 +63,27 @@ public interface EquipMentMapper {
 	int activatedByKsnNo(String ksnNo, int eqtypeZhonghui, int activatedCode);
 
 	int updateEquipment(Map<String, Object> params);
+
+	/**
+	 * 查询总的终端数
+	 * 
+	 * @return
+	 */
+	int count();
+
+	/**
+	 * 查询终端记录
+	 * 
+	 * @return
+	 */
+	List<Map<String, Object>> getList();
+
+	/**
+	 * 根据手机号查找设备号
+	 * 
+	 * @param mobile
+	 * @param eqtypeZhonghui
+	 * @return
+	 */
+	EquipMent getEqByMobileAndEqtype(String mobile, Integer eqtypeZhonghui);
 }

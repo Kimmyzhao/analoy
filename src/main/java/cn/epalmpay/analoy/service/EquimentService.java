@@ -1,6 +1,7 @@
 package cn.epalmpay.analoy.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,11 @@ public class EquimentService {
 		record.setAgentname(agentname[agentno_index]);
 
 		if (2 == type) {// 中汇
+			String mobile = params.get("mobile").toString();// 手机号
+			EquipMent eq = equipMentMapper.getEqByMobileAndEqtype(mobile, EquipMent.EQTYPE_ZHONGHUI);
+			if (eq != null) {
+				return -1;
+			}
 			record.setActivated(EquipMent.ACTIVATE_STATUS_NO_ACTIVED);// 设置设备状态为未激活状态
 			record.setPassword(StringUtils.encryption("123456", "MD5"));
 			record.setLoginname(params.get("mobile").toString());
@@ -76,5 +82,12 @@ public class EquimentService {
 
 	public int updateEquipment(Map<String, Object> params) {
 		return equipMentMapper.updateEquipment(params);
+	}
+
+	public Map<String, Object> getList() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("total", equipMentMapper.count());
+		map.put("list", equipMentMapper.getList());
+		return map;
 	}
 }

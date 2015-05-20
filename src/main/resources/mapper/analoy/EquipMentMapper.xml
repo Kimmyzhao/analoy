@@ -114,7 +114,7 @@
   </select>
   
   <select id="login" resultType="map">
-  	SELECT * FROM equipment e WHERE e.loginName = #{param1} AND e.password = #{param2} e.eqtype = 2
+  	SELECT * FROM equipment e WHERE e.loginName = #{param1} AND e.password = #{param2} AND e.eqtype = 2
   </select>
   
   <select id="getEquipmentByEqnoAndType" resultType="map">
@@ -134,4 +134,16 @@
   	product = #{product}, username = #{username},
   	activated = #{param3}, updatedAt = now() WHERE eqno = #{eqno} AND eqtype = #{eqtype}
   </update>
+  
+  <select id="count" resultType="int">
+  	select count(*) from equipment order by createAt desc
+  </select>
+  
+  <select id="getList" resultType="map">
+  	select * from equipment order by createAt desc
+  </select>
+  
+  <select id="getEqByMobileAndEqtype" resultMap="BaseResultMap">
+  	select * from equipment where loginName = #{param1} and eqtype = #{param2}
+  </select>
 </mapper>

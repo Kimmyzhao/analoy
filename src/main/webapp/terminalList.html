@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html ng-app="terminalModule">
+<head>
+<meta charset="UTF-8">
+<title>所有终端列表</title>
+<link rel="stylesheet" type="text/css" href="style/easyui.css">
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="js/libs/angular.js"></script>
+<script type="text/javascript" src="js/page.js"></script>
+<script type="text/javascript" src="js/controller/terminalList.js"></script>
+<style>
+div{width:auto;}
+table{width:100%;}
+td{border:solid 1px #ccc;height:30px;text-align:center;}
+thead tr th{height:35px;background:#CCC;}
+.p1{width:80.3%;float:left;}
+.p2{width:16%;float:left;text-align:left;margin-left:9px}
+</style>
+</head>
+<body ng-controller="terminalController">
+<div>
+	<table>
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>终端号(S/N)</th>
+				<th>支付通道</th>
+				<th>开通状态</th>
+				<th>激活状态</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>100001001011</td>
+				<td>钱袋宝</td>
+				<td>未开通</td>
+				<td>为激活</td>
+				<td>
+					<button>开通</button>
+					<button>激活</button>
+				</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>100001001011</td>
+				<td>钱袋宝</td>
+				<td>未开通</td>
+				<td>为激活</td>
+				<td>
+					<button>开通</button>
+					<button>激活</button>
+				</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>100001001011</td>
+				<td>钱袋宝</td>
+				<td>未开通</td>
+				<td>为激活</td>
+				<td>
+					<button>开通</button>
+					<button>激活</button>
+				</td>
+			</tr>
+			
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="6" style="text-align:right;">
+					<p class="p1">
+						<button>首页</button>
+						<button>上一页</button>
+						<button>下一页</button>
+						<button>尾页</button>  
+					</p>
+					
+					<p class="p2"> 
+						<input type="text"> 
+						<button>确定</button> 
+					</p>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+	</div>
+</body>
+</html>

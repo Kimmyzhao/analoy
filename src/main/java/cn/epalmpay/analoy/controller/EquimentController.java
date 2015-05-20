@@ -28,15 +28,23 @@ public class EquimentController {
 			logger.debug(params.get("type") + ":" + params.get("eqno").toString());
 			String eqno = params.get("eqno").toString();
 			int eqtype = Integer.parseInt(params.get("type").toString());
-			List<Map<String, Object>> list = equimentService.getEquipmentByEqnoAndType(eqno,eqtype);
+			List<Map<String, Object>> list = equimentService.getEquipmentByEqnoAndType(eqno, eqtype);
 			if (list != null && list.size() > 0) {
 				res.setCode(Response.ERROR_CODE);
 				res.setMessage("添加失败:该终端已经存在");
 
 			} else {
-				res.setResult(equimentService.insert(params));
-				res.setCode(Response.SUCCESS_CODE);
-				res.setMessage("添加成功");
+
+				int i = equimentService.insert(params);
+				if (i == -1) {
+					res.setCode(Response.ERROR_CODE);
+					res.setMessage("添加失败:中汇设备手机号码必须唯一");
+				} else {
+					res.setResult(equimentService.insert(params));
+					res.setCode(Response.SUCCESS_CODE);
+					res.setMessage("添加成功");
+				}
+
 			}
 
 		} catch (Exception e) {
@@ -45,5 +53,20 @@ public class EquimentController {
 			res.setMessage("系统错误--->添加失败");
 		}
 		return res;
+	}
+
+	/**
+	 * 获得终端列表
+	 * 
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping(value = "list", method = RequestMethod.POST)
+	public Response getList(@RequestBody Map<String, Object> params) {
+		Response response = new Response();
+		Map<String, Object> map = equimentService.getList();
+		response.setCode(Response.SUCCESS_CODE);
+		response.setResult(map);
+		return response;
 	}
 }
