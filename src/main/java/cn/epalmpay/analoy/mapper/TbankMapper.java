@@ -53,4 +53,6 @@ public interface TbankMapper {
 	 * @return
 	 */
 	List<Map<String, Object>> getBankList(Map<String, Object> params);
+
+	int getBankListCount(Map<String, Object> params);
 }

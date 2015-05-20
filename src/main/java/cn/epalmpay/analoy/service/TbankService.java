@@ -23,4 +23,8 @@ public class TbankService {
 	public List<Map<String, Object>> getBankList(Map<String, Object> params) {
 		return tbankMapper.getBankList(params);
 	}
+	
+	public int getBankListCount(Map<String, Object> params){
+		return tbankMapper.getBankListCount(params);
+	}
 }

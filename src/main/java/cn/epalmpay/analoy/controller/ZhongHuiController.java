@@ -3,6 +3,7 @@ package cn.epalmpay.analoy.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,6 +26,8 @@ import cn.epalmpay.analoy.utils.DataUtils;
 import cn.epalmpay.analoy.utils.StringUtils;
 import cn.epalmpay.analoy.zhonghui.service.ZhongHuiTaskService;
 import cn.epalmpay.analoy.zhonghui.entity.ActivateResult;
+import cn.epalmpay.analoy.zhonghui.entity.Bank;
+import cn.epalmpay.analoy.zhonghui.entity.BankResult;
 import cn.epalmpay.analoy.zhonghui.entity.LoginResq;
 import cn.epalmpay.analoy.zhonghui.entity.Resp;
 import cn.epalmpay.analoy.zhonghui.entity.ResponseResult;
@@ -231,13 +234,80 @@ public class ZhongHuiController {
 		return response;
 	}
 
+	/**
+	 * 模糊查询银行
+	 * 
+	 * { "respTime": "20150520130443", "isSuccess": true, "respCode": "SUCCESS",
+	 * "respMsg": "成功", "total": 647, "tip": "结果较多, 建议使用精确关键字, 例如添加地名等",
+	 * "banks": [ { "bankDeposit": "中国工商银行股份有限公司无锡吴桥支行", "unionBankNo":
+	 * "102302002105" }, { "bankDeposit": "中国工商银行股份有限公司无锡河埒支行", "unionBankNo":
+	 * "102302002113" }, { "bankDeposit": "中国工商银行股份有限公司无锡太湖国家旅游度假区支行",
+	 * "unionBankNo": "102302002121" }, { "bankDeposit": "中国工商银行股份有限公司无锡湖滨苑分理处",
+	 * "unionBankNo": "102302002130" }, { "bankDeposit": "中国工商银行股份有限公司无锡长街支行",
+	 * "unionBankNo": "102302002148" }, { "bankDeposit": "中国工商银行股份有限公司无锡会龙桥支行",
+	 * "unionBankNo": "102302002156" }, { "bankDeposit": "中国工商银行股份有限公司无锡胡埭支行",
+	 * "unionBankNo": "102302002172" }, { "bankDeposit": "中国工商银行股份有限公司无锡梁青支行",
+	 * "unionBankNo": "102302002201" }, { "bankDeposit": "中国工商银行股份有限公司无锡锡沪路支行",
+	 * "unionBankNo": "102302002228" }, { "bankDeposit": "中国工商银行股份有限公司无锡清扬支行",
+	 * "unionBankNo": "102302002252" }, { "bankDeposit": "中国工商银行股份有限公司无锡迎溪支行",
+	 * "unionBankNo": "102302002316" }, { "bankDeposit": "中国工商银行股份有限公司无锡惠钱路分理处",
+	 * "unionBankNo": "102302002324" }, { "bankDeposit":
+	 * "中国工商银行股份有限公司无锡蠡园开发区支行", "unionBankNo": "102302002332" }, {
+	 * "bankDeposit": "中国工商银行股份有限公司无锡硕放支行", "unionBankNo": "102302002349" }, {
+	 * "bankDeposit": "中国工商银行盐城通榆中路支行", "unionBankNo": "102311066155" }, {
+	 * "bankDeposit": "中国工商银行盐城盐马路支行", "unionBankNo": "102311066171" }, {
+	 * "bankDeposit": "中国工商银行盐城盐都支行", "unionBankNo": "102311066180" }, {
+	 * "bankDeposit": "中国工商银行盐城亭湖支行", "unionBankNo": "102311066219" }, {
+	 * "bankDeposit": "中国工商银行盐城青年路支行", "unionBankNo": "102311066227" }, {
+	 * "bankDeposit": "中国工商银行盐城南元支行", "unionBankNo": "102311066235" } ] }
+	 * 
+	 * @param keyword
+	 * @param page
+	 * @param pageSize
+	 * @return
+	 */
 	@RequestMapping(value = "/bank/query", method = RequestMethod.POST)
 	public String queryBanks(String keyword, int page, int pageSize) {
+		String response = "";
+		String date = StringUtils.dateToString(new Date(), "yyyyMMddHHmmss");
+
+		if (keyword == null || "".equals(keyword)) {
+			response = StringUtils.parseObjectToJSONString(new Resp(date, false, Constant.ILLEGAL_ARGUMENT, "请输入关键字"));
+			logger.info(response);
+			return response;
+		}
+
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("bankName", "%" + keyword + "%");
 		params.put("page", page);
 		params.put("pageSize", pageSize);
+
 		List<Map<String, Object>> list = tbankService.getBankList(params);
-		return null;
+		int total = tbankService.getBankListCount(params);
+		BankResult result = new BankResult();
+		Bank bank = new Bank();
+		List<Bank> banks = new ArrayList<Bank>();
+		if (list.size() > 100) {
+			result.setTip("结果较多, 建议使用精确关键字, 例如添加地名等");
+		} else {
+			result.setTip("查询成功");
+		}
+
+		result.setRespTime(date);
+		result.setIsSuccess(true);
+		result.setRespMsg("成功");
+		result.setRespCode(Constant.SUCCESS);
+		result.setTotal(total);
+		for (int i = 0, j = list.size(); i < j; i++) {
+			Map<String, Object> map = list.get(i);
+			bank.setBankDeposit(map.get("bankDeposit") == null ? "" : map.get("bankDeposit").toString());
+			bank.setUnionBankNo(map.get("unionBankNo") == null ? "" : map.get("unionBankNo").toString());
+			banks.add(bank);
+		}
+		result.setBanks(banks);
+		response = StringUtils.parseObjectToJSONString(result);
+
+		logger.info("返回的结果是..." + response);
+		return response;
 	}
 }

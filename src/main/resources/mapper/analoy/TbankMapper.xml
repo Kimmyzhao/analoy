@@ -61,6 +61,10 @@
   </select>
   
   <select id="getBankList" resultType="map">
-  	SELECT * FROM tbank WHERE bankName LIKE #{bankName} ORDER BY createdAt DESC LIMIT #{page}, #{pageSize}
+  	SELECT * FROM tbank WHERE bankDeposit LIKE #{bankName} ORDER BY createdAt DESC LIMIT #{page}, #{pageSize}
+  </select>
+  
+  <select id="getBankListCount" resultType="int">
+  	SELECT count(*) FROM tbank WHERE bankDeposit LIKE #{bankName}
   </select>
 </mapper>
