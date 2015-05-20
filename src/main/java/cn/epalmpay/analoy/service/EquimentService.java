@@ -32,6 +32,7 @@ public class EquimentService {
 		record.setAgentname(agentname[agentno_index]);
 
 		if (2 == type) {// 中汇
+			record.setActivated(EquipMent.ACTIVATE_STATUS_NO_ACTIVED);// 设置设备状态为未激活状态
 			record.setPassword(StringUtils.encryption("123456", "MD5"));
 			record.setLoginname(params.get("mobile").toString());
 			record.setLicensecode(params.get("licenseCode").toString());
