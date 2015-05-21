@@ -5,7 +5,7 @@
 	<display-name>Archetype Created Web Application</display-name>
 	<context-param>
 		<param-name>spring.profiles.default</param-name>
-		<!-- test/config -->
+		<!-- demo/test/config -->
 		<param-value>demo</param-value>
 	</context-param>
 	<context-param>

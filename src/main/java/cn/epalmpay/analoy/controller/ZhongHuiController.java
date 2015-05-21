@@ -1,6 +1,5 @@
 package cn.epalmpay.analoy.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -202,17 +201,19 @@ public class ZhongHuiController {
 	}
 
 	/**
-	 * 注册
 	 * 
 	 * @param reqTime
-	 * @param licenseCode
 	 * @param ksnNo
+	 * @param name
+	 * @param mobile
+	 * @param password
+	 * @param registPosition
 	 * @param appVersion
 	 * @param product
 	 * @return
 	 */
 	@RequestMapping(value = "/user/register", method = RequestMethod.POST)
-	public String register(String reqTime, String ksnNo, String name, String mobile, String password, String registPosition, String appVersion, String product, File signature) {
+	public String register(String reqTime, String ksnNo, String name, String mobile, String password, String registPosition, String appVersion, String product) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("eqno", ksnNo);
 		params.put("loginName", mobile);
