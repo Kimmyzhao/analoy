@@ -262,4 +262,23 @@ public class TradeOrderService {
 		return tradeOrderMapper.getTradeOrder();
 	}
 
+	/**
+	 * 保存消费记录
+	 * 
+	 * @param order
+	 */
+	public void saveRecords(TradeOrder order) {
+		tradeOrderMapper.insert(order);
+	}
+
+	/**
+	 * 根据支付通道以及终端号查询终端信息
+	 * 
+	 * @param paytype
+	 * @param eqno
+	 * @return
+	 */
+	public EquipMent getEuipMent(String paytype, String eqno) {
+		return equipMentMapper.getEuipMent(Integer.parseInt(paytype), eqno);
+	}
 }
