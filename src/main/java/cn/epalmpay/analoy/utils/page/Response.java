@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.model;
+package cn.epalmpay.analoy.utils.page;
 
 /**
  * 系统接口返回消息体<br>

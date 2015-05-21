@@ -1,7 +1,5 @@
 package cn.epalmpay.analoy.service.qiandaibao;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,15 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 
-import cn.epalmpay.analoy.entity.EquipMent;
-import cn.epalmpay.analoy.entity.qiandaibao.PosQuery;
-import cn.epalmpay.analoy.entity.qiandaibao.TransactionRecordQuery;
+import cn.epalmpay.analoy.entity.base.EquipMent;
 import cn.epalmpay.analoy.mapper.EquipMentMapper;
-import cn.epalmpay.analoy.utils.Constant;
 import cn.epalmpay.analoy.utils.DataUtils;
-import cn.epalmpay.analoy.utils.FileUtils;
 import cn.epalmpay.analoy.utils.HttpUtils;
 import cn.epalmpay.analoy.utils.StringUtils;
 
@@ -39,47 +32,6 @@ public class QiandaibaoService {
 
 	@Autowired
 	private EquipMentMapper equipMentMapper;
-
-	public String getTradeRecord1() {
-		File file = null;
-		String result = "";
-		try {
-			file = ResourceUtils.getFile(Constant.FILE_QIANDAIBAO);
-			result = FileUtils.txt2String(file);
-			TransactionRecordQuery query = new TransactionRecordQuery();
-			query = (TransactionRecordQuery) StringUtils.parseJSONStringToObject(result, query);
-			logger.debug(query.toString());
-
-		} catch (FileNotFoundException e) {
-			logger.error(e.getMessage());
-		}
-		return result;
-	}
-
-	public String queryPosState() {
-		File file = null;
-		String result = "";
-
-		try {
-			file = ResourceUtils.getFile(Constant.FILE_QIANDAIBAO_QUERYPOS);
-			result = FileUtils.txt2String(file);
-			PosQuery pos = new PosQuery();
-			pos = (PosQuery) StringUtils.parseJSONStringToObject(result, pos);
-			Date date = new Date();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
-			StringBuilder sb = new StringBuilder();
-			sb.append("eqno=" + pos.getEqno());
-			sb.append("now=" + formatter.format(date).toString());
-			sb.append(MD5key);
-			String sign = StringUtils.encryption(sb.toString(), "MD5");
-			System.out.println(pos.toString());
-			pos.setSign(sign);
-			System.out.println(pos.toString());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
 
 	/**
 	 * 推送交易记录
@@ -142,6 +94,13 @@ public class QiandaibaoService {
 		return "ok";
 	}
 
+	/**
+	 * 添加终端
+	 * 
+	 * @param eqno
+	 * @param type
+	 * @return
+	 */
 	public int insert(String eqno, String type) {
 		EquipMent record = new EquipMent();
 		record.setEqno(eqno);

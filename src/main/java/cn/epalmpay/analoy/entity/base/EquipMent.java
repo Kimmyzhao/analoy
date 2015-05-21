@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.entity;
+package cn.epalmpay.analoy.entity.base;
 
 import java.util.Date;
 

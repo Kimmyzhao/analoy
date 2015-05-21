@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.controller;
+package cn.epalmpay.analoy.controller.zhonghui;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -17,19 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.epalmpay.analoy.entity.EquipMent;
-import cn.epalmpay.analoy.service.EquimentService;
-import cn.epalmpay.analoy.service.TbankService;
+import cn.epalmpay.analoy.entity.base.EquipMent;
+import cn.epalmpay.analoy.entity.zhonghui.ActivateResult;
+import cn.epalmpay.analoy.entity.zhonghui.Bank;
+import cn.epalmpay.analoy.entity.zhonghui.BankResult;
+import cn.epalmpay.analoy.entity.zhonghui.LoginResq;
+import cn.epalmpay.analoy.entity.zhonghui.Resp;
+import cn.epalmpay.analoy.entity.zhonghui.ResponseResult;
+import cn.epalmpay.analoy.service.base.EquimentService;
+import cn.epalmpay.analoy.service.base.TbankService;
+import cn.epalmpay.analoy.service.zhonghui.ZhongHuiTaskService;
 import cn.epalmpay.analoy.utils.Constant;
 import cn.epalmpay.analoy.utils.DataUtils;
 import cn.epalmpay.analoy.utils.StringUtils;
-import cn.epalmpay.analoy.zhonghui.service.ZhongHuiTaskService;
-import cn.epalmpay.analoy.zhonghui.entity.ActivateResult;
-import cn.epalmpay.analoy.zhonghui.entity.Bank;
-import cn.epalmpay.analoy.zhonghui.entity.BankResult;
-import cn.epalmpay.analoy.zhonghui.entity.LoginResq;
-import cn.epalmpay.analoy.zhonghui.entity.Resp;
-import cn.epalmpay.analoy.zhonghui.entity.ResponseResult;
 
 @RestController
 @RequestMapping("api/zhonghui")

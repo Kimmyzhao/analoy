@@ -3,7 +3,7 @@ package cn.epalmpay.analoy.mapper;
 import java.util.List;
 import java.util.Map;
 
-import cn.epalmpay.analoy.entity.EquipMent;
+import cn.epalmpay.analoy.entity.base.EquipMent;
 
 public interface EquipMentMapper {
 	/**

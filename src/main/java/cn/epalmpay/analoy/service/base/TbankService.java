@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.service;
+package cn.epalmpay.analoy.service.base;
 
 import java.util.List;
 import java.util.Map;

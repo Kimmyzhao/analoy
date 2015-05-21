@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import cn.epalmpay.analoy.zhonghui.service.ZhongHuiTaskService;
+import cn.epalmpay.analoy.service.zhonghui.ZhongHuiTaskService;
 
 @Component
 public class ZhongHuiPullTrades {

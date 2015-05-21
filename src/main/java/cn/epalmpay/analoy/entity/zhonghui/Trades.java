@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.zhonghui.entity;
+package cn.epalmpay.analoy.entity.zhonghui;
 
 public class Trades {
 	private String devKSN;// 设备KSN号

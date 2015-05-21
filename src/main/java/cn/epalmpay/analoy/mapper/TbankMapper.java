@@ -3,7 +3,7 @@ package cn.epalmpay.analoy.mapper;
 import java.util.List;
 import java.util.Map;
 
-import cn.epalmpay.analoy.entity.Tbank;
+import cn.epalmpay.analoy.entity.base.Tbank;
 
 public interface TbankMapper {
 	/**

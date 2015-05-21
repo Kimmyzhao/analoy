@@ -12,7 +12,7 @@ import java.util.List;
  * @param <T>
  */
 public class Page<T> {
-	
+
 	private PageRequest pageRequest;
 	private List<T> content = new ArrayList<>();
 	private long total;
@@ -23,22 +23,22 @@ public class Page<T> {
 		this.total = total;
 	}
 
-	public long getTotal(){
+	public long getTotal() {
 		return total;
 	}
-	
-	public List<T> getContent(){
+
+	public List<T> getContent() {
 		return Collections.unmodifiableList(content);
 	}
-	
-	public int getCurrentPage(){
+
+	public int getCurrentPage() {
 		return pageRequest.getPage();
 	}
-	
+
 	public int getPageSize() {
 		return pageRequest.getPageSize();
 	}
-	
+
 	public int getTotalPage() {
 		return getPageSize() == 0 ? 1 : (int) Math.ceil((double) total / (double) getPageSize());
 	}

@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.zhonghui.entity;
+package cn.epalmpay.analoy.entity.zhonghui;
 
 public class ActivateResult extends Resp {
 	private String baseKey;

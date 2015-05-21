@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.zhonghui.entity;
+package cn.epalmpay.analoy.entity.zhonghui;
 
 /**
  * 支付状态类1表示成功 其他表示失败

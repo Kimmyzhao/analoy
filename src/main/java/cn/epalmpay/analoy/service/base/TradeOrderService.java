@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.service;
+package cn.epalmpay.analoy.service.base;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,8 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import cn.epalmpay.analoy.entity.EquipMent;
-import cn.epalmpay.analoy.entity.TradeOrder;
+import cn.epalmpay.analoy.entity.base.EquipMent;
+import cn.epalmpay.analoy.entity.base.TradeOrder;
+import cn.epalmpay.analoy.entity.zhonghui.Trades;
 import cn.epalmpay.analoy.mapper.EquipMentMapper;
 import cn.epalmpay.analoy.mapper.TradeOrderFileMapper;
 import cn.epalmpay.analoy.mapper.TradeOrderMapper;
@@ -26,7 +27,6 @@ import cn.epalmpay.analoy.utils.Constant;
 import cn.epalmpay.analoy.utils.DataUtils;
 import cn.epalmpay.analoy.utils.HttpUtils;
 import cn.epalmpay.analoy.utils.StringUtils;
-import cn.epalmpay.analoy.zhonghui.entity.Trades;
 
 @Service
 public class TradeOrderService {

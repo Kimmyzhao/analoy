@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.epalmpay.analoy.model.Response;
-import cn.epalmpay.analoy.service.EquimentService;
-import cn.epalmpay.analoy.service.TradeOrderService;
+import cn.epalmpay.analoy.service.base.EquimentService;
+import cn.epalmpay.analoy.service.base.TradeOrderService;
+import cn.epalmpay.analoy.utils.page.Response;
 
 @RestController
 @RequestMapping("api/tradeOrder")

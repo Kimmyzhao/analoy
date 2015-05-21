@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.epalmpay.analoy.entity.EquipMent;
+import cn.epalmpay.analoy.entity.base.EquipMent;
 import cn.epalmpay.analoy.entity.qiandaibao.PosQuery;
-import cn.epalmpay.analoy.model.Response;
-import cn.epalmpay.analoy.service.EquimentService;
+import cn.epalmpay.analoy.service.base.EquimentService;
 import cn.epalmpay.analoy.service.qiandaibao.QiandaibaoService;
 import cn.epalmpay.analoy.utils.Constant;
 import cn.epalmpay.analoy.utils.HttpUtils;
 import cn.epalmpay.analoy.utils.StringUtils;
+import cn.epalmpay.analoy.utils.page.Response;
 
 @RestController
 @RequestMapping("api/qiandai")
@@ -70,24 +70,25 @@ public class QiandaibaoController {
 		ResponseHandler<String> responseHandler = new BasicResponseHandler();
 		String result = "";
 		try {
-			System.out.println(url);
+
 			logger.debug(url);
 			result = HttpUtils.post(url, headers, params, fileParams, responseHandler);
 		} catch (IOException e) {
 			logger.error("error..." + e);
 			return Response.getError("请求失败");
 		}
-		System.out.println(result);
+		logger.info("响应是...." + result);
 		return Response.getSuccess(StringUtils.parseJSONStringToObject(result, new PosQuery()));
 	}
 
 	/**
 	 * 钱袋宝POS开通状态查询
 	 * 
-	 * @param eqno
-	 * @param now
-	 * @param remark
-	 * @param sign
+	 * @param eqno设备号
+	 * @param now查询时间
+	 * @param remark备注
+	 * @param sign签名
+	 *            (md5方式)(MD5(eqno=XXXnow=XXXMD5KEY))
 	 * @return
 	 */
 	@RequestMapping(value = "getAgentInfoByEqno")
@@ -121,10 +122,10 @@ public class QiandaibaoController {
 		sb.append("eqno=" + eqno);
 		sb.append(MD5key);
 		String md5_str = StringUtils.encryption(sb.toString(), "MD5");
-		logger.info(md5_str);
 		pos.setSign(md5_str);
-		logger.info(StringUtils.parseObjectToJSONString(pos));
-		return StringUtils.parseObjectToJSONString(pos);
+		String result = StringUtils.parseObjectToJSONString(pos);
+		logger.info("响应是:{},签名为:{}", result, md5_str);
+		return result;
 	}
 
 	@RequestMapping(value = "showorder")
@@ -174,11 +175,6 @@ public class QiandaibaoController {
 		}
 		qiandaibaoService.getTradeRecord();
 		return result;
-	}
-
-	@RequestMapping(value = "getAgentInfoByEqno1")
-	public String getAgentInfoByEqno1() {
-		return qiandaibaoService.queryPosState();
 	}
 
 }

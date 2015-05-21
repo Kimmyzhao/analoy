@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.zhonghui.entity;
+package cn.epalmpay.analoy.entity.zhonghui;
 
 /**
  * 交易类型type为 feephone是手机充值

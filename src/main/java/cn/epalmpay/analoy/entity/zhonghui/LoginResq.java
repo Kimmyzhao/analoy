@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.zhonghui.entity;
+package cn.epalmpay.analoy.entity.zhonghui;
 
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;

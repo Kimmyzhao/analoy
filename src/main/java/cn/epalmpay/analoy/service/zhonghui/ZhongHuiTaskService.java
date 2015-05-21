@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.zhonghui.service;
+package cn.epalmpay.analoy.service.zhonghui;
 
 import java.io.File;
 import java.io.IOException;

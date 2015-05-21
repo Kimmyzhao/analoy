@@ -3,7 +3,7 @@ package cn.epalmpay.analoy.mapper;
 import java.util.List;
 import java.util.Map;
 
-import cn.epalmpay.analoy.entity.TradeOrder;
+import cn.epalmpay.analoy.entity.base.TradeOrder;
 
 public interface TradeOrderMapper {
     /**

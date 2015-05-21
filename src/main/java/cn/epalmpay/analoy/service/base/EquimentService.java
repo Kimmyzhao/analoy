@@ -1,4 +1,4 @@
-package cn.epalmpay.analoy.service;
+package cn.epalmpay.analoy.service.base;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.epalmpay.analoy.entity.EquipMent;
+import cn.epalmpay.analoy.entity.base.EquipMent;
 import cn.epalmpay.analoy.mapper.EquipMentMapper;
 import cn.epalmpay.analoy.utils.DataUtils;
 import cn.epalmpay.analoy.utils.StringUtils;

@@ -1,10 +1,6 @@
 package cn.epalmpay.analoy.utils;
 
 public class Constant {
-	/**
-	 * 钱袋宝分配给接口合作方md5key的值
-	 */
-	public static final String MD5KEY = "AB14EF83C9204C268CA764AAF49D4D787C025837%$#@$&^%$@5610216-428D8A82-090E25849C03";
 
 	/**
 	 * 查询成功
@@ -23,8 +19,14 @@ public class Constant {
 	 */
 	public static final String NOT_BELONGS_TO_ZFDEVICE_CODE = "103";
 
+	/**
+	 * 验证签名失败
+	 */
 	public static final String SIGN_CHECKED_ERROR_CODE = "104";
 
+	/**
+	 * 设备编号不能为空
+	 */
 	public static final String EQNO_CANNOT_BE_EMPTY_CODE = "105";
 
 	/**
@@ -89,9 +91,6 @@ public class Constant {
 	 */
 	public static final String ERROE_TRADE_MESSAGE = "其他未知错误";
 
-	public static final String FILE_QIANDAIBAO = "classpath:files/qiandaibao/trades2.txt";
-
-	public static final String FILE_QIANDAIBAO_QUERYPOS = "classpath:files/qiandaibao/posQuery.txt";
 
 	public static final String THROUGH_THE_AUDIT_STATUS = "2222";// 开通成功
 	public static final String NOT_THROUGH_THE_AUDIT_STATUS = "1111";// 开通成功
