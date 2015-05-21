@@ -117,7 +117,7 @@
   	SELECT * FROM equipment e WHERE e.loginName = #{param1} AND e.password = #{param2} AND e.eqtype = 2
   </select>
   
-  <select id="getEquipmentByEqnoAndType" resultType="map">
+  <select id="getEquipmentByEqnoAndType" resultMap="BaseResultMap">
   	SELECT * FROM equipment e WHERE e.eqno = #{param1} AND e.eqtype = #{param2}
   </select>
   

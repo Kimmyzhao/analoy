@@ -68,7 +68,14 @@ public class EquimentService {
 		return equipMentMapper.login(loginName, password);
 	}
 
-	public List<Map<String, Object>> getEquipmentByEqnoAndType(String eqno, int type) {
+	/**
+	 * 根据终端号以及支付通道查询终端信息
+	 * 
+	 * @param eqno
+	 * @param type
+	 * @return
+	 */
+	public EquipMent getEquipmentByEqnoAndType(String eqno, int type) {
 		return equipMentMapper.getEquipmentByEqnoAndType(eqno, type);
 	}
 

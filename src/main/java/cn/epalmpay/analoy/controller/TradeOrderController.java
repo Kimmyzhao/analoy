@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.epalmpay.analoy.entity.base.EquipMent;
 import cn.epalmpay.analoy.entity.po.PageTrade;
 import cn.epalmpay.analoy.service.BaseService;
 import cn.epalmpay.analoy.service.base.EquimentService;
@@ -48,22 +49,22 @@ public class TradeOrderController {
 		double money = Double.parseDouble(params.get("money").toString());
 
 		Response res = new Response();
-		List<Map<String, Object>> list = equimentService.getEquipmentByEqnoAndType(eqno, Integer.parseInt(paytype));
-		if (list == null) {
+		EquipMent eq = equimentService.getEquipmentByEqnoAndType(eqno, Integer.parseInt(paytype));
+		if (eq == null) {
 			res.setCode(Response.ERROR_CODE);
 			res.setMessage("该终端不存在,无法添加消费记录,请先添加终端");
 			return res;
-		}
-
-		PageTrade order = new PageTrade(paytype, eqno, bankName, cardno, cardtype, tradetype, money);
-		int code = baseService.pushRecords(order, eqno);
-		if (code > 0) {
-			res.setCode(Response.SUCCESS_CODE);
-			return res;
 		} else {
-			res.setCode(Response.ERROR_CODE);
-			res.setMessage("该终端还未开通,无法添加消费记录");
-			return res;
+			PageTrade order = new PageTrade(paytype, eqno, bankName, cardno, cardtype, tradetype, money);
+			int code = baseService.pushRecords(order, eq);
+			if (code > 0) {
+				res.setCode(Response.SUCCESS_CODE);
+				return res;
+			} else {
+				res.setCode(Response.ERROR_CODE);
+				res.setMessage("该终端还未开通或未激活,无法添加消费记录");
+				return res;
+			}
 		}
 
 	}

@@ -10,7 +10,9 @@
 		<entry key="1">
 			<bean class="cn.epalmpay.analoy.service.qiandaibao.ActionManager" />
 		</entry>
-
+		<entry key="2">
+			<bean class="cn.epalmpay.analoy.service.zhonghui.ActionManager" />
+		</entry>
 	</util:map>
 
 </beans>

@@ -1,6 +1,5 @@
 package cn.epalmpay.analoy.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.epalmpay.analoy.entity.base.EquipMent;
 import cn.epalmpay.analoy.service.base.EquimentService;
 import cn.epalmpay.analoy.utils.page.Response;
 
@@ -21,6 +21,12 @@ public class EquimentController {
 	@Autowired
 	private EquimentService equimentService;
 
+	/**
+	 * 添加终端信息
+	 * 
+	 * @param params
+	 * @return
+	 */
 	@RequestMapping(value = "addEqno", method = RequestMethod.POST)
 	public Response addEqno(@RequestBody Map<String, Object> params) {
 		Response res = new Response();
@@ -28,8 +34,8 @@ public class EquimentController {
 			logger.debug(params.get("type") + ":" + params.get("eqno").toString());
 			String eqno = params.get("eqno").toString();
 			int eqtype = Integer.parseInt(params.get("type").toString());
-			List<Map<String, Object>> list = equimentService.getEquipmentByEqnoAndType(eqno, eqtype);
-			if (list != null && list.size() > 0) {
+			EquipMent eq = equimentService.getEquipmentByEqnoAndType(eqno, eqtype);
+			if (eq != null) {
 				res.setCode(Response.ERROR_CODE);
 				res.setMessage("添加失败:该终端已经存在");
 

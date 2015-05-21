@@ -56,7 +56,14 @@ public interface EquipMentMapper {
 
 	Map<String, Object> login(String loginName, String password);
 
-	List<Map<String, Object>> getEquipmentByEqnoAndType(String eqno, int eqtype);
+	/**
+	 * 根据终端号以及支付通道查询终端信息
+	 * 
+	 * @param eqno
+	 * @param eqtype
+	 * @return
+	 */
+	EquipMent getEquipmentByEqnoAndType(String eqno, int eqtype);
 
 	EquipMent getEquipmentByEqnoAndCode(String ksnNo, String licenseCode);
 

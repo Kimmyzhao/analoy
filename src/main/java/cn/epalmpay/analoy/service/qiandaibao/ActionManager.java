@@ -35,15 +35,15 @@ public class ActionManager implements JointManager {
 	 * 保存交易记录并推送
 	 */
 	@Override
-	public int pushRecords(PageTrade order, TradeOrderService tradeOrderService, String eqno) {
+	public int pushRecords(PageTrade order, TradeOrderService tradeOrderService, EquipMent eq) {
 		Date date = new Date();
 		String time = StringUtils.dateToString(date, "yyyy-MM-dd HH:mm:ss.SSS");// 交易时间
 		String orderid = "QD" + StringUtils.dateToString(date, "yyyyMMddHH") + "-" + StringUtils.dateToString(date, "HHmmss");
 
 		String[] agentno = new String[] { "986856192260", "986825803310", "981818190230", "981818216288", "986826060820", "981818680111" };
 		double fee = 0;
-		EquipMent eq = tradeOrderService.getEuipMent(order.getPaytype(), eqno);
-		if (eq != null) {
+
+		if (eq.getStatus() == EquipMent.OPEN_STATUS) {
 			TradeOrder trade = new TradeOrder();
 			trade.setTransactionalNumber(orderid);// 订单号
 			trade.setPaytype(Integer.parseInt(order.getPaytype()));// 支付通道
@@ -76,7 +76,7 @@ public class ActionManager implements JointManager {
 			params.put("agentno", agentno[agentno_index]);
 			params.put("money", money + "");
 			params.put("fee", fee + "");
-			params.put("eqno", eqno);
+			params.put("eqno", order.getEqno());
 			params.put("cardno", StringUtils.toProSub(cardno));
 			params.put("cardtype", order.getCardtype());
 			params.put("bankName", bankName);

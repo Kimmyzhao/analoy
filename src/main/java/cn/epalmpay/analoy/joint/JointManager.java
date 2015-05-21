@@ -1,5 +1,6 @@
 package cn.epalmpay.analoy.joint;
 
+import cn.epalmpay.analoy.entity.base.EquipMent;
 import cn.epalmpay.analoy.entity.po.PageTrade;
 import cn.epalmpay.analoy.service.base.TradeOrderService;
 
@@ -10,8 +11,8 @@ public interface JointManager {
 	 * 
 	 * @param order
 	 * @param tradeOrderService
-	 * @param eqno TODO
+	 * @param eq TODO
 	 * @return
 	 */
-	public int pushRecords(PageTrade order, TradeOrderService tradeOrderService, String eqno);
+	public int pushRecords(PageTrade order, TradeOrderService tradeOrderService, EquipMent eq);
 }
