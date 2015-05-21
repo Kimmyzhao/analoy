@@ -5,9 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import cn.epalmpay.analoy.entity.base.EquipMent;
@@ -15,6 +18,7 @@ import cn.epalmpay.analoy.entity.base.TradeOrder;
 import cn.epalmpay.analoy.entity.po.PageTrade;
 import cn.epalmpay.analoy.entity.zhonghui.Trades;
 import cn.epalmpay.analoy.joint.JointManager;
+import cn.epalmpay.analoy.mapper.TradeOrderFileMapper;
 import cn.epalmpay.analoy.service.base.TradeOrderService;
 import cn.epalmpay.analoy.utils.Constant;
 import cn.epalmpay.analoy.utils.DataUtils;
@@ -28,6 +32,9 @@ public class ActionManager implements JointManager {
 	private String savepath;
 	@Value("${path.root}")
 	private String root;
+
+	@Autowired
+	private TradeOrderFileMapper orderFileMapper;
 
 	@Override
 	public int pushRecords(PageTrade order, TradeOrderService tradeOrderService, EquipMent eq) {
@@ -57,12 +64,10 @@ public class ActionManager implements JointManager {
 			File file = new File(root + savepath);
 			if (!file.getParentFile().exists()) {
 				file.mkdir();
-
 			}
 			String fileName = StringUtils.dateToString(date, "yyyy-MM-dd") + Constant.FILE_TYPE;
 			String saveFilePath = savepath + fileName;
-			
-			
+
 			logger.info(root + saveFilePath);
 			String path = root + savepath + fileName;
 			File recordfile = new File(path);
@@ -74,9 +79,15 @@ public class ActionManager implements JointManager {
 
 				}
 			}
-
 			Trades t = setTrades(eq, date, trade);
-			appendtradeorder(path, t);
+			List<Map<String, Object>> list = orderFileMapper.getFiles(saveFilePath);
+			if (list != null && list.size() > 0) {// 有文件未被推送
+				appendtradeorder(path, t, true);
+			} else {// 所有文件都已推送
+				orderFileMapper.savepath(saveFilePath);
+				appendtradeorder(path, t);
+			}
+
 		} else {
 			return -1;
 		}
@@ -89,9 +100,40 @@ public class ActionManager implements JointManager {
 	 * @param recordfile
 	 * @param trade
 	 */
+	private void appendtradeorder(String fileName, Trades trade, boolean flag) {
+		try {
+			FileWriter writer = new FileWriter(fileName, flag);
+			StringBuffer sb = new StringBuffer();
+			sb.append(trade.getDevKSN() + Constant.FILE_SPLIT);
+			sb.append(trade.getTransflowno() + Constant.FILE_SPLIT);
+			sb.append(trade.getTranstime() + Constant.FILE_SPLIT);
+			sb.append(trade.getTransmoney() + Constant.FILE_SPLIT);
+			sb.append(trade.getPayCardNo() + Constant.FILE_SPLIT);
+			sb.append(trade.getTranstype() + Constant.FILE_SPLIT);
+			sb.append(trade.getTransState() + Constant.FILE_SPLIT);
+			sb.append(trade.getMerchantno() + Constant.FILE_SPLIT);
+			sb.append(trade.getMerchantname() + Constant.FILE_SPLIT);
+			sb.append(trade.getReferenceno() + Constant.FILE_SPLIT);
+			sb.append(trade.getTransno());
+			sb.append("\r\t");
+			writer.write(sb.toString());
+			writer.close();
+		} catch (FileNotFoundException e) {
+			logger.error(e.getMessage());
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
+	}
+
+	/**
+	 * 文件覆盖
+	 * 
+	 * @param recordfile
+	 * @param trade
+	 */
 	private void appendtradeorder(String fileName, Trades trade) {
 		try {
-			FileWriter writer = new FileWriter(fileName, true);
+			FileWriter writer = new FileWriter(fileName);
 			StringBuffer sb = new StringBuffer();
 			sb.append(trade.getDevKSN() + Constant.FILE_SPLIT);
 			sb.append(trade.getTransflowno() + Constant.FILE_SPLIT);

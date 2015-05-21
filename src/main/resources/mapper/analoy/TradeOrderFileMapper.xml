@@ -73,4 +73,8 @@
   		#{id}
   	</foreach>
   </update>
+  
+  <select id="getFiles" resultType="map">
+  	select * from tradeorderfile where filepath = #{param1} and ispushed = 1
+  </select>
 </mapper>
