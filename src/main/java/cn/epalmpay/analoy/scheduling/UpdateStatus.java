@@ -15,7 +15,10 @@ public class UpdateStatus {
 	@Autowired
 	private EquimentService equimentService;
 
-	@Scheduled(cron = "0 0 0/2 * * ?")
+	/**
+	 * 上午12点、下午17点、下午21点修改一下状态
+	 */
+	@Scheduled(cron = "0 0 12,17,21 * * ?")
 	public void task() {
 		logger.info("修改状态开始........");
 		equimentService.updateStatus(EquipMent.NOT_OPEN_STATUS);

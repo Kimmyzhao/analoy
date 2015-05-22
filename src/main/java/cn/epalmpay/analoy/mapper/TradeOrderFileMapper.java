@@ -56,7 +56,8 @@ public interface TradeOrderFileMapper {
 	 * 根据文件名查找未推送的文件
 	 * 
 	 * @param saveFilePath
+	 * @param pushed TODO
 	 * @return
 	 */
-	List<Map<String, Object>> getFiles(String saveFilePath);
+	List<Map<String, Object>> getFiles(String saveFilePath, int pushed);
 }

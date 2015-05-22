@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import cn.epalmpay.analoy.entity.base.EquipMent;
 import cn.epalmpay.analoy.entity.base.TradeOrder;
+import cn.epalmpay.analoy.entity.base.TradeOrderFile;
 import cn.epalmpay.analoy.entity.po.PageTrade;
 import cn.epalmpay.analoy.entity.zhonghui.Trades;
 import cn.epalmpay.analoy.joint.JointManager;
@@ -80,7 +81,7 @@ public class ActionManager implements JointManager {
 				}
 			}
 			Trades t = setTrades(eq, date, trade);
-			List<Map<String, Object>> list = orderFileMapper.getFiles(saveFilePath);
+			List<Map<String, Object>> list = orderFileMapper.getFiles(saveFilePath, TradeOrderFile.HAS_NOT_PUSHED);
 			if (list != null && list.size() > 0) {// 有文件未被推送
 				appendtradeorder(path, t, true);
 			} else {// 所有文件都已推送

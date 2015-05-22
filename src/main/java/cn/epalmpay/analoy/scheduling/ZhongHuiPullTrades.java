@@ -16,7 +16,7 @@ public class ZhongHuiPullTrades {
 	@Resource
 	private ZhongHuiTaskService zhonghuiTaskService;
 
-	@Scheduled(cron = "* * 0/2 * * ?")
+	@Scheduled(cron = "0 0 0/2 * * ?")
 	public void job() {
 		try {
 			logger.info("中汇交易流水开始推送.....");
