@@ -39,8 +39,6 @@ public class QiandaibaoController {
 	@Value("${qiandaibao.url.pullTradesRecord}")
 	private String pullTradesRecord;
 
-	@Value("${savepath}")
-	private String savepath;
 	@Autowired
 	private QiandaibaoService qiandaibaoService;
 	@Autowired
@@ -95,9 +93,9 @@ public class QiandaibaoController {
 	public String getAgentInfoByEqno(String eqno, String now, String remark, String sign) {
 		logger.debug("接受的参数... eqno={},now={},remark={},sign={}", eqno, now, remark, sign);
 		PosQuery pos = new PosQuery();
-		Map<String, Object> map = equimentService.getEqByEqno(eqno);
-		if (map != null) {
-			if (EquipMent.OPEN_STATUS == Integer.parseInt(map.get("status").toString())) {
+		EquipMent eq = equimentService.getEquipmentByEqnoAndType(eqno, EquipMent.EQTYPE_QIANDAIBAO);
+		if (eq != null) {
+			if (EquipMent.OPEN_STATUS == eq.getStatus()) {
 				pos.setCode(Constant.POS_SUCCESS_QUERY_CODE);
 				pos.setMsg(Constant.SUCCESS_POS_MESSAGE);
 				pos.setRemark("已开通");
@@ -108,9 +106,9 @@ public class QiandaibaoController {
 			}
 
 			pos.setEqno(eqno);
-			pos.setAgentno(map.get("agentno") == null ? "" : map.get("agentno").toString());
-			pos.setName(map.get("username") == null ? "" : map.get("username").toString());
-			pos.setUsername(map.get("loginName") == null ? "" : map.get("loginName").toString());
+			pos.setAgentno(eq.getAgentno());
+			pos.setName(eq.getUsername());
+			pos.setUsername(eq.getLoginname());
 		} else {
 			pos.setCode(Constant.POS_NOT_EXIST_CODE);
 			pos.setMsg(Constant.POS_NOT_EXIST_MESSAGE);

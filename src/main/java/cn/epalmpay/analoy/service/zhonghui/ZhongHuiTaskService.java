@@ -45,7 +45,7 @@ public class ZhongHuiTaskService {
 	 * @throws HttpException
 	 */
 	public String pushTradeRecords() throws IOException, HttpException {
-		logger.debug(url + " == " + importUrl + " == " + filepath);
+		logger.debug(url + " == " + importUrl + " == " + root);
 
 		List<Map<String, Object>> list = orderFileMapper.findFileUrlByIsPushed(1);
 		File file = null;

@@ -28,7 +28,7 @@ public class ActionManager implements JointManager {
 
 	private static final Logger logger = LoggerFactory.getLogger(ActionManager.class);
 
-	@Value("${savepath}")
+	@Value("${filePath}")
 	private String savepath;
 	@Value("${path.root}")
 	private String root;

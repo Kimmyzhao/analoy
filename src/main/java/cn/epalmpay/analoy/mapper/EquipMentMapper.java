@@ -46,14 +46,32 @@ public interface EquipMentMapper {
 	 */
 	int updateByPrimaryKey(EquipMent record);
 
-	List<Map<String, Object>> getEqnoByStatus();
+	/**
+	 * 查询设备信息为未开通状态的所有设备
+	 * @param status TODO
+	 * 
+	 * @return
+	 */
+	List<Map<String, Object>> getEqnoByStatus(int status);
 
 	int updateStatus(String[] ids);
 
+	/**
+	 * 根据设备编号设备类型查询设备为开通状态的设备信息
+	 * 
+	 * @param status
+	 * @param eqno
+	 * @return
+	 */
 	EquipMent getEuipMent(int status, String eqno);
 
-	Map<String, Object> getEqByEqno(String eqno);
-
+	/**
+	 * 根据设备绑定手机号以及密码查询设备信息
+	 * 
+	 * @param loginName
+	 * @param password
+	 * @return
+	 */
 	Map<String, Object> login(String loginName, String password);
 
 	/**
@@ -65,8 +83,23 @@ public interface EquipMentMapper {
 	 */
 	EquipMent getEquipmentByEqnoAndType(String eqno, int eqtype);
 
+	/**
+	 * 根据设备编号以及激活码查询设备信息
+	 * 
+	 * @param ksnNo
+	 * @param licenseCode
+	 * @return
+	 */
 	EquipMent getEquipmentByEqnoAndCode(String ksnNo, String licenseCode);
 
+	/**
+	 * 根据设备编号、设备类型更改设备激活状态
+	 * 
+	 * @param ksnNo
+	 * @param eqtypeZhonghui
+	 * @param activatedCode
+	 * @return
+	 */
 	int activatedByKsnNo(String ksnNo, int eqtypeZhonghui, int activatedCode);
 
 	int updateEquipment(Map<String, Object> params);

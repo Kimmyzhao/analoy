@@ -13,12 +13,24 @@ import cn.epalmpay.analoy.mapper.EquipMentMapper;
 import cn.epalmpay.analoy.utils.DataUtils;
 import cn.epalmpay.analoy.utils.StringUtils;
 
+/**
+ * 终端Service
+ * 
+ * @author DELL
+ *
+ */
 @Service
 public class EquimentService {
 
 	@Autowired
 	private EquipMentMapper equipMentMapper;
 
+	/**
+	 * 插入终端信息
+	 * 
+	 * @param params
+	 * @return
+	 */
 	public int insert(Map<String, Object> params) {
 		String[] agentno = new String[] { "986856192260", "986825803310", "981818190230", "981818216288", "986826060820", "981818680111" };
 		String[] agentname = new String[] { "上海掌富网络科技有限公司", "香飘飘奶茶股份公司", "海底捞", "快的打车", "2345网络科技有限公司", "PPTV" };
@@ -47,8 +59,16 @@ public class EquimentService {
 
 	}
 
-	public int updateStatus() {
-		List<Map<String, Object>> list = equipMentMapper.getEqnoByStatus();
+	/**
+	 * 修改终端状态
+	 * 
+	 * @param status
+	 *            TODO
+	 * 
+	 * @return
+	 */
+	public int updateStatus(int status) {
+		List<Map<String, Object>> list = equipMentMapper.getEqnoByStatus(status);
 		if (list != null && !list.isEmpty()) {
 			String[] ids = new String[list.size()];
 			for (int i = 0; i < list.size(); i++) {
@@ -60,10 +80,13 @@ public class EquimentService {
 		return 0;
 	}
 
-	public Map<String, Object> getEqByEqno(String eqno) {
-		return equipMentMapper.getEqByEqno(eqno);
-	}
-
+	/**
+	 * 根据终端绑定手机号以及密码查询终端信息
+	 * 
+	 * @param loginName
+	 * @param password
+	 * @return
+	 */
 	public Map<String, Object> login(String loginName, String password) {
 		return equipMentMapper.login(loginName, password);
 	}
