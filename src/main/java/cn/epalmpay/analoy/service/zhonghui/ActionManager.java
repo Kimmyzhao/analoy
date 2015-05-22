@@ -116,7 +116,7 @@ public class ActionManager implements JointManager {
 			sb.append(trade.getMerchantname() + Constant.FILE_SPLIT);
 			sb.append(trade.getReferenceno() + Constant.FILE_SPLIT);
 			sb.append(trade.getTransno());
-			sb.append("\r\t");
+			sb.append("\n");
 			writer.write(sb.toString());
 			writer.close();
 		} catch (FileNotFoundException e) {
