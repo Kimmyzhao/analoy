@@ -11,51 +11,21 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Date;
 import java.util.Map;
 
 import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.HttpClients;
-import org.springframework.web.multipart.MultipartFile;
 
 public class HttpFile {
 
-	private static String localpath = "/opt/data/";
-	private static String urlpath = "http://121.40.84.2:8888/File/index/upload";
 	private static final String BOUNDARY = "*****";
 	private static final String PREFIX = "--", LINEND = "\r\n";
 	private static final String MULTIPART_FROM_DATA = "multipart/form-data";
 	private static final String CHARSET = "UTF-8";
-
-	public static String upload(MultipartFile file, String path) {
-		String upload_path = localpath + path;
-		String name = file.getOriginalFilename();
-		int a = -1;
-		try {
-			String extName = "";
-			if (name.lastIndexOf(".") >= 0) {
-				extName = name.substring(name.lastIndexOf("."));
-			}
-			name = new Date().getTime() + extName;
-			File f = new File(upload_path, name);
-			FileUtils.copyInputStreamToFile(file.getInputStream(), f);
-			a = postHttp(urlpath, path, f);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "上传失败";
-		}
-		if (a == -1) {
-			return "同步上传失败";
-		} else {
-			return path + name;
-		}
-
-	}
 
 	public static int postHttp(String url, String path, File file) throws HttpException, IOException {
 

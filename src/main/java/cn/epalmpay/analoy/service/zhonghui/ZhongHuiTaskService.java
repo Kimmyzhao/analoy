@@ -24,8 +24,6 @@ public class ZhongHuiTaskService {
 	private String importUrl;
 	@Value("${filePath}")
 	private String filepath;
-	@Value("${zhonghui.import.file}")
-	private String importfilepath;
 
 	@Value("${path.root}")
 	private String root;// 根目录
@@ -53,9 +51,9 @@ public class ZhongHuiTaskService {
 			String[] ids = new String[list.size()];
 			for (int i = 0; i < list.size(); i++) {
 				file = new File(root + list.get(i).get("filepath").toString());
-				logger.debug(file.getAbsolutePath());
+				logger.debug("上传文件的绝对路径为...." + file.getAbsolutePath() + "上传文件父级路径为..." + file.getParent());
 
-				HttpFile.postHttp(this.url + this.importUrl, importfilepath, file);
+				HttpFile.postHttp(this.url + this.importUrl, file.getParent(), file);
 				ids[i] = list.get(i).get("id").toString();
 			}
 			logger.info(ids + "");
