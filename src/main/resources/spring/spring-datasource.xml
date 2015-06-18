@@ -9,12 +9,13 @@
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close" p:url="${jdbc.analoy.url}"
 		p:username="${jdbc.analoy.user}" p:password="${jdbc.analoy.password}"
-		p:filters="stat" p:maxActive="20" p:initialSize="1" p:maxWait="60000"
+		p:maxActive="20" p:initialSize="1" p:maxWait="60000"
 		p:minIdle="1" p:timeBetweenEvictionRunsMillis="3000"
 		p:minEvictableIdleTimeMillis="300000" p:validationQuery="SELECT 'x'"
 		p:testWhileIdle="true" p:testOnBorrow="false" p:testOnReturn="false"
 		p:poolPreparedStatements="true"
-		p:maxPoolPreparedStatementPerConnectionSize="20" />
+		p:maxPoolPreparedStatementPerConnectionSize="20"
+		p:filters="config,stat,wall" p:connectionProperties="config.decrypt=true" />
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:configLocation="classpath:mybaits.xml" p:dataSource-ref="dataSource"
