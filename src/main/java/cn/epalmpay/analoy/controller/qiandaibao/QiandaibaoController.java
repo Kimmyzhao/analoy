@@ -2,6 +2,7 @@ package cn.epalmpay.analoy.controller.qiandaibao;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,15 +30,24 @@ import cn.epalmpay.analoy.utils.page.Response;
 @RequestMapping("api/qiandai")
 public class QiandaibaoController {
 	private static final Logger logger = LoggerFactory.getLogger(QiandaibaoController.class);
+
 	@Value("${MD5key}")
 	private String MD5key;
+
+	@Value("${zftiming.url}")
+	private String baseurl;
+
 	@Value("${transaction.query.url}")
 	private String transactionQueryUrl;
+
 	@Value("${pos.query.url}")
 	private String posQueryUrl;
 
 	@Value("${qiandaibao.url.pullTradesRecord}")
 	private String pullTradesRecord;
+
+	@Value("${qiandaibao.url.feechange}")
+	private String feechangeurl;
 
 	@Autowired
 	private QiandaibaoService qiandaibaoService;
@@ -175,4 +185,60 @@ public class QiandaibaoController {
 		return result;
 	}
 
+	@RequestMapping(value = "feechange", method = RequestMethod.POST)
+	public Response feechange(@RequestBody Map<String, Object> req) {
+		Response res = new Response();
+		float creditfee = req.get("creditfee") == null ? 0 : Float.valueOf(req.get("creditfee").toString());
+		float debitfee = req.get("debitfee") == null ? 0 : Float.valueOf(req.get("debitfee").toString());
+		int credittopflag = req.get("credittopflag") == null ? 0 : Integer.valueOf(req.get("credittopflag").toString());
+		int debittopflag = req.get("debittopflag") == null ? 0 : Integer.valueOf(req.get("debittopflag").toString());
+		float credittopmoney = req.get("credittopmoney") == null ? 0 : Float.valueOf(req.get("credittopmoney").toString());
+		float debittopmoney = req.get("debittopmoney") == null ? 0 : Float.valueOf(req.get("debittopmoney").toString());
+		String agentno = req.get("agentno") == null ? null : req.get("agentno").toString();
+
+		String time = StringUtils.dateToString(new Date());
+		// 计算签名
+		StringBuffer sb = new StringBuffer();
+		sb.append("agentno=" + agentno);
+		sb.append("time=" + time);
+		sb.append("credit_card_fee=" + creditfee);
+		sb.append("debit_card_fee=" + debitfee);
+		sb.append("credit_card_top_flag=" + credittopflag);
+		sb.append("debit_card_top_flag=" + debittopflag);
+		sb.append("credit_card_top_money=" + credittopmoney);
+		sb.append("debit_card_top_money=" + debittopmoney);
+		sb.append(MD5key);
+
+		String sign = StringUtils.encryption(sb.toString(), "MD5");
+		logger.info("签名为..." + sign);
+
+		// 发送post请求
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put("Content-Type", "application/x-www-form-urlencoded");
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("agentno", agentno);
+		params.put("time", time);
+		params.put("credit_card_fee", creditfee + "");
+		params.put("debit_card_fee", debitfee + "");
+		params.put("credit_card_top_flag", credittopflag + "");
+		params.put("debit_card_top_flag", debittopflag + "");
+		params.put("credit_card_top_money", credittopmoney + "");
+		params.put("debit_card_top_money", debittopmoney + "");
+		params.put("remark", "通知成功");
+		params.put("sign", sign);
+
+		logger.debug("通知内容" + params.toString());
+		ResponseHandler<String> responseHandler = new BasicResponseHandler();
+		try {
+			HttpUtils.post(baseurl + feechangeurl, headers, params, responseHandler);
+			res.setCode(Response.SUCCESS_CODE);
+			res.setMessage("通知成功");
+		} catch (IOException e) {
+			logger.error("通知失败...." + e.getMessage());
+			res.setCode(Response.ERROR_CODE);
+			res.setMessage("通知失败" + e.getMessage());
+		}
+
+		return res;
+	}
 }

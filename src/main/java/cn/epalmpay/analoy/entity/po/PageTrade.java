@@ -8,6 +8,7 @@ public class PageTrade {
 	String cardtype;
 	String tradetype;
 	double money;
+	double feeRate;
 
 	public String getPaytype() {
 		return paytype;
@@ -66,6 +67,15 @@ public class PageTrade {
 	}
 
 	public PageTrade() {
+		super();
+	}
+
+	public double getFeeRate() {
+		return feeRate;
+	}
+
+	public void setFeeRate(double feeRate) {
+		this.feeRate = feeRate;
 	}
 
 	public PageTrade(String paytype, String eqno, String bankName, String cardno, String cardtype, String tradetype, double money) {
@@ -76,6 +86,18 @@ public class PageTrade {
 		this.cardtype = cardtype;
 		this.tradetype = tradetype;
 		this.money = money;
+	}
+
+	public PageTrade(String paytype, String eqno, String bankName, String cardno, String cardtype, String tradetype, double money, double feeRate) {
+		super();
+		this.paytype = paytype;
+		this.eqno = eqno;
+		this.bankName = bankName;
+		this.cardno = cardno;
+		this.cardtype = cardtype;
+		this.tradetype = tradetype;
+		this.money = money;
+		this.feeRate = feeRate;
 	}
 
 }

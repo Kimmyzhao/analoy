@@ -10,6 +10,7 @@ var recordController = function($scope, $http, $location) {
 		var cardtype = $scope.cardtype;
 		var tradetype = $scope.tradetype;
 		var money = $scope.money;
+		var fee = $scope.fee;
 		if (paytype == undefined) {
 			$.messager.alert('提示', '请选择支付通道');
 			return;
@@ -31,8 +32,15 @@ var recordController = function($scope, $http, $location) {
 		} else if (money == undefined) {
 			$.messager.alert('提示', '消费金额不能为空');
 			return;
+		} else if (fee == undefined) {
+			$.messager.alert('提示', '手续费不能为空');
+			return;
 		}
 
+		if (fee > 1 || fee < 0) {
+			$.messager.alert('提示', '手续费只能在0-1之间');
+			return;
+		}
 		$http.post("api/tradeOrder/addTradeOrder", {
 			paytype : paytype,
 			eqno : eqno,
@@ -40,7 +48,8 @@ var recordController = function($scope, $http, $location) {
 			cardno : cardno,
 			cardtype : cardtype,
 			tradetype : tradetype,
-			money : money
+			money : money,
+			feeRate : fee
 		}).success(function(data) {
 			if (data.code == 1) {
 				$.messager.alert('提示', '添加成功!!!');

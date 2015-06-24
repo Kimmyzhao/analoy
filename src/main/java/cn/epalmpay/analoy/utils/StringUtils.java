@@ -184,7 +184,7 @@ public abstract class StringUtils {
 	 * @return
 	 */
 	public static String dateToString(Date date) {
-		return dateToString(date, "yyyy-MM-dd hh:mm:ss");
+		return dateToString(date, "yyyy-MM-dd HH:mm:ss");
 	}
 
 	/** 为以逗号分隔的字符串的每个单元加入引号,如:aa,bb-->'aa','bb' */

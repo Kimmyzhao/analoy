@@ -47,7 +47,7 @@ public class TradeOrderController {
 		String cardtype = params.get("cardtype").toString();
 		String tradetype = params.get("tradetype").toString();
 		double money = Double.parseDouble(params.get("money").toString());
-
+		double feeRate = Double.valueOf(params.get("feeRate").toString());
 		Response res = new Response();
 		EquipMent eq = equimentService.getEquipmentByEqnoAndType(eqno, Integer.parseInt(paytype));
 		if (eq == null) {
@@ -55,7 +55,7 @@ public class TradeOrderController {
 			res.setMessage("该终端不存在,无法添加消费记录,请先添加终端");
 			return res;
 		} else {
-			PageTrade order = new PageTrade(paytype, eqno, bankName, cardno, cardtype, tradetype, money);
+			PageTrade order = new PageTrade(paytype, eqno, bankName, cardno, cardtype, tradetype, money, feeRate);
 			int code = baseService.pushRecords(order, eq);
 			if (code > 0) {
 				res.setCode(Response.SUCCESS_CODE);

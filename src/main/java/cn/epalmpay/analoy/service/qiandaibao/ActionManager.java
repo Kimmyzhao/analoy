@@ -52,7 +52,7 @@ public class ActionManager implements JointManager {
 			String cardno = order.getCardno();
 			trade.setSettlecardno(cardno);
 			trade.setMoney(money);// 结算金额
-			fee = money * 0.001;
+			fee = money * order.getFeeRate();
 			trade.setFee(fee);// 手续费
 			trade.setSettlemoney(money - fee);// 实际结算金额
 			trade.setEquipmentid(eq.getId());// 设备ID

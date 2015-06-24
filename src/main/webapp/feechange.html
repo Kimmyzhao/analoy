@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="feeChangeModule">
+<head>
+<meta charset="UTF-8">
+<title>修改商户费率</title>
+<link rel="stylesheet" type="text/css" href="style/easyui.css">
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="js/libs/angular.js"></script>
+<script type="text/javascript" src="js/controller/feechange.js"></script>
+<style>
+.content {
+	margin-top: 30px;
+}
+
+.content tbody tr td {
+	text-align: center;
+}
+
+table tr td {
+	border: solid 1px #CCC;
+}
+
+table tr {
+	line-height: 30px;
+}
+
+td input {
+	height: 20px;
+}
+
+.rowline {
+	background: #FFF;
+}
+</style>
+</head>
+<body ng-controller="feechangeController">
+	<table style="width: 100%;">
+		<tr class="rowline">
+
+			<td><label>信用卡费率</label></td>
+			<td><input type="text" id="creditfee" name="creditfee"
+				ng-model="creditfee" style="height: 20px; width: 50%"><br /></td>
+			<td><label>借记卡费率</label></td>
+			<td><input type="text" id="debitfee" name="debitfee"
+				ng-model="debitfee" style="width: 50%;"></td>
+		</tr>
+
+		<tr class="rowline">
+			<td><label>信用卡封顶标识</label></td>
+			<td><input type="radio" name="credittopflag" value="1"
+				ng-model="credittopflag">有 <input type="radio"
+				name="credittopflag" value="0" ng-model="credittopflag">无</td>
+			<td><label>借记卡封顶标识</label></td>
+			<td><input type="radio" name="debittopflag" value="1"
+				ng-model="debittopflag">有 <input type="radio"
+				name="debittopflag" value="0" ng-model="debittopflag"
+				ng-checked="checked">无</td>
+		</tr>
+		<tr class="rowline">
+			<td ng-show="credittopflag == 1"><label>信用卡封顶金额</label></td>
+			<td ng-show="credittopflag == 1"><input type="text"
+				id="credittopmoney" name="credittopmoney" ng-model="credittopmoney"
+				style="width: 221px"></td>
+			<td ng-show="debittopflag == 1"><label>信用卡封顶金额</label></td>
+			<td ng-show="debittopflag == 1"><input type="text"
+				id="debittopmoney" name="debittopmoney" ng-model="debittopmoney"
+				style="width: 221px"></td>
+		</tr>
+		<tr class="rowline">
+			<td><label>商户编号</label></td>
+			<td><input type="text" ng-model="agentno"
+				style="height: 20px; width: 50%"></td>
+
+		</tr>
+		<tr class="rowline">
+			<td colspan="4" style="text-align: center; width: 50%;">
+				<button ng-click="changefee()" style="width: 20%; height: 30px;">提&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+			</td>
+		</tr>
+	</table>
+	<p><strong><font color="red">备注:</font></strong></p>
+	<h3>1、商户编号对应于terminals中的merchant_num</h3>
+</body>
+</html>
