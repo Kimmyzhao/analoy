@@ -263,13 +263,14 @@ public class ZhongHuiController {
 	 * "bankDeposit": "中国工商银行盐城南元支行", "unionBankNo": "102311066235" } ] }
 	 * 
 	 * @param keyword
-	 * @param page
-	 * @param pageSize
+	 * @param max
+	 * @param p
 	 * @return
 	 */
 	@RequestMapping(value = "/bank/query", method = RequestMethod.POST)
-	public String queryBanks(String keyword, int page, int pageSize) {
+	public String queryBanks(String keyword, int max, int p) {
 		String response = "";
+		logger.info("接受的参数...keyword={},p={},max={}", keyword, p, max);
 		String date = StringUtils.dateToString(new Date(), "yyyyMMddHHmmss");
 
 		if (keyword == null || "".equals(keyword)) {
@@ -280,8 +281,8 @@ public class ZhongHuiController {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("bankName", "%" + keyword + "%");
-		params.put("page", page);
-		params.put("pageSize", pageSize);
+		params.put("page", p);
+		params.put("pageSize", max);
 
 		List<Map<String, Object>> list = tbankService.getBankList(params);
 		int total = tbankService.getBankListCount(params);
