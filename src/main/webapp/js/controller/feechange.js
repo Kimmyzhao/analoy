@@ -25,6 +25,16 @@ var feechangeController = function($scope, $http, $location) {
 			return;
 		}
 
+		if (creditfee > 1 || creditfee < 0) {
+			$.messager.alert('提示', '信用卡手续费只能在0-1之间');
+			return;
+		}
+
+		if (debitfee > 1 || debitfee < 0) {
+			$.messager.alert('提示', '借记卡手续费只能在0-1之间');
+			return;
+		}
+
 		var credittopmoney = 0, debittopmoney = 0;
 		if (credittopflag == 1) {
 			credittopmoney = $scope.credittopmoney;
